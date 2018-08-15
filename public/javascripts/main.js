@@ -3,7 +3,16 @@
 
 var iniciarSesion = true;
 $('button#btnRegistrarse').css('background-color', '#42a5f5');
-$('input#apellido, input#nombre, input#repeatPassword').css('display', 'none');
+//$('input#apellido, input#nombre, input#repeatPassword').css('display', 'none');
+if ($('input#nombre').attr('class') != "desplegado"){
+	$('button#btnIniciar').css('background-color', '#1976d2');
+	$('button#btnRegistrarse').css('background-color', '#42a5f5');
+	$('input#apellido, input#nombre, input#repeatPassword').css('display', 'none');
+}else{
+	$('button#btnIniciar').css('background-color', '#42a5f5');
+	$('button#btnRegistrarse').css('background-color', '#1976d2');
+	iniciarSesion = false;
+}
 
 $('button#btnRegistrarse').click(function () {
 	iniciarSesion = false;
@@ -20,6 +29,10 @@ $('button#btnIniciar').click(function () {
 	$('button#btnRegistrarse').css('background-color', '#42a5f5');
 	$('input#apellido, input#nombre, input#repeatPassword').slideUp();
 	//$('header').slideDown();
+});
+
+$('div.mensajes div').click(function(){
+	$(this).slideUp();
 });
 
 /*------------------ PANTALLA PRINCIPAL --------------------*/

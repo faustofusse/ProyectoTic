@@ -11,10 +11,21 @@
 	-->
 </head>
 <body>
-	<div class="errores">
-		<div class="alert">
-			Error en la Contraseña	
-		</div>
+	<div class="mensajes">
+		{{#if success_msg}}
+			<div class="success">{{success_msg}}</div>
+		{{/if}}
+		{{#if error_msg}}
+			<div class="alert">{{error_msg}}</div>
+		{{/if}}
+		{{#if error}}
+			<div class="alert">{{error}}</div>
+		{{/if}}
+		{{#if errors}}
+			{{#each errors}}
+				<div class="alert">{{msg}}</div>
+			{{/each}}
+		{{/if}}
 	</div>
 	<header>
 		<img src="./images/LogoTarsCircular.svg" alt="Logo">
@@ -26,11 +37,11 @@
 			<button id="btnRegistrarse">Registrarse</button>
 		</div>
 		<form method="POST" action="/login">
-			<input type="text" name="nombre" id="nombre" placeholder="Nombre">
-			<input type="text" name="apellido" id="apellido" placeholder="Apellido">
+			<input class="{{clase}}" type="text" name="nombre" id="nombre" placeholder="Nombre">
+			<input class="{{clase}}" type="text" name="apellido" id="apellido" placeholder="Apellido">
 			<input type="email" name="correo" id="correo" placeholder="Correo Electronico">
 			<input type="password" name="password" id="password" placeholder="Contraseña">
-			<input type="password" name="repeatPassword" id="repeatPassword" placeholder="Repetir Contraseña">
+			<input class="{{clase}}" type="password" name="repeatPassword" id="repeatPassword" placeholder="Repetir Contraseña">
 			<button type="submit" id="aceptar">Aceptar</button>
 		</form>
 		<div class="separador">

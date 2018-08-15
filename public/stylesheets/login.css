@@ -11,23 +11,30 @@ body{
 
 button:focus, button:active, input:focus, input:active{outline: none;}
 
-div.errores{
+div.mensajes{
 	position: absolute;
 	width: 30%;
 	padding: 0 35%;;
-	background-color: #ffffff;
+	background-color: rgba(0, 0, 0, 0);
 }
 
-div.errores div.alert {
-	background-color: #e53935;
+div.mensajes div {
+	cursor: pointer;
 	color: #fff;
 	padding: 1em;
-	border: .5px solid #263238;
+	margin-bottom: .4em;
 	border-radius: .4em;
+	box-shadow: 10px 10px 40px -10px rgba(0,0,0,0.75);
+}
+div.mensajes div.alert {
+	background-color: rgba(229, 57, 53, 0.95);
+}
+div.mensajes div.success {
+	background-color: rgba(0, 200, 83, 0.95);
 }
 
 header{
-	margin: 2em auto 0;
+	margin: 1em auto 0;
 	width: 23em;
 	display: flex;
 	justify-content: space-between;
