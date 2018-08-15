@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TARS - Fausto Fusse</title>
+	<link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:800|Orbitron:900" rel="stylesheet">
+	<link href='https://fonts.googleapis.com/css?family=Amaranth' rel='stylesheet'>
+	<link rel="shortcut icon" href="./images/icono.ico"/>
+	<link rel="stylesheet" href="./stylesheets/styles.css">
+</head>
+<body class="">
+	<div class="background"></div>
+	<div class="buscar">
+		<input id="buscar" type="search" placeholder="Buscar Personas">
+		<div class="listado"></div>
+	</div>
+
+	<header>
+		<a href=""><img src="./images/LogoTarsCircularWhite.svg" alt="Logo"></a>
+		<h1>TARS</h1>
+	</header>
+
+	<main>
+		<nav>
+			<div class="usuario">
+				<div class="estado"></div>
+				<span id="nombre">Fausto Fusse</span>
+			</div>
+			<button id="menu"></button>
+			<div class="opciones">
+				<button id="addFriend">Agregar</button>
+				<button id="settings">Configuracion</button>
+				<button id="logout">Salir</button>
+			</div>
+		</nav>
+		<div class="contenedor">
+			<div class="left">
+				<div class="superior">
+					<button id="amigos">Amigos</button>
+					<button id="robots">Robots</button>
+				</div>
+				<div class="listado">
+					<h3>No tienes ningun amigo :(</h3>
+				</div>
+			</div>
+			<div class="videollamada">
+				<h2>No estas en ninguna videollamada</h2>
+			</div>
+		</div>
+	</main>
+
+	<script type="text/javascript" src="./javascripts/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="./javascripts/main.js"></script>
+</body>
+</html>

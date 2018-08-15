@@ -1,0 +1,276 @@
+*{
+	font-family: 'Amaranth';
+}
+
+body{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	margin: 0;
+	background-color: #eceff1;
+	overflow-y: scroll;
+}
+
+body.blockScroll {
+  overflow: hidden;
+  overflow-y: scroll !important;
+  position: fixed;
+  width: 100%;
+}
+
+button:focus, button:active, input:focus, input:active{outline: none;}
+
+div.background{
+	background-color: #1565c0;
+	position: absolute;
+	width: 100%;
+	height: 15em;
+	margin: 0px;
+	z-index: -1;
+}
+
+div.buscar{
+	position: fixed;
+	top: 0;left: 0;
+	width: 100%;
+	height: 100%;
+	padding-top: 8em;
+	display: none;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	background-color: rgba(30,136,229,0);
+}
+div.buscar input {
+	color: #fff;
+	width: 13em;
+	font-size: 2em;
+	background-color: rgba(0,0,0,0);
+	background: url(./../images/search.svg) no-repeat scroll;
+	background-size: contain;
+	padding: 00 0 .2em 1.5em;
+	border: none;
+	border-bottom: 2px solid #fff;
+	letter-spacing: 1px;
+}
+div.buscar input::placeholder{
+	color: #fff;
+	font-style: italic;
+	letter-spacing: 0;
+}
+div.buscar input::-webkit-search-cancel-button {
+	-webkit-appearance:none;
+}
+/*
+div.visible {
+	display: flex;
+	-webkit-animation-name: aparecer;
+	-webkit-animation-duration: .5s;
+}
+div.invisible {
+	-webkit-animation-name: aparecer;
+	-webkit-animation-duration: .5s;
+	-webkit-animation-direction: reverse;
+}
+@keyframes aparecer {
+	from{background-color: rgba(30,136,229,0);
+		padding-top: 8em;}
+	to {background-color: rgba(30,136,229,0.9);
+		padding-top: 6em;}
+}
+@-webkit-keyframes aparecer {
+	from{background-color: rgba(30,136,229,0);
+		padding-top: 8em;}
+	to {background-color: rgba(30,136,229,0.9);
+		padding-top: 6em;}
+}
+*/
+
+header{
+	display: flex;
+	align-items: centers;
+	justify-content: flex-start;	
+	width: 80%;
+	margin: 0em auto;
+	padding: 1em 0;
+}
+header a {
+	padding:0;
+	margin: 0;
+	width: 4em;
+}
+header img{
+	width: 100%;
+	height: 100%;
+}
+header h1 {
+	margin: 0;
+	padding: 0 .5em;
+	font-size: 4em;
+	/*color: #d32f2f;*/
+	color: #64b5f6;
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 80%;
+	height: 40em;
+	margin: 0em auto 2em;
+	background-color: #fff;
+	box-shadow: rgba(0, 0, 0, 0.75) 0px 0px 28px .2px;
+}
+
+main > nav {
+	background-color: #00897b;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: stretch;
+}
+
+main > nav div.usuario{
+	display: flex;
+	justify-content: flex-start;
+	align-items: center; 	
+	padding: .8em 1em;
+}
+main > nav div.usuario div.estado {
+	width: .7em;
+	height: .7em;
+	background-color: #00c853;
+	border-radius: 50%;
+	margin: 1em 0;
+	cursor: pointer;
+}
+main > nav div.usuario span#nombre {
+	color: #fff;
+	font-size: 1.2em;
+	margin: 0 .7em;
+}
+main > nav div.opciones {
+	display: flex;
+	align-items: stretch;
+}
+main > nav div.opciones button, main nav button#menu{
+	color: #fff;
+	font-size: 1.1em;
+	cursor: pointer;	
+	border: none;
+	padding: .8em 1.8em .8em 1.1em;
+	background-color: rgba(0,0,0,0);
+	background-repeat: no-repeat;
+	background-position: right;
+	background-size: 1.5em;
+	background-origin: padding-box;
+	border-right: .8em solid rgba(0,0,0,0);
+} 
+main > nav div.opciones button:hover, main nav button#menu:hover{
+	background-color: #009688;
+}
+button#menu{
+	padding: .5em 1.5em .5em 1.1em;
+	display:none;background-image: url(./../images/menu.svg);
+}
+button#addFriend{background-image: url(./../images/addFriend.svg);}
+button#search {background-image: url(./../images/search.svg);}
+button#settings{background-image: url(./../images/settings.svg);}
+button#logout{background-image: url(./../images/logout.svg);}
+
+main div.contenedor {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+main div.contenedor div.left{
+	display: inline-flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	height: 100%;
+	width: 40%;
+}
+
+main div.contenedor div.left div.superior {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	background-color: #1565c0;
+	margin-top: 2px;
+}
+
+main div.contenedor div.left div.superior button {
+	width: 50%;
+	padding: .7em 0;
+	font-size: 1.2em;
+	border: none;
+	border-bottom: 6px inset #42a5f5;
+	color: #fff;
+	background-color: #0d47a1;
+	cursor: pointer;
+}
+
+main div.contenedor div.left div.listado {
+	overflow: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: 5px;
+	width: 100%;
+	height: inherit;
+}
+
+main div.contenedor div.left div.listado h3{
+	color: #9e9e9e;
+	font-weight: bold;
+	font-style: italic;
+	font-size: 1.2em;
+}
+
+main div.contenedor div.videollamada{
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	width: 60%;
+	background-color: #e0e0e0;
+	border: 1px solid #9e9e9e; 
+}
+
+main div.contenedor div.videollamada h2{
+	color: #9e9e9e;
+	font-weight: bold;
+	font-style: italic;
+	font-size: 2em;
+}
+
+
+
+@media screen and (max-width: 800px){
+	header {
+		width: 90%;
+	}
+	main {
+		box-shadow: none;
+		width: 100%;
+		margin: 0;
+	}
+	main div.contenedor div.videollamada{
+		display: none;
+	}
+	main div.contenedor div.left{
+		width: 100%;
+	}
+	main > nav div.opciones {
+		display: none;
+	}
+	main > nav button#menu {
+		display: block;
+	}
+}
