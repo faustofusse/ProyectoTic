@@ -57,12 +57,12 @@ passport.use(new LocalStrategy({
     usernameField:'correo',
     passwordField:'password'
   },
-  function(username, password, done) {
-    User.getUserByEmail(username, function(err, user){
+  function(correo, password, done) {
+    User.getUserByEmail(correo, function(err, user){
       if (err) throw err;
       if (!user) return done(null, false, {message: "El correo electronico no ha sido registrado"})
     
-      User.comparePassword( password, User.password, function(err, isMatch){
+      User.comparePassword(password, user.password, function(err, isMatch){
         if (err) throw err;
         if (isMatch) {
           return done(null, user);
@@ -86,8 +86,16 @@ passport.deserializeUser(function(id, done) {
 router.post('/login', 
   passport.authenticate('local', {successRedirect:'/', failureRedirect:'/login', failureFlash:true}),
   function(req, res) {
-    res.redirect('/');
+    res.redirect('/', {nombre:req.nombre, apellido:req.apellido});
     //res.redirect('/users/' + req.user.username);
+});
+
+
+
+router.get('/logout', function(req, res){
+  req.logout();
+  req.flash('success_msg', 'Has cerrado la sesion.');
+  res.redirect('/login');
 });
 
 module.exports = router;

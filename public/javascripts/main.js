@@ -35,6 +35,10 @@ $('div.mensajes div').click(function(){
 	$(this).slideUp();
 });
 
+$('button#logout').click(function(){
+	window.location.href = "/logout";
+});
+
 /*------------------ PANTALLA PRINCIPAL --------------------*/
 
 $('span#addFriend, button#addFriend').click(function(){
