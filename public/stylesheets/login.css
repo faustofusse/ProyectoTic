@@ -7,17 +7,19 @@ body{
 	overflow-y: scroll;
 	position: relative;
 	margin: 0;
+	display: flex;
+	flex-direction: column;
 }
 
 button:focus, button:active, input:focus, input:active{outline: none;}
 
 div.mensajes{
-	position: absolute;
-	width: 30%;
-	padding: 0 35%;;
+	align-self: center;
+	position: fixed;
+	top: 1em;
+	width: 23em;
 	background-color: rgba(0, 0, 0, 0);
 }
-
 div.mensajes div {
 	cursor: pointer;
 	color: #fff;
@@ -27,10 +29,10 @@ div.mensajes div {
 	box-shadow: 10px 10px 40px -10px rgba(0,0,0,0.75);
 }
 div.mensajes div.alert {
-	background-color: rgba(229, 57, 53, 0.95);
+	background-color: rgba(229, 57, 53, 0.949);
 }
 div.mensajes div.success {
-	background-color: rgba(0, 200, 83, 0.95);
+	background-color: rgba(0, 200, 83, 0.949);
 }
 
 header{

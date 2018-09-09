@@ -159,25 +159,25 @@ main > nav div.opciones button, main nav button#menu{
 	font-size: 1.1em;
 	cursor: pointer;	
 	border: none;
-	padding: .8em 1.8em .8em 1.1em;
+	padding: .8em 1.1em;
 	background-color: rgba(0,0,0,0);
 	background-repeat: no-repeat;
 	background-position: right;
 	background-size: 1.5em;
 	background-origin: padding-box;
-	border-right: .8em solid rgba(0,0,0,0);
 } 
 main > nav div.opciones button:hover, main nav button#menu:hover{
 	background-color: #009688;
 }
-button#menu{
-	padding: .5em 1.5em .5em 1.1em;
-	display:none;background-image: url(./../images/menu.svg);
+
+main > nav div.opciones button i, main nav button#menu i{
+	padding-left: .2em;
 }
-button#addFriend{background-image: url(./../images/addFriend.svg);}
-button#search {background-image: url(./../images/search.svg);}
-button#settings{background-image: url(./../images/settings.svg);}
-button#logout{background-image: url(./../images/logout.svg);}
+
+button#menu{
+	padding: .4em 1em;
+	display:none;
+}
 
 main div.contenedor {
 	width: 100%;
