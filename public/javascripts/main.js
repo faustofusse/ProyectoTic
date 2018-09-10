@@ -47,10 +47,15 @@ $('button#addFriend').click(function(){
 	$('input#buscar').focus();
 });
 
-searchUsers('fusse');
+searchUsers('f');
 
 function searchUsers(query){
 	$.get('/users/search/' + query, function (data) {
-		console.log(data);
+		console.log(data.resultados);
+		for (var i = 0; i<data.resultados.length; i++){
+			var nombre = data.resultados[i].nombre+' '+data.resultados[i].apellido;
+			var user = $('<div></div>').append('<span>'+nombre+'</span>').append('<button><i class="fa fa-user-plus"></i></button>');
+			$('div.buscar div.listado').append(user);
+		}
 	},'json');
 }

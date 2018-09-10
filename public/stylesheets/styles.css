@@ -12,7 +12,7 @@ body{
 	overflow-y: scroll;
 }
 
-body.blockScroll {
+body.blockScroll { 
   overflow: hidden;
   overflow-y: scroll !important;
   position: fixed;
