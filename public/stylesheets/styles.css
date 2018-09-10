@@ -41,6 +41,10 @@ div.buscar{
 	justify-content: flex-start;
 	align-items: center;
 	background-color: rgba(30,136,229,0);
+	-webkit-transition:background 1s;
+	-moz-transition:background 1s;
+	-o-transition:background 1s;
+	transition:background 1s
 }
 div.buscar input {
 	color: #fff;

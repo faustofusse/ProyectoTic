@@ -41,19 +41,16 @@ $('button#logout').click(function(){
 
 /*------------------ PANTALLA PRINCIPAL --------------------*/
 
-$('span#addFriend, button#addFriend').click(function(){
-	$('div.buscar').css('display','flex').animate({
-		backgroundColor:"rgba(30,136,229,0.9)",
-		paddingTop:"6em"
-	}, 500);
-});
-$('div.buscar').click(function(){
-	$(this).animate({
-		backgroundColor:"rgba(30,136,229,0.9)",
-		paddingTop:"8em"
-	}, 500, function(){
-		$(this).css('display', 'none');
-	});
+$('button#addFriend').click(function(){
+	$('div.buscar').css('display','flex').animate({paddingTop:'6em'}, 200);
+	$('div.buscar').css('background-color', 'rgba(30,136,229,0.9)');
+	$('input#buscar').focus();
 });
 
-/*------------------ EXPORTS --------------------*/
+searchUsers('fusse');
+
+function searchUsers(query){
+	$.get('/users/search/' + query, function (data) {
+		console.log(data);
+	},'json');
+}
