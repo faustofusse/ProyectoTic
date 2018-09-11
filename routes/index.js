@@ -31,4 +31,20 @@ router.get('/users/search/:query', function(req, res, next){
   });
 });
 
+router.get('/users/friends', function(req,res,next){
+
+});
+router.get('/users/friends/requests', function(req,res,next){
+
+});
+router.put('/users/friends/sendReq/:id', function(req,res,next){
+  
+});
+router.put('/users/friends/acceptReq/:id', function(req,res,next){
+  
+});
+router.put('/users/friends/declineReq/:id', function(req,res,next){
+  
+});
+
 module.exports = router;

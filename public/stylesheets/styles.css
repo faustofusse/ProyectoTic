@@ -46,54 +46,67 @@ div.buscar{
 	-o-transition:background 1s;
 	transition:background 1s
 }
-div.buscar input {
+
+div.buscar div.input {
+	width: 23em;
+	border-bottom: 2px solid #fff;
+	display: flex;
+	justify-content: center;
+	padding: 0 0 .2em 0;
+}
+div.buscar div.input i {
 	color: #fff;
-	width: 13em;
+	font-size: 1.6em;
+	padding: 0 .5em;
+	align-self: center;
+}
+div.buscar div.input input {
+	color: #fff;
 	font-size: 2em;
 	background-color: rgba(0,0,0,0);
-	background: url(./../images/search.svg) no-repeat scroll;
-	background-size: contain;
-	padding: 00 0 .2em 1.5em;
 	border: none;
-	border-bottom: 2px solid #fff;
 	letter-spacing: 1px;
 }
-div.buscar input::placeholder{
+div.buscar div.input input::placeholder{
 	color: #fff;
 	font-style: italic;
 	letter-spacing: 0;
 }
-div.buscar input::-webkit-search-cancel-button {
+div.buscar div.input input::-webkit-search-cancel-button {
 	-webkit-appearance:none;
 }
-/*
-div.visible {
+div.buscar div.listado {
+	width: 23em;
+	height: 30em;
+	overflow-y: auto;
+}
+div.buscar div.listado div {
+	margin: .5em 0;
+	background-color: #fff;
 	display: flex;
-	-webkit-animation-name: aparecer;
-	-webkit-animation-duration: .5s;
+	justify-content: space-between;
+	box-shadow: 0px 0px 13px -3px rgba(0,0,0,0.75);
 }
-div.invisible {
-	-webkit-animation-name: aparecer;
-	-webkit-animation-duration: .5s;
-	-webkit-animation-direction: reverse;
+div.buscar div.listado div span {
+	padding: 1em;
+	font-size: 1.2em;
+	color: #424242;
 }
-@keyframes aparecer {
-	from{background-color: rgba(30,136,229,0);
-		padding-top: 8em;}
-	to {background-color: rgba(30,136,229,0.9);
-		padding-top: 6em;}
+div.buscar div.listado div button {
+	cursor: pointer;
+	border: none;
+	background-color: rgba(0,0,0,0);
+	border-left: 2px solid #eee;
+	width: 5em;
 }
-@-webkit-keyframes aparecer {
-	from{background-color: rgba(30,136,229,0);
-		padding-top: 8em;}
-	to {background-color: rgba(30,136,229,0.9);
-		padding-top: 6em;}
+div.buscar div.listado div button i {
+	font-size: 1.8em;
+	color: #0d47a1;
 }
-*/
 
 header{
 	display: flex;
-	align-items: centers;
+	align-items: center;
 	justify-content: flex-start;	
 	width: 80%;
 	margin: 0em auto;
