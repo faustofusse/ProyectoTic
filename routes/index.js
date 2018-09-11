@@ -2,19 +2,26 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 
+var User = require('../models/user');
+var FriendRequest = require('../models/friendRequest');
+
 /* GET home page. */
 router.get('/', ensureAuthenticated, function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index');
 });
 
 function ensureAuthenticated(req, res, next){
   if (req.isAuthenticated()){
     return next();
   }else{
-    req.flash('error_msg', 'No has iniciado sesion');
+    //req.flash('error_msg', 'No has iniciado sesion');
     res.redirect(302, '/login');
   }
 }
+
+router.get('/user', function(req,res,next){
+  res.send(req.user);
+});
 
 router.get('/users/search/:query', function(req, res, next){
   var busqueda = req.params.query;
@@ -29,22 +36,6 @@ router.get('/users/search/:query', function(req, res, next){
     }
     res.send({resultados:resultados});
   });
-});
-
-router.get('/users/friends', function(req,res,next){
-
-});
-router.get('/users/friends/requests', function(req,res,next){
-
-});
-router.put('/users/friends/sendReq/:id', function(req,res,next){
-  
-});
-router.put('/users/friends/acceptReq/:id', function(req,res,next){
-  
-});
-router.put('/users/friends/declineReq/:id', function(req,res,next){
-  
 });
 
 module.exports = router;

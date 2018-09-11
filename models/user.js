@@ -7,7 +7,12 @@ var UserSchema = mongoose.Schema({
     nombre:{type:String},
     apellido:{type:String},
     correo:{type:String},
-    password:{type:String}
+    password:{type:String},
+    friends:[{
+        _id:{type:String},
+        nombre:{type:String},
+        apellido:{type:String}
+    }]
 });
 
 var User = module.exports = mongoose.model('User', UserSchema);

@@ -13,7 +13,7 @@ router.get('/register', function(req, res, next){
   res.redirect(302, '/login');
 });
 
-/* POST DE FORMULARIO DE REGISTRO*/ 
+// ----------------- REGISTER FORM
 router.post('/register', function(req, res, next){
   var nombre = req.body.nombre,
       apellido = req.body.apellido,
@@ -82,16 +82,14 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
-/* POST DE FORMULARIO DE LOGIN */ 
+//-------------------- LOGIN FORM
 router.post('/login', 
   passport.authenticate('local', {successRedirect:'/', failureRedirect:'/login', failureFlash:true}),
   function(req, res) {
     res.redirect('/');
-    //res.redirect('/users/' + req.user.username);
 });
 
-
-
+//-------------------- LOGOUT
 router.get('/logout', function(req, res){
   req.logout();
   req.flash('success_msg', 'Has cerrado la sesion.');
