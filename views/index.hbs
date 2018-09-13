@@ -44,17 +44,19 @@
 					<button id="amigos">Amigos</button>
 					<button id="robots">Robots</button>
 				</div>
-				<div class="amigos">
-					<h3>No tienes ningun amigo :(</h3>
-				</div>
-				<div class="robots">
-					{{#if user.friends}}
-						{{#each user.friends}}
-							<div>{{this.nombre}} {{this.apellido}}</div>
-						{{/each}}
-					{{else}}
-					<h3>No hay robots conectados :(</h3>
-					{{/if}}
+				<div class="inferior">
+					<div class="amigos">
+						{{#if user.friends}}
+							{{#each user.friends}}
+								<div><span>{{this.nombre}} {{this.apellido}}</span></div>
+							{{/each}}
+						{{else}}
+						<h3>No tienes ningun amigo :(</h3>
+						{{/if}}
+					</div>
+					<div class="robots">
+						<h3>No hay robots conectados :(</h3>
+					</div>
 				</div>
 			</div>
 			<div class="videollamada">

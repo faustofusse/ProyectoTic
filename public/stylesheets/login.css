@@ -11,8 +11,10 @@ body{
 	overflow-y: scroll;
 	position: relative;
 	margin: 0;
+	height: inherit;
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
 }
 
 button:focus, button:active, input:focus, input:active{outline: none;}

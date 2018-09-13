@@ -54,9 +54,13 @@ router.get('/users/search/:query', function(req, res, next){
 });
 
 function getRequestStatus(id, friends, friendRequests){
-  for (friend in friends){
-    if (friend._id === id)
+  for (var i = 0; i<friends.length; i++){
+    
+    if (friends[i]._id == id){
+      console.log(friends[i]);
       return 'friend';
+    }
+      
   }
   for (var i = 0; i<friendRequests.length; i++){
     if (friendRequests[i].from == id)
