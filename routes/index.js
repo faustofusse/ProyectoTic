@@ -25,17 +25,46 @@ router.get('/user', function(req,res,next){
 
 router.get('/users/search/:query', function(req, res, next){
   var busqueda = req.params.query;
+  var user = req.user;
   busqueda = busqueda.toLowerCase().replace(/\s/g, '');
-  mongoose.connection.db.collection('users').find().toArray(function(err, usuarios){
-    var resultados = [];
-    console.log(usuarios.length);  
-    for (var i = 0; i<usuarios.length; i++){
-      var nombre = (usuarios[i].nombre + usuarios[i].apellido).toLowerCase().replace(/\s/g, '');
-      if (nombre.indexOf(busqueda) !== -1)
-        resultados.push({_id:usuarios[i]._id, nombre:usuarios[i].nombre, apellido:usuarios[i].apellido});
-    }
-    res.send({resultados:resultados});
+  User.find(function(err, usuarios){
+    FriendRequest.find(function(err, friendRequests){
+      var resultados = []; 
+      for (var i = 0; i<usuarios.length; i++){
+        var nombre = (usuarios[i].nombre + usuarios[i].apellido).toLowerCase().replace(/\s/g, '');
+        if (nombre.indexOf(busqueda) !== -1){
+          var request = getRequestStatus(usuarios[i]._id, user.friends, friendRequests);
+          resultados.push({_id:usuarios[i]._id, 
+            nombre:usuarios[i].nombre, 
+            apellido:usuarios[i].apellido,
+            request:request
+          });
+        }
+      }
+      res.send({
+        user:{
+          _id:req.user._id,
+          nombre:req.user.nombre,
+          apellido:req.user.apellido
+        },
+        resultados:resultados});
+
+    });
   });
 });
+
+function getRequestStatus(id, friends, friendRequests){
+  for (friend in friends){
+    if (friend._id === id)
+      return 'friend';
+  }
+  for (var i = 0; i<friendRequests.length; i++){
+    if (friendRequests[i].from == id)
+      return 'received';
+    if (friendRequests[i].to == id)
+      return 'sent';
+  }
+  return 'none';
+}
 
 module.exports = router;

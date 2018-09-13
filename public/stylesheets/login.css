@@ -2,6 +2,10 @@
 	font-family: 'Amaranth';
 }
 
+html {
+	font-size: calc(0.6em + .5vw);
+}  
+
 body{
 	background-color: #eceff1;
 	overflow-y: scroll;
@@ -135,4 +139,21 @@ button#robot {
 
 button#robot:hover {
 	background-color: #009688;
+}
+
+@media screen and (device-width: 360px)
+			/*and (orientation: portrait)*/
+{
+	html {
+		font-size: calc(0.6em + 3vw);
+	}  	
+	main, header {
+		width:90%;
+	}
+}
+
+@media 
+  (min-device-width: 800px) 
+  and (max-device-width: 1280px) {
+	/*----------GALAXY TAB 2----------*/
 }

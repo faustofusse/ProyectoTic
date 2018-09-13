@@ -80,28 +80,34 @@ div.buscar div.listado {
 	height: 30em;
 	overflow-y: auto;
 }
-div.buscar div.listado div {
+div.buscar div.listado > div {
 	margin: .5em 0;
 	background-color: #fff;
 	display: flex;
 	justify-content: space-between;
 	box-shadow: 0px 0px 13px -3px rgba(0,0,0,0.75);
 }
-div.buscar div.listado div span {
+div.buscar div.listado > div span {
 	padding: 1em;
 	font-size: 1.2em;
 	color: #424242;
 }
-div.buscar div.listado div button {
+div.buscar div.listado > div button {
 	cursor: pointer;
 	border: none;
 	background-color: rgba(0,0,0,0);
 	border-left: 2px solid #eee;
 	width: 5em;
 }
-div.buscar div.listado div button i {
+div.buscar div.listado > div button i {
 	font-size: 1.8em;
 	color: #0d47a1;
+}
+div.buscar div.listado div div button i.fa-check {
+	color: #00c853;
+}
+div.buscar div.listado div div button i.fa-times {
+	color: #d32f2f;
 }
 
 header{

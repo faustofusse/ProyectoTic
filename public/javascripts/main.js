@@ -1,3 +1,4 @@
+var escapeBuscar = true;
 
 // ------------------------------------------------- EVENTS
 
@@ -7,6 +8,20 @@ $('button#addFriend').click(function(){
 	$('input#buscar').focus();
 	$('html, body').css('overflow', 'hidden');
 });
+
+$('div.buscar').click(function(event){
+	if (escapeBuscar){
+		$('div.buscar').animate({paddingTop:'8em'}, 200, function(){
+			$(this).css('display', 'none');
+		});
+		$('div.buscar').css('background-color', 'rgba(30,136,229,0)');
+		$('html, body').css('overflow', 'auto');
+	}
+});
+$('div.buscar input').mouseenter(function(event) {escapeBuscar = false;})
+					.mouseleave(function(event) {escapeBuscar = true;});
+$('div.buscar div.listado').mouseenter(function(event) {escapeBuscar = false;})
+					.mouseleave(function(event) {escapeBuscar = true;});
 
 $('div.buscar div.input input').keyup(function(event) {
 	if ($(this).val().trim().length > 0)
@@ -20,28 +35,28 @@ $('div.buscar div.input input').keyup(function(event) {
 function searchUsers(query){
 	$.get('/users/search/' + query, function (search) {
 		$('div.buscar div.listado div').remove();
-		var botones = [];
 		for (var i = 0; i<search.resultados.length; i++){
 			var nombre = search.resultados[i].nombre+' '+search.resultados[i].apellido;
-			var user = $('<div></div>').append('<span>'+nombre+'</span>').append('<button><i class="fa fa-user-plus"></i></button>');
+			var user = $('<div></div>').append('<span>'+nombre+'</span>')
+							.append('<div class="options"><button><i class="fa fa-check"></i></button><button><i class="fa fa-times"></i></button></div>')
+							.append('<button><i class="fa fa-user-plus"></i></button>');
+			user.find('div.options').css('display', 'none');
 			user.find('button').click(botonAgregar);
 			user.find('button').attr('id', search.resultados[i]._id);
-			botones.push(user);
-			$('div.buscar div.listado').css('visibility', 'hidden');
+			switch(search.resultados[i].request){
+				case 'sent':
+					user.find('button i').attr('class', 'fa fa-clock');
+					break;
+				case 'friend':
+					user.find('button i').attr('class', 'fa fa-user-friends');
+					break;
+				case 'received':
+					user.find('> button').css('display', 'none');
+					user.find('div.options').css('display', 'flex');
+					break;	
+			}
 			$('div.buscar div.listado').append(user);
 		}
-		$.get('/users/friends/requests', function(requests){
-			$.get('/user', function(user){
-				for (var i = 0; i<requests.length; i++){
-					if (requests[i].from === user._id)
-						$('button#'+requests[i].to).find('i').attr('class', 'fa fa-clock');
-				}
-				for (friend in user.friends){
-					$('button#'+friend._id).find('i').attr('class', 'fa fa-user-friends');
-				}
-				$('div.buscar div.listado').css('visibility', 'visible');
-			}, 'json');
-		}, 'json');
 	},'json');
 }
 
@@ -49,14 +64,22 @@ function botonAgregar(event) {
 	var id = $(this).attr('id');
 	var clase = $(this).find('i').attr('class');
 	if (clase.indexOf('user-plus') != -1){
-		console.log('Disponible para enviar.');
 		$(this).find('i').attr('class', 'fa fa-clock');
 		sendRequest(id);
 	}else if (clase.indexOf('clock') != -1){
-		console.log('Solicitud ya enviada (tiene el relojito).')
 	}else if (clase.indexOf('user-friends') != -1){
 		console.log('Ya son amigos che.')
-	}	
+	}else if (clase.indexOf('check') != -1){
+		$(this).parent().find('div.opciones').css('display', 'none');
+		$(this).parent().find('> button').css('display', 'flex');
+		$(this).parent().find('> button i').attr('class', 'fa fa-user-friends');
+		acceptRequest(id);
+	}else if (clase.indexOf('times') != -1){
+		$(this).parent().find('div.opciones').css('display', 'none');
+		$(this).parent().find('> button').css('display', 'flex');
+		$(this).parent().find('> button i').attr('class', 'fa fa-user-plus');
+		declineRequest(id);
+	}
 };
 
 function sendRequest(to){
@@ -83,13 +106,4 @@ function declineRequest(from){
 	}).done(function(data){
 		console.log(data);
 	});
-};
-
-// LA PUTA MADRE NO SE POR QUE MIERDA NO ANDA ESTO LA CONCHA DE MI HERMANA LA PUTA MADRE QUE ME PARIO LA RE PUTISIMA HIJA DE RE MIL PUTA AGUANTE GAGO VIEJA
-$.fn.findById = function(id){
-	//console.log($(this[2]).attr('id'));
-	for (var i 	= 0; i<this.length; i++){
-		if (this[i].attr('id') === id)
-			return this[i];
-	}
 };

@@ -4,6 +4,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
 var User = require('../models/user');
+var FriendRequest = require('../models/friendRequest');
 
 /* GET PAGINA DE LOGIN/REGISTRO */
 router.get('/login', function(req, res, next) {
