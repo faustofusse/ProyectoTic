@@ -41,10 +41,10 @@ div.buscar{
 	justify-content: flex-start;
 	align-items: center;
 	background-color: rgba(30,136,229,0);
-	-webkit-transition:background 1s;
-	-moz-transition:background 1s;
-	-o-transition:background 1s;
-	transition:background 1s
+	-webkit-transition:background .3s;
+	-moz-transition:background .3s;
+	-o-transition:background .3s;
+	transition:background .3s;
 }
 
 div.buscar div.input {
@@ -102,6 +102,12 @@ div.buscar div.listado > div button {
 div.buscar div.listado > div button i {
 	font-size: 1.8em;
 	color: #0d47a1;
+}
+div.buscar div.listado div div button i.fa-user-clock {
+	color: #fdd835;
+}
+div.buscar div.lisrado div div button i.fa-user-friends {
+	color: #00c853;
 }
 div.buscar div.listado div div button i.fa-check {
 	color: #00c853;

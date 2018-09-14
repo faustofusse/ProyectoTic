@@ -23,19 +23,7 @@ botonRobots.click(function(event) {
 	$('div.contenedor div.left div.robots').animate({width: '100%'}, 300);
 	$('div.contenedor div.left div.amigos').animate({width: '0'}, 300);
 });
-/*
-$('div.contenedor div.left div.superior button').click(function(event) {
-	if (divAmigos){
-		$('div.contenedor div.left div.robots').animate({width: '100%'}, 200);
-		$('div.contenedor div.left div.amigos').animate({width: '0'}, 200);
-		divAmigos = false;
-	}else{
-		$('div.contenedor div.left div.robots').animate({width: '0'}, 200);
-		$('div.contenedor div.left div.amigos').animate({width: '100%'}, 200);
-		divAmigos = true;
-	}
-});
-*/
+
 $('button#addFriend').click(function(){
 	$('div.buscar').css('display','flex').animate({paddingTop:'6em'}, 200);
 	$('div.buscar').css('background-color', 'rgba(30,136,229,0.9)');
@@ -71,7 +59,7 @@ $('button#logout').click(function(event) {
 // ------------------------------------------------- FUNCTIONS
 
 function searchUsers(query){
-	$.get('/users/search/' + query, function (search) {
+	$.get('/api/search/' + query, function (search) {
 		$('div.buscar div.listado div').remove();
 		console.log(search);
 		for (var i = 0; i<search.resultados.length; i++){
@@ -84,7 +72,7 @@ function searchUsers(query){
 			user.find('button').attr('id', search.resultados[i]._id);
 			switch(search.resultados[i].request){
 				case 'sent':
-					user.find('button i').attr('class', 'fa fa-clock');
+					user.find('button i').attr('class', 'fa fa-user-clock');
 					break;
 				case 'friend':
 					user.find('button i').attr('class', 'fa fa-user-friends');
@@ -103,7 +91,7 @@ function botonAgregar(event) {
 	var id = $(this).attr('id');
 	var clase = $(this).find('i').attr('class');
 	if (clase.indexOf('user-plus') != -1){
-		$(this).find('i').attr('class', 'fa fa-clock');
+		$(this).find('i').attr('class', 'fa fa-user-clock');
 		sendRequest(id);
 	}else if (clase.indexOf('clock') != -1){
 	}else if (clase.indexOf('user-friends') != -1){
@@ -122,14 +110,14 @@ function botonAgregar(event) {
 };
 
 function sendRequest(to){
-	$.post('/users/friends/sendReq/' + to, function(data){
+	$.post('/api/friends/sendReq/' + to, function(data){
 		console.log(data);
 	}, 'json');
 };
 
 function acceptRequest(from){
 	$.ajax({
-		url:'/users/friends/acceptReq/' + from,
+		url:'/api/friends/acceptReq/' + from,
 		type:'PUT',
 		dataType: 'JSON'
 	}).done(function(data){
@@ -139,7 +127,7 @@ function acceptRequest(from){
 
 function declineRequest(from){
 	$.ajax({
-		url:'/users/friends/declineReq/' + from,
+		url:'/api/friends/declineReq/' + from,
 		type:'DELETE',
 		dataType: 'JSON'
 	}).done(function(data){
