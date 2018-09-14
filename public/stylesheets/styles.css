@@ -300,7 +300,10 @@ main div.contenedor div.videollamada h2{
 
 
 
-@media screen and (max-width: 800px){
+@media screen and (max-device-width: 360px){
+	html {
+		font-size: calc(0.6em + 3vw);
+	}  	
 	header {
 		width: 90%;
 	}
