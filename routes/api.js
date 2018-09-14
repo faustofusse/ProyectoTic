@@ -9,8 +9,22 @@ router.get('/friends', function(req,res,next){
 });
 
 router.get('/friends/requests', function(req,res,next){
-    FriendRequest.find(function(err, results){
-        res.send(results);
+    FriendRequest.find({to:req.user._id}, function(err, results){
+        var requests = [];
+        var pushedUsers = 0;
+        for (var i = 0; i<results.length; i++){
+            User.findOne({_id:results[i].from}, function(err, user){
+                requests.push({
+                    _id:user._id,
+                    nombre:user.nombre,
+                    apellido:user.apellido,
+                    correo:user.correo
+                });
+                pushedUsers++;
+                if (pushedUsers == results.length)
+                    res.send({requests:requests});
+            });
+        }
     });
 });
 
@@ -57,7 +71,7 @@ router.get('/search/:query', function(req, res, next){
         for (var i = 0; i<usuarios.length; i++){
           var nombre = (usuarios[i].nombre + usuarios[i].apellido).toLowerCase().replace(/\s/g, '');
           if (nombre.indexOf(busqueda) !== -1){
-            var request = getRequestStatus(usuarios[i]._id, user.friends, friendRequests);
+            var request = getRequestStatus(user._id, usuarios[i]._id, user.friends, friendRequests);
             resultados.push({_id:usuarios[i]._id, 
               nombre:usuarios[i].nombre, 
               apellido:usuarios[i].apellido,
@@ -72,24 +86,19 @@ router.get('/search/:query', function(req, res, next){
             apellido:req.user.apellido
           },
           resultados:resultados});
-  
       });
     });
   });
   
-  function getRequestStatus(id, friends, friendRequests){
+  function getRequestStatus(myId, id, friends, friendRequests){
     for (var i = 0; i<friends.length; i++){
-      
-      if (friends[i]._id == id){
-        console.log(friends[i]);
-        return 'friend';
-      }
-        
+      if (friends[i]._id == id)
+        return 'friend';        
     }
     for (var i = 0; i<friendRequests.length; i++){
-      if (friendRequests[i].from == id)
+      if (friendRequests[i].from == id && friendRequests[i].to == myId)
         return 'received';
-      if (friendRequests[i].to == id)
+      if (friendRequests[i].from == myId && friendRequests[i].to == id)
         return 'sent';
     }
     return 'none';

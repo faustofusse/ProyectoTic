@@ -1,27 +1,22 @@
 var escapeBuscar = true;
-var botonAmigos = $('div.contenedor div.left div.superior button#amigos');
-var botonRobots = $('div.contenedor div.left div.superior button#robots');
-var divActual = $('div.contenedor div.left div.amigos');
+
+
+$.get('/api/friends/requests', function(data){
+	console.log(data);
+}, 'json');
+
 
 // ------------------------------------------------- EVENTS
-botonAmigos.click(function(event) {
-	if (divActual === $('div.contenedor div.left div.robots')){
-		divActual = $('div.contenedor div.left div.amigos');
-		botonAmigos.css('border-color', botonRobots.css('border-color'));
-		botonRobots.css('border-color', $(this).css('background-color'));
-		botonRobots.css('border-color', '#fff');
-	}
-	$('div.contenedor div.left div.robots').animate({width: '0'}, 300);
-	$('div.contenedor div.left div.amigos').animate({width: '100%'}, 300);
-});
-botonRobots.click(function(event) {
-	if (divActual === $('div.contenedor div.left div.amigos')){
-		divActual = $('div.contenedor div.left div.robots');
-		botonAmigos.css('border-color', $(this).css('background-color'));
-		botonRobots.css('border-color', botonRobots.css('border-color'));
-	}
-	$('div.contenedor div.left div.robots').animate({width: '100%'}, 300);
-	$('div.contenedor div.left div.amigos').animate({width: '0'}, 300);
+
+
+$('div.contenedor div.left div.superior button').click(function(event) {
+	var id = $(this).attr('id');
+	var id2 = 'amigos';
+	if (id == 'amigos') id2 = 'robots';
+	$('div.contenedor div.left div.' + id2).animate({width: '0%'}, 300);
+	$('div.contenedor div.left div.' + id).animate({width: '100%'}, 300);
+	$('button#' + id).css('border-color', $('header h1').css('color'));
+	$('button#' + id2).css('border-color', $(this).css('background-color'));
 });
 
 $('button#addFriend').click(function(){
@@ -32,14 +27,13 @@ $('button#addFriend').click(function(){
 });
 
 $('div.buscar').click(function(event){
-	if (escapeBuscar){
-		$('div.buscar').animate({paddingTop:'8em'}, 200, function(){
-			$(this).css('display', 'none');
-		});
-		$('div.buscar').css('background-color', 'rgba(30,136,229,0)');
-		$('html').css('overflow', 'auto');
-	}
+	if (escapeBuscar)
+		terminarBusqueda();
+}).keyup(function(event) {
+	if (event.keyCode === 27) // ESCAPE
+		terminarBusqueda();
 });
+
 $('div.buscar input').mouseenter(function(event) {escapeBuscar = false;})
 					.mouseleave(function(event) {escapeBuscar = true;});
 $('div.buscar div.listado').mouseenter(function(event) {escapeBuscar = false;})
@@ -82,7 +76,8 @@ function searchUsers(query){
 					user.find('div.options').css('display', 'flex');
 					break;	
 			}
-			$('div.buscar div.listado').append(user);
+			if (search.resultados[i]._id != search.user._id)
+				$('div.buscar div.listado').append(user);
 		}
 	},'json');
 }
@@ -134,3 +129,16 @@ function declineRequest(from){
 		console.log(data);
 	});
 };
+
+function terminarBusqueda(){
+	$('div.buscar').animate({paddingTop:'8em'}, 200, function(){
+		$('div.buscar').css('display', 'none');
+	});
+	$('div.buscar').css('background-color', 'rgba(30,136,229,0)');
+	$('html').css('overflow', 'auto');
+}
+
+
+
+
+

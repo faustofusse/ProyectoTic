@@ -8,6 +8,7 @@ var FriendRequest = require('../models/friendRequest');
 
 /* GET PAGINA DE LOGIN/REGISTRO */
 router.get('/login', function(req, res, next) {
+  req.logout();
   res.render('login', {title: "TARS - Iniciar Sesion"});
 });
 router.get('/register', function(req, res, next){
