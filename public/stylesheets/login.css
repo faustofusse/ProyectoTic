@@ -161,12 +161,11 @@ button#robot:hover {
 	html {
 		font-size: calc(0.6em + .4vw);
 	}  
+	/*
 	*{
 		background-color: #000;
 	}
-	main, header {
-		width:30%;
-	}
+	*/
 }
 
 
@@ -175,7 +174,9 @@ button#robot:hover {
 	html {
 		font-size: calc(0.6em + .4vw);
 	}  
+	/*
 	*{
 		background-color: blue;
 	}
+	*/
 }
