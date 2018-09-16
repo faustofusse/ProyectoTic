@@ -30,98 +30,6 @@ div.background{
 	z-index: -1;
 }
 
-/*--------------------------------------------------------------------------------------------------*/
-/*--------------------------------------------------------------------------------------------------*/
-/*------------------------------------- DIV BUSQUEDA -----------------------------------------------*/
-/*--------------------------------------------------------------------------------------------------*/
-/*--------------------------------------------------------------------------------------------------*/
-
-div.buscar{
-	position: fixed;
-	top: 0;left: 0;
-	width: 100%;
-	height: 100%;
-	padding-top: 8em;
-	display: none;
-	flex-direction: column;
-	justify-content: flex-start;
-	align-items: center;
-	background-color: rgba(30,136,229,0);
-	-webkit-transition:background .3s;
-	-moz-transition:background .3s;
-	-o-transition:background .3s;
-	transition:background .3s;
-}
-
-div.buscar div.input {
-	width: 23em;
-	border-bottom: 2px solid #fff;
-	display: flex;
-	justify-content: center;
-	padding: 0 0 .2em 0;
-}
-div.buscar div.input i {
-	color: #fff;
-	font-size: 1.6em;
-	padding: 0 .5em;
-	align-self: center;
-}
-div.buscar div.input input {
-	color: #fff;
-	font-size: 2em;
-	background-color: rgba(0,0,0,0);
-	border: none;
-	letter-spacing: 1px;
-}
-div.buscar div.input input::placeholder{
-	color: #fff;
-	font-style: italic;
-	letter-spacing: 0;
-}
-div.buscar div.input input::-webkit-search-cancel-button {
-	-webkit-appearance:none;
-}
-div.buscar div.listado {
-	width: 23em;
-	max-height: 70%;
-	overflow-y: auto;
-}
-div.buscar div.listado > div {
-	margin: .5em 0;
-	background-color: #fff;
-	display: flex;
-	justify-content: space-between;
-	box-shadow: 0px 0px 13px -3px rgba(0,0,0,0.75);
-}
-div.buscar div.listado > div span {
-	padding: 1em;
-	font-size: 1.2em;
-	color: #424242;
-}
-div.buscar div.listado > div button {
-	cursor: pointer;
-	border: none;
-	background-color: rgba(0,0,0,0);
-	border-left: 2px solid #eee;
-	width: 5em;
-}
-div.buscar div.listado > div button i {
-	font-size: 1.8em;
-	color: #0d47a1;
-}
-div.buscar div.listado div div button i.fa-user-clock {
-	color: #fdd835;
-}
-div.buscar div.lisrado div div button i.fa-user-friends {
-	color: #00c853;
-}
-div.buscar div.listado div div button i.fa-check {
-	color: #00c853;
-}
-div.buscar div.listado div div button i.fa-times {
-	color: #d32f2f;
-}
-
 
 /*--------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------*/
@@ -324,6 +232,163 @@ main div.contenedor div.videollamada h2{
 	font-weight: bold;
 	font-style: italic;
 	font-size: 2em;
+}
+
+
+/*--------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------*/
+/*------------------------------------- DIV SOLICITUDES --------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------*/
+
+
+div.solicitudes {
+	padding-top: 5%;
+	position: fixed;
+	top: 0;left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	background-color: rgba(66,66,66,0.4);
+	-webkit-transition:background .3s;
+	-moz-transition:background .3s;
+	-o-transition:background .3s;
+	transition:background .3s;
+}
+
+div.solicitudes div.contenedor {
+	background-color: #fff;
+	display: flex;
+	flex-direction: column;
+	width: 40%;
+	height: 80%;
+}
+
+div.solicitudes div.contenedor div.superior {
+	background-color: #1565c0;
+	display: flex;
+	justify-content: space-between;
+}
+
+div.solicitudes div.contenedor div.superior h2{
+	color: #fff;
+	margin: 0;
+	padding: 1em;
+}
+
+div.solicitudes div.contenedor div.superior button {
+	border: none;
+	background-color: rgba(0,0,0,0);
+	cursor: pointer;
+}
+
+div.solicitudes div.contenedor div.superior button:hover {
+	background-color: rgba(0,0,0,0);
+}
+
+div.solicitudes div.contenedor div.superior button i{
+	color: #fff;
+	font-size: 2em;
+	margin: .8em;
+}
+
+div.solicitudes div.contenedor div.listado{
+
+}
+
+/*--------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------*/
+/*------------------------------------- DIV BUSQUEDA -----------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------*/
+
+div.buscar{
+	position: fixed;
+	top: 0;left: 0;
+	width: 100%;
+	height: 100%;
+	padding-top: 8em;
+	display: none;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	background-color: rgba(30,136,229,0);
+	-webkit-transition:background .3s;
+	-moz-transition:background .3s;
+	-o-transition:background .3s;
+	transition:background .3s;
+}
+
+div.buscar div.input {
+	width: 23em;
+	border-bottom: 2px solid #fff;
+	display: flex;
+	justify-content: center;
+	padding: 0 0 .2em 0;
+}
+div.buscar div.input i {
+	color: #fff;
+	font-size: 1.6em;
+	padding: 0 .5em;
+	align-self: center;
+}
+div.buscar div.input input {
+	color: #fff;
+	font-size: 2em;
+	background-color: rgba(0,0,0,0);
+	border: none;
+	letter-spacing: 1px;
+}
+div.buscar div.input input::placeholder{
+	color: #fff;
+	font-style: italic;
+	letter-spacing: 0;
+}
+div.buscar div.input input::-webkit-search-cancel-button {
+	-webkit-appearance:none;
+}
+div.buscar div.listado {
+	width: 23em;
+	max-height: 70%;
+	overflow-y: auto;
+}
+div.buscar div.listado > div {
+	margin: .5em 0;
+	background-color: #fff;
+	display: flex;
+	justify-content: space-between;
+	box-shadow: 0px 0px 13px -3px rgba(0,0,0,0.75);
+}
+div.buscar div.listado > div span {
+	padding: 1em;
+	font-size: 1.2em;
+	color: #424242;
+}
+div.buscar div.listado > div button {
+	cursor: pointer;
+	border: none;
+	background-color: rgba(0,0,0,0);
+	border-left: 2px solid #eee;
+	width: 5em;
+}
+div.buscar div.listado > div button i {
+	font-size: 1.8em;
+	color: #0d47a1;
+}
+div.buscar div.listado div div button i.fa-user-clock {
+	color: #fdd835;
+}
+div.buscar div.lisrado div div button i.fa-user-friends {
+	color: #00c853;
+}
+div.buscar div.listado div div button i.fa-check {
+	color: #00c853;
+}
+div.buscar div.listado div div button i.fa-times {
+	color: #d32f2f;
 }
 
 
