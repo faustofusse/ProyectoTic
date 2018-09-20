@@ -19,25 +19,22 @@ $('div.contenedor div.left div.superior button').click(function(event) {
 	$('button#' + id2).css('border-color', $(this).css('background-color'));
 });
 
-$('button#addFriend').click(function(){
-	$('div.buscar').css('display','flex').animate({paddingTop:'6em'}, 200);
-	$('div.buscar').css('background-color', 'rgba(30,136,229,0.9)');
-	$('input#buscar').focus();
-	$('html, body').css('overflow', 'hidden');
+$('div.buscar div.background').click(function(event) {
+	terminarBusqueda();
 });
 
-$('div.buscar').click(function(event){
-	if (escapeBuscar)
-		terminarBusqueda();
-}).keyup(function(event) {
-	if (event.keyCode === 27) // ESCAPE
+$('div.buscar').keyup(function(event) {
+	if (event.keyCode === 27) 
 		terminarBusqueda();
 });
 
-$('div.buscar input').mouseenter(function(event) {escapeBuscar = false;})
-					.mouseleave(function(event) {escapeBuscar = true;});
-$('div.buscar div.listado').mouseenter(function(event) {escapeBuscar = false;})
-					.mouseleave(function(event) {escapeBuscar = true;});
+$('div.solicitudes div.background').click(function(event) {
+	terminarSolicitudes();
+});
+
+$('div.solicitudes div.contenedor div.superior button').click(function(event) {
+	terminarSolicitudes();
+});
 
 $('div.buscar div.input input').keyup(function(event) {
 	if ($(this).val().trim().length > 0)
@@ -46,6 +43,21 @@ $('div.buscar div.input input').keyup(function(event) {
 		$('div.buscar div.listado div').remove();
 });
 
+
+$('button#friendRequests').click(function(event) {
+	$('div.solicitudes').css('display','flex')
+	$('div.solicitudes div.contenedor').animate({marginTop:'5%'}, 200);
+	$('div.solicitudes div.background').css('background-color', 'rgba(0,0,0,0.15)');
+});
+$('button#addFriend').click(function(){
+	$('div.buscar').css('display','flex')
+	$('div.buscar div.input').animate({marginTop:'6%'}, 200);
+	$('div.buscar div.background').css('background-color', 'rgba(30,136,229,0.9)');
+	$('input#buscar').focus();
+});
+$('button#settings').click(function(event) {
+	
+});
 $('button#logout').click(function(event) {
 	document.location.href = '/logout';
 });
@@ -131,11 +143,17 @@ function declineRequest(from){
 };
 
 function terminarBusqueda(){
-	$('div.buscar').animate({paddingTop:'8em'}, 200, function(){
+	$('div.buscar div.input').animate({marginTop:'8%'}, 200, function(){
 		$('div.buscar').css('display', 'none');
 	});
-	$('div.buscar').css('background-color', 'rgba(30,136,229,0)');
-	$('html').css('overflow', 'auto');
+	$('div.buscar div.background').css('background-color', 'rgba(30,136,229,0)');
+}
+
+function terminarSolicitudes(){
+	$('div.solicitudes div.contenedor').animate({marginTop:'7%'}, 200, function(){
+		$('div.solicitudes').css('display', 'none');
+	});
+	$('div.solicitudes div.background').css('background-color', 'rgba(66,66,66,0)');
 }
 
 

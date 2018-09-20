@@ -243,58 +243,57 @@ main div.contenedor div.videollamada h2{
 
 
 div.solicitudes {
-	padding-top: 5%;
 	position: fixed;
 	top: 0;left: 0;
 	width: 100%;
 	height: 100%;
-	display: flex;
+	display: none;
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: center;
-	background-color: rgba(66,66,66,0.4);
+}
+div.solicitudes div.background {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(66,66,66,0);
 	-webkit-transition:background .3s;
 	-moz-transition:background .3s;
 	-o-transition:background .3s;
 	transition:background .3s;
 }
-
 div.solicitudes div.contenedor {
+	margin-top: 7%;
 	background-color: #fff;
 	display: flex;
 	flex-direction: column;
 	width: 40%;
 	height: 80%;
+	box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 28px .2px;
 }
-
 div.solicitudes div.contenedor div.superior {
 	background-color: #1565c0;
 	display: flex;
 	justify-content: space-between;
 }
-
 div.solicitudes div.contenedor div.superior h2{
 	color: #fff;
 	margin: 0;
 	padding: 1em;
 }
-
 div.solicitudes div.contenedor div.superior button {
 	border: none;
+	width: 6em;
 	background-color: rgba(0,0,0,0);
 	cursor: pointer;
 }
-
 div.solicitudes div.contenedor div.superior button:hover {
-	background-color: rgba(0,0,0,0);
+	background-color: #1976d2;
 }
-
 div.solicitudes div.contenedor div.superior button i{
 	color: #fff;
 	font-size: 2em;
-	margin: .8em;
 }
-
 div.solicitudes div.contenedor div.listado{
 
 }
@@ -310,19 +309,23 @@ div.buscar{
 	top: 0;left: 0;
 	width: 100%;
 	height: 100%;
-	padding-top: 8em;
 	display: none;
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: center;
+}
+div.buscar div.background {
+	position: fixed;
+	width: 100%;
+	height: 100%;
 	background-color: rgba(30,136,229,0);
 	-webkit-transition:background .3s;
 	-moz-transition:background .3s;
 	-o-transition:background .3s;
 	transition:background .3s;
 }
-
 div.buscar div.input {
+	margin-top: 8%;
 	width: 23em;
 	border-bottom: 2px solid #fff;
 	display: flex;
