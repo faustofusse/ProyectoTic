@@ -8,10 +8,17 @@ router.get('/friends', function(req,res,next){
     res.send({friends: req.user.friends});
 });
 
-router.get('/friends/requests', function(req,res,next){
+router.get('/friendrequests', function(req,res,next){
+  FriendRequest.find({to:req.user._id}, function(err, results){
+
+  });
+});
+
+router.get('/friends/requests', function(req, res, next){
     FriendRequest.find({to:req.user._id}, function(err, results){
         var requests = [];
         var pushedUsers = 0;
+        if (results.length === 0) res.send(requests);
         for (var i = 0; i<results.length; i++){
             User.findOne({_id:results[i].from}, function(err, user){
                 requests.push({
@@ -22,7 +29,7 @@ router.get('/friends/requests', function(req,res,next){
                 });
                 pushedUsers++;
                 if (pushedUsers == results.length)
-                    res.send({requests:requests});
+                    res.send(requests);
             });
         }
     });

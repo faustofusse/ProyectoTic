@@ -21,7 +21,7 @@ body.blockScroll {
 
 button:focus, button:active, input:focus, input:active{outline: none;}
 
-div.background{
+body > div.background{
 	background-color: #1565c0;
 	position: absolute;
 	width: 100%;
@@ -76,7 +76,7 @@ main {
 	flex-direction: column;
 	justify-content: center;
 	width: 80%;
-	height: 40em;
+	/*height: 40em;*/
 	margin: 0em auto 2em;
 	background-color: #fff;
 	box-shadow: rgba(0, 0, 0, 0.75) 0px 0px 28px .2px;
@@ -124,6 +124,10 @@ main > nav div.opciones button, main nav button#menu{
 	background-position: right;
 	background-size: 1.5em;
 	background-origin: padding-box;
+	-webkit-transition:background .4s;
+	-moz-transition:background .4s;
+	-o-transition:background .4s;
+	transition:background .4s;
 } 
 main > nav div.opciones button:hover, main nav button#menu:hover{
 	background-color: #009688;
@@ -149,7 +153,7 @@ main div.contenedor div.left{
 	display: inline-flex;
 	justify-content: flex-start;
 	flex-direction: column;
-	height: 100%;
+	max-height: 31em;
 	width: 40%;
 }
 
@@ -177,15 +181,18 @@ main div.contenedor div.left div.superior button {
 	border-bottom: 6px solid #42a5f5;
 	color: #fff;
 	cursor: pointer;
+	-webkit-transition:border .4s;
+	-moz-transition:border .4s;
+	-o-transition:border .4s;
+	transition:border .4s;
 }
 
 main div.contenedor div.left div.amigos{
-	overflow: auto;
+	overflow-y: auto;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
 	width: 100%;
-	height: inherit;
 }
 main div.contenedor div.left div.robots{
 	overflow: auto;
@@ -221,7 +228,7 @@ main div.contenedor div.videollamada{
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	height: 100%;
+	height: 35em;
 	width: 60%;
 	background-color: #e0e0e0;
 	border: 1px solid #9e9e9e; 
@@ -237,85 +244,28 @@ main div.contenedor div.videollamada h2{
 
 /*--------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------*/
-/*------------------------------------- DIV SOLICITUDES --------------------------------------------*/
+/*------------------------------------- DIV MENU ---------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------*/
 
-
-div.solicitudes {
+div.menu {
 	position: fixed;
-	top: 0;left: 0;
 	width: 100%;
 	height: 100%;
 	display: none;
-	flex-direction: column;
-	justify-content: flex-start;
-	align-items: center;
+	justify-content: center;
 }
-div.solicitudes div.background {
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(66,66,66,0);
-	-webkit-transition:background .3s;
-	-moz-transition:background .3s;
-	-o-transition:background .3s;
-	transition:background .3s;
-}
-div.solicitudes div.contenedor {
-	margin-top: 7%;
-	background-color: #fff;
-	display: flex;
-	flex-direction: column;
-	width: 40%;
-	height: 80%;
-	box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 28px .2px;
-}
-div.solicitudes div.contenedor div.superior {
-	background-color: #1565c0;
-	display: flex;
-	justify-content: space-between;
-}
-div.solicitudes div.contenedor div.superior h2{
-	color: #fff;
-	margin: 0;
-	padding: 1em;
-}
-div.solicitudes div.contenedor div.superior button {
-	border: none;
-	width: 6em;
-	background-color: rgba(0,0,0,0);
-	cursor: pointer;
-}
-div.solicitudes div.contenedor div.superior button:hover {
-	background-color: #1976d2;
-}
-div.solicitudes div.contenedor div.superior button i{
-	color: #fff;
-	font-size: 2em;
-}
-div.solicitudes div.contenedor div.listado{
-
-}
-
-/*--------------------------------------------------------------------------------------------------*/
-/*--------------------------------------------------------------------------------------------------*/
-/*------------------------------------- DIV BUSQUEDA -----------------------------------------------*/
-/*--------------------------------------------------------------------------------------------------*/
-/*--------------------------------------------------------------------------------------------------*/
-
-div.buscar{
-	position: fixed;
-	top: 0;left: 0;
-	width: 100%;
-	height: 100%;
+div.menu div.buscar, div.menu div.solicitudes {
+	min-width: 30%;
 	display: none;
+	margin-top: 10%;
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: center;
-}
-div.buscar div.background {
+} 
+div.menu div.background {
 	position: fixed;
+	z-index: -1;
 	width: 100%;
 	height: 100%;
 	background-color: rgba(30,136,229,0);
@@ -324,9 +274,87 @@ div.buscar div.background {
 	-o-transition:background .3s;
 	transition:background .3s;
 }
+
+div.menu div div.listado {
+	width: 100%;
+	max-height: 80%;
+	overflow-y: auto;
+}
+div.menu div div.listado > div {
+	margin: .5em 0;
+	background-color: #fff;
+	display: flex;
+	justify-content: space-between;
+	box-shadow: 0px 0px 13px -3px rgba(0,0,0,0.75);
+}
+div.menu div div.listado > div span {
+	padding: 1em;
+	font-size: 1.2em;
+	color: #424242;
+}
+div.menu div div.listado > div button {
+	cursor: pointer;
+	border: none;
+	background-color: rgba(0,0,0,0);
+	border-left: 2px solid #eee;
+	height: 100%;
+	align-self: stretch;
+}
+div.menu div div.listado > div button i {
+	padding: 0 .6em;
+	font-size: 1.8em;
+	color: #0d47a1;
+}
+div.menu div div.listado div div button i.fa-user-clock {
+	color: #fdd835;
+}
+div.menu div div.lisrado div div button i.fa-user-friends {
+	color: #00c853;
+}
+div.menu div div.listado div div button i.fa-check {
+	color: #00c853;
+}
+div.menu div div.listado div div button i.fa-times {
+	color: #d32f2f;
+}
+
+/*--------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------*/
+/*------------------------------------- DIV SOLICITUDES --------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------*/
+
+div.solicitudes div.superior {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	border-bottom: 2px solid #fff;
+}
+div.solicitudes div.superior h2{
+	color: #fff;
+	margin: 0;
+	padding: .5em 0;
+	font-weight: normal;
+	font-size: 1.6em;
+}
+div.solicitudes div.superior button {
+	border: none;
+	background-color: rgba(0,0,0,0);
+	cursor: pointer;
+}
+div.solicitudes div.superior button i{
+	color: #fff;
+	font-size: 2em;
+}
+
+/*--------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------*/
+/*------------------------------------- DIV BUSQUEDA -----------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------*/
+
 div.buscar div.input {
-	margin-top: 8%;
-	width: 23em;
+	width: 100%;
 	border-bottom: 2px solid #fff;
 	display: flex;
 	justify-content: center;
@@ -339,6 +367,7 @@ div.buscar div.input i {
 	align-self: center;
 }
 div.buscar div.input input {
+	width: 100%;
 	color: #fff;
 	font-size: 2em;
 	background-color: rgba(0,0,0,0);
@@ -353,46 +382,7 @@ div.buscar div.input input::placeholder{
 div.buscar div.input input::-webkit-search-cancel-button {
 	-webkit-appearance:none;
 }
-div.buscar div.listado {
-	width: 23em;
-	max-height: 70%;
-	overflow-y: auto;
-}
-div.buscar div.listado > div {
-	margin: .5em 0;
-	background-color: #fff;
-	display: flex;
-	justify-content: space-between;
-	box-shadow: 0px 0px 13px -3px rgba(0,0,0,0.75);
-}
-div.buscar div.listado > div span {
-	padding: 1em;
-	font-size: 1.2em;
-	color: #424242;
-}
-div.buscar div.listado > div button {
-	cursor: pointer;
-	border: none;
-	background-color: rgba(0,0,0,0);
-	border-left: 2px solid #eee;
-	width: 5em;
-}
-div.buscar div.listado > div button i {
-	font-size: 1.8em;
-	color: #0d47a1;
-}
-div.buscar div.listado div div button i.fa-user-clock {
-	color: #fdd835;
-}
-div.buscar div.lisrado div div button i.fa-user-friends {
-	color: #00c853;
-}
-div.buscar div.listado div div button i.fa-check {
-	color: #00c853;
-}
-div.buscar div.listado div div button i.fa-times {
-	color: #d32f2f;
-}
+
 
 
 /*--------------------------------------------------------------------------------------------------*/

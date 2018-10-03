@@ -11,22 +11,22 @@
 </head>
 <body>
 	<div class="background"></div>
-	<div class="buscar">
+
+	<div class="menu">
 		<div class="background"></div>
-		<div class="input">
-			<i class="fa fa-search"></i>
-			<input id="buscar" name="buscar" type="search" placeholder="Buscar Personas">
-		</div>
-		<div class="listado"></div>
-	</div>
-	<div class="solicitudes">
-		<div class="background"></div>
-		<div class="contenedor">
-			<div class="superior">
-				<h2>Solicitudes de amistad</h2>
-				<button><i class="fa fa-times"></i></button>
+		<div class="buscar">
+			<div class="input">
+				<i class="fa fa-search"></i>
+				<input id="buscar" name="buscar" type="search" placeholder="Buscar Personas">
 			</div>
 			<div class="listado"></div>
+		</div>
+		<div class="solicitudes">
+				<div class="superior">
+					<h2>Solicitudes de amistad</h2>
+					<button><i class="fa fa-times"></i></button>
+				</div>
+				<div class="listado"></div>
 		</div>
 	</div>
 
@@ -62,7 +62,7 @@
 								<div><span>{{this.nombre}} {{this.apellido}}</span></div>
 							{{/each}}
 						{{else}}
-						<h3>No tienes ningun amigo :(</h3>
+							<h3>No tienes ningun amigo :(</h3>
 						{{/if}}
 					</div>
 					<div class="robots">

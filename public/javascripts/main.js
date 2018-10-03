@@ -1,13 +1,5 @@
-var escapeBuscar = true;
-
-
-$.get('/api/friends/requests', function(data){
-	console.log(data);
-}, 'json');
-
 
 // ------------------------------------------------- EVENTS
-
 
 $('div.contenedor div.left div.superior button').click(function(event) {
 	var id = $(this).attr('id');
@@ -19,21 +11,17 @@ $('div.contenedor div.left div.superior button').click(function(event) {
 	$('button#' + id2).css('border-color', $(this).css('background-color'));
 });
 
-$('div.buscar div.background').click(function(event) {
-	terminarBusqueda();
-});
-
 $('div.buscar').keyup(function(event) {
 	if (event.keyCode === 27) 
-		terminarBusqueda();
+		terminarMenu();
 });
 
-$('div.solicitudes div.background').click(function(event) {
-	terminarSolicitudes();
+$('div.menu div.background').click(function(event) {
+	terminarMenu();
 });
 
-$('div.solicitudes div.contenedor div.superior button').click(function(event) {
-	terminarSolicitudes();
+$('div.solicitudes div.superior button').click(function(event) {
+	terminarMenu();
 });
 
 $('div.buscar div.input input').keyup(function(event) {
@@ -45,14 +33,19 @@ $('div.buscar div.input input').keyup(function(event) {
 
 
 $('button#friendRequests').click(function(event) {
-	$('div.solicitudes').css('display','flex')
-	$('div.solicitudes div.contenedor').animate({marginTop:'5%'}, 200);
-	$('div.solicitudes div.background').css('background-color', 'rgba(0,0,0,0.15)');
+	$('div.menu').css('display','flex');
+	$('div.solicitudes').css('display','flex');
+	$('div.menu div.solicitudes').animate({marginTop:'5%'}, 200);
+	$('div.menu div.background').css('display', 'flex');
+	$('div.menu div.background').css('background-color', 'rgba(30,136,229,0.9)');
+	searchRequests();
 });
 $('button#addFriend').click(function(){
-	$('div.buscar').css('display','flex')
-	$('div.buscar div.input').animate({marginTop:'6%'}, 200);
-	$('div.buscar div.background').css('background-color', 'rgba(30,136,229,0.9)');
+	$('div.menu').css('display','flex');
+	$('div.buscar').css('display','flex');
+	$('div.menu div.buscar').animate({marginTop:'5%'}, 200);
+	$('div.menu div.background').css('display', 'flex');
+	$('div.menu div.background').css('background-color', 'rgba(30,136,229,0.9)');
 	$('input#buscar').focus();
 });
 $('button#settings').click(function(event) {
@@ -63,6 +56,23 @@ $('button#logout').click(function(event) {
 });
 
 // ------------------------------------------------- FUNCTIONS
+
+function searchRequests(){
+	$.get('/api/friends/requests', function(requests){
+		//if (requests.length === 0) 
+		$('div.solicitudes div.listado div').remove();
+		for (var i = 0; i<requests.length; i++){
+			var div = $('<div></div>');
+			div.attr('id', requests[i]._id)
+			   .append('<span>'+requests[i].nombre+' '+requests[i].apellido+'</span>');
+			var options = $('<div></div>').append('<button id="aceptar"><i class="fa fa-check"></i></button>')
+										  .append('<button id="rechazar"><i class="fa fa-times"></i></button>');
+			div.append(options);
+			$('div.solicitudes div.listado').append(div);
+		}
+	}, 'json');
+}
+
 
 function searchUsers(query){
 	$.get('/api/search/' + query, function (search) {
@@ -142,18 +152,12 @@ function declineRequest(from){
 	});
 };
 
-function terminarBusqueda(){
-	$('div.buscar div.input').animate({marginTop:'8%'}, 200, function(){
-		$('div.buscar').css('display', 'none');
+function terminarMenu(){
+	$('div.buscar, div.solicitudes').animate({marginTop:'10%'}, 200, function(){
+		$('div.menu, div.menu > div').css('display', 'none');
+		$('div.menu').css('display', 'none');
 	});
-	$('div.buscar div.background').css('background-color', 'rgba(30,136,229,0)');
-}
-
-function terminarSolicitudes(){
-	$('div.solicitudes div.contenedor').animate({marginTop:'7%'}, 200, function(){
-		$('div.solicitudes').css('display', 'none');
-	});
-	$('div.solicitudes div.background').css('background-color', 'rgba(66,66,66,0)');
+	$('div.menu div.background').css('background-color', 'rgba(30,136,229,0)');
 }
 
 
