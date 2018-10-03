@@ -68,8 +68,9 @@ function searchRequests(){
 			var options = $('<div></div>').append('<button id="aceptar"><i class="fa fa-check"></i></button>')
 										  .append('<button id="rechazar"><i class="fa fa-times"></i></button>');
 			div.append(options);
-			div.find('button#aceptar').click(botonAceptarSolicitud);
-			div.find('button#rechazar').click(botonRechazarSolicitud);
+			div.find('div button').click(botonSolicitud);
+			//div.find('button#aceptar').click(botonAceptarSolicitud);
+			//div.find('button#rechazar').click(botonRechazarSolicitud);
 			$('div.solicitudes div.listado').append(div);
 		}
 	}, 'json');
@@ -109,13 +110,27 @@ function searchUsers(query){
 function botonAceptarSolicitud(){
 	console.log('Aceptar');
 	var id = $(this).parent().parent().attr('id');
-	console.log(id);
+	acceptRequest(id);
 }
 
 function botonRechazarSolicitud(){
 	console.log('Rechazar');
 	var id = $(this).parent().parent().attr('id');
 	console.log(id);
+}
+
+function botonSolicitud(){
+	var div = $(this).parent().parent();
+	var id = div.attr('id');
+	switch($(this).attr('id')){
+		case 'aceptar':
+			console.log('aceptar');
+			break;
+		case 'rechazar':
+			console.log('rechazar');
+			break;
+	}
+	div.remove();
 }
 
 function botonAgregar(event) {
