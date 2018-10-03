@@ -68,6 +68,8 @@ function searchRequests(){
 			var options = $('<div></div>').append('<button id="aceptar"><i class="fa fa-check"></i></button>')
 										  .append('<button id="rechazar"><i class="fa fa-times"></i></button>');
 			div.append(options);
+			div.find('button#aceptar').click(botonAceptarSolicitud);
+			div.find('button#rechazar').click(botonRechazarSolicitud);
 			$('div.solicitudes div.listado').append(div);
 		}
 	}, 'json');
@@ -102,6 +104,18 @@ function searchUsers(query){
 				$('div.buscar div.listado').append(user);
 		}
 	},'json');
+}
+
+function botonAceptarSolicitud(){
+	console.log('Aceptar');
+	var id = $(this).parent().parent().attr('id');
+	console.log(id);
+}
+
+function botonRechazarSolicitud(){
+	console.log('Rechazar');
+	var id = $(this).parent().parent().attr('id');
+	console.log(id);
 }
 
 function botonAgregar(event) {
