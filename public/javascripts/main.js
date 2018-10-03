@@ -107,27 +107,17 @@ function searchUsers(query){
 	},'json');
 }
 
-function botonAceptarSolicitud(){
-	console.log('Aceptar');
-	var id = $(this).parent().parent().attr('id');
-	acceptRequest(id);
-}
-
-function botonRechazarSolicitud(){
-	console.log('Rechazar');
-	var id = $(this).parent().parent().attr('id');
-	console.log(id);
-}
-
 function botonSolicitud(){
 	var div = $(this).parent().parent();
 	var id = div.attr('id');
 	switch($(this).attr('id')){
 		case 'aceptar':
 			console.log('aceptar');
+			acceptRequest(id);
 			break;
 		case 'rechazar':
 			console.log('rechazar');
+			declineRequest(id);
 			break;
 	}
 	div.remove();
