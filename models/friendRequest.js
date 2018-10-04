@@ -11,15 +11,11 @@ var FriendRequest = module.exports = mongoose.model('FriendRequest', FriendReqSc
 // ------------ FUNCTIONS
 
 module.exports.newFR = function(from, to, callback){
-    FriendRequest.find({from:from, to:to}, function(err, docs){
-        if (docs.length){
-            var newfr = new FriendRequest({
-                from:from,
-                to:to
-            });
-            newfr.save(callback);
-        }
+    var newfr = new FriendRequest({
+        from:from,
+        to:to
     });
+    newfr.save(callback);
 };
 
 module.exports.acceptFR = function(from, to, callback){
