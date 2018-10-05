@@ -192,8 +192,8 @@ main div.contenedor div.left div.inferior div.amigos{
 	flex-direction: column;
 	justify-content: flex-start;
 	width: 100%;
-	min-height: 30em;
-	max-height: 35em;
+	min-height: 35em;
+	max-height: 38em;
 	padding: 0;
 }
 
@@ -241,13 +241,13 @@ main div.contenedor div.left div.inferior div div div button i.fa-video {
 	color: #388e3c;
 }
 main div.contenedor div.left div.inferior div div div button i.fa-ellipsis-v{
-	color: #9e9e9e;
+	color: #bdbdbd;
 }
 main div.contenedor div.left div.inferior div div div button i.fa-video:hover {
 	color: #388e3c96;
 }
 main div.contenedor div.left div.inferior div div div button i.fa-ellipsis-v:hover {
-	color: #9e9e9e96;
+	color: #bdbdbd96;
 }
 
 main div.contenedor div.left div.inferior div h3{

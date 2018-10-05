@@ -53,12 +53,13 @@ header img{
 	width: 30%;
 }
 
-header span{
+header h1{
 	color: #00897b;
 	font-family: "Alegreya Sans";
 	font-size: 6.5em;
 	border-left: 1px solid #00897b;
 	padding-left: .1em;
+	margin: 0;
 }
 
 main{
