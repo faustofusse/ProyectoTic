@@ -5,7 +5,9 @@ var User = require('../models/user');
 var FriendRequest = require('../models/friendRequest');
 
 router.get('/friends', function(req,res,next){
-    res.send({friends: req.user.friends});
+    var friends = [];
+    friends.push(req.user.friends);
+    res.send(req.user.friends);
 });
 
 router.get('/friendrequests', function(req,res,next){
@@ -87,11 +89,7 @@ router.get('/search/:query', function(req, res, next){
           }
         }
         res.send({
-          user:{
-            _id:req.user._id,
-            nombre:req.user.nombre,
-            apellido:req.user.apellido
-          },
+          user:{_id:req.user._id},
           resultados:resultados});
       });
     });

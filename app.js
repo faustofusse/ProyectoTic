@@ -9,14 +9,11 @@ var expressValidator = require('express-validator');
 var flash = require('connect-flash');
 var session = require('express-session');
 var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-var mongo = require('mongodb');
 var mongoose = require('mongoose');
 //var url = "mongodb+srv://fausto-fusse:1234@tarscluster-djpnf.gcp.mongodb.net/tars";
 var url = "mongodb://localhost:27017/tars";
 
 mongoose.connect(url, {useNewUrlParser:true});
-var db = mongoose.connection;
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');

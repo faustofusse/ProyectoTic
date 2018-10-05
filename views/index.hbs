@@ -19,14 +19,18 @@
 				<i class="fa fa-search"></i>
 				<input id="buscar" name="buscar" type="search" placeholder="Buscar Personas">
 			</div>
-			<div class="listado"></div>
+			<div class="listado">
+				<div class="none">No hay resultados :(</div>
+			</div>
 		</div>
 		<div class="solicitudes">
 				<div class="superior">
 					<h2>Solicitudes de amistad</h2>
 					<button><i class="fa fa-times"></i></button>
 				</div>
-				<div class="listado"></div>
+				<div class="listado">
+					<div class="none">No tienes ninguna solicitud :(</div>
+				</div>
 		</div>
 	</div>
 
@@ -57,13 +61,7 @@
 				</div>
 				<div class="inferior">
 					<div class="amigos">
-						{{#if user.friends}}
-							{{#each user.friends}}
-								<div><span>{{this.nombre}} {{this.apellido}}</span></div>
-							{{/each}}
-						{{else}}
-							<h3>No tienes ningun amigo :(</h3>
-						{{/if}}
+						<h3>No tienes amigos :(</h3>
 					</div>
 					<div class="robots">
 						<h3>No hay robots conectados :(</h3>

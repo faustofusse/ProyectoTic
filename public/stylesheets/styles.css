@@ -25,7 +25,7 @@ body > div.background{
 	background-color: #1565c0;
 	position: absolute;
 	width: 100%;
-	height: 15em;
+	height: 37%;
 	margin: 0px;
 	z-index: -1;
 }
@@ -42,9 +42,9 @@ header{
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;	
-	width: 80%;
+	width: 90%;
 	margin: 0em auto;
-	padding: 1em 0;
+	padding: 2em 0;
 }
 header a {
 	padding:0;
@@ -75,7 +75,7 @@ main {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	width: 80%;
+	width: 90%;
 	/*height: 40em;*/
 	margin: 0em auto 2em;
 	background-color: #fff;
@@ -109,11 +109,11 @@ main > nav div.usuario span#nombre {
 	font-size: 1.2em;
 	margin: 0 .7em;
 }
-main > nav div.opciones {
+main > nav > div.opciones {
 	display: flex;
 	align-items: stretch;
 }
-main > nav div.opciones button, main nav button#menu{
+main > nav > div.opciones button, main nav button#menu{
 	color: #fff;
 	font-size: 1.1em;
 	cursor: pointer;	
@@ -129,11 +129,11 @@ main > nav div.opciones button, main nav button#menu{
 	-o-transition:background .4s;
 	transition:background .4s;
 } 
-main > nav div.opciones button:hover, main nav button#menu:hover{
+main > nav > div.opciones button:hover, main nav button#menu:hover{
 	background-color: #009688;
 }
 
-main > nav div.opciones button i, main nav button#menu i{
+main > nav > div.opciones button i, main nav button#menu i{
 	padding-left: .4em;
 }
 
@@ -153,7 +153,7 @@ main div.contenedor div.left{
 	display: inline-flex;
 	justify-content: flex-start;
 	flex-direction: column;
-	width: 40%;
+	width: 35%;
 }
 
 main div.contenedor div.left div.superior {
@@ -186,7 +186,7 @@ main div.contenedor div.left div.superior button {
 	transition:border .4s;
 }
 
-main div.contenedor div.left div.amigos{
+main div.contenedor div.left div.inferior div.amigos{
 	overflow-y: auto;
 	display: flex;
 	flex-direction: column;
@@ -200,8 +200,7 @@ main div.contenedor div.left div.amigos{
 main div.contenedor div.left div.robots{
 	overflow: auto;
 	display: flex;
-	justify-content: center;
-	align-items: center;
+	flex-direction: column;
 	width: 0;
 	padding: 0;
 	min-height: 30em;
@@ -210,31 +209,42 @@ main div.contenedor div.left div.robots{
 main div.contenedor div.superior button#robots{border-color: #0d47a1}
 main div.contenedor div.left div.robots{width: 0;}
 
-main div.contenedor div.left div div {
+main div.contenedor div.left div.inferior div div.usuario {
+	/*----DIV AMIGO/ROBOT----*/
 	display: flex;
-	align-items: stretch;
-	justify-content: flex-start;
+	justify-content: space-between;
 	border-bottom: 1px solid #bdbdbd;
-	padding: 1em;
+	padding: 1.2em;
 	min-height: 1.5em;
 }
-main div.contenedor div.left div div span{
+main div.contenedor div.left div.inferior div div span{
+	/*----NOMBRE----*/
 	color: #424242;
-	font-size: 1.1em;
+	font-size: 1.2em;
+}
+main div.contenedor div.left div.inferior div div div{
+	/*----OPCIONES----*/
+	background-color: blue;
 }
 
-main div.contenedor div.left h3{
+main div.contenedor div.left div.inferior div h3{
+	/*----NO HAY AMIGOS/ROBOTS----*/
 	color: #9e9e9e;
 	font-weight: bold;
 	font-style: italic;
 	font-size: 1.2em;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 main div.contenedor div.videollamada{
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	width: 60%;
+	width: 65%;
 	background-color: #e0e0e0;
 	border: 1px solid #9e9e9e; 
 }
@@ -258,10 +268,11 @@ div.menu {
 	width: 100%;
 	height: 100%;
 	display: none;
-	justify-content: center;
+	flex-direction: column;
+	align-items: center;
 }
 div.menu div.buscar, div.menu div.solicitudes {
-	min-width: 30%;
+	width: 25em;
 	display: none;
 	margin-top: 10%;
 	flex-direction: column;
@@ -290,6 +301,7 @@ div.menu div div.listado > div {
 	background-color: #fff;
 	display: flex;
 	justify-content: space-between;
+	align-items: baseline;
 	box-shadow: 0px 0px 13px -3px rgba(0,0,0,0.75);
 }
 div.menu div div.listado > div span {
@@ -298,30 +310,53 @@ div.menu div div.listado > div span {
 	color: #424242;
 }
 div.menu div div.listado > div button {
-	cursor: pointer;
+	/*cursor: pointer;*/
 	border: none;
 	background-color: rgba(0,0,0,0);
 	border-left: 2px solid #eee;
-	height: 100%;
-	align-self: stretch;
 }
 div.menu div div.listado > div button i {
 	padding: 0 .6em;
 	font-size: 1.8em;
 	color: #0d47a1;
+	-webkit-transition:color .3s, text-shadow .3s;
+	-moz-transition:color .3s, text-shadow .3s;
+	-o-transition:color .3s, text-shadow .3s;
+	transition:color .3s, text-shadow .3s;
 }
-div.menu div div.listado div div button i.fa-user-clock {
+div.menu div div.listado div button i.fa-user-plus {
+	cursor: pointer;
+}
+div.menu div div.listado div button i.fa-user-clock {
 	color: #fdd835;
 }
-div.menu div div.lisrado div div button i.fa-user-friends {
-	color: #00c853;
-}
 div.menu div div.listado div div button i.fa-check {
+	cursor: pointer;
 	color: #00c853;
 }
 div.menu div div.listado div div button i.fa-times {
+	cursor: pointer;
 	color: #d32f2f;
 }
+div.menu div div.listado div button i.fa-user-plus:hover {
+	color: #0d47a196;
+}
+div.menu div div.listado div div button i.fa-check:hover {
+	color: #00c85396; /*en hexa el 96 es 60% de transparencia*/
+}
+div.menu div div.listado div div button i.fa-times:hover {
+	color: #d32f2f96; /*en hexa el 96 es 60% de transparencia*/
+}
+div.menu div div.listado div.none{
+	padding: 1.3em;
+	display: flex;
+	justify-content: center;
+	color: #9e9e9e;
+	font-weight: bold;
+	font-style: italic;
+	letter-spacing: .05em;
+}
+div.menu div.buscar div.listado div.none {display: none;}
 
 /*--------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------*/
@@ -351,6 +386,7 @@ div.solicitudes div.superior button i{
 	color: #fff;
 	font-size: 2em;
 }
+
 
 /*--------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------*/
@@ -415,7 +451,7 @@ div.buscar div.input input::-webkit-search-cancel-button {
 	main div.contenedor div.left{
 		width: 100%;
 	}
-	main > nav div.opciones {
+	main > nav > div.opciones {
 		display: none;
 	}
 	main > nav button#menu {

@@ -1,3 +1,5 @@
+updateFriends();
+updateRequests();
 
 // ------------------------------------------------- EVENTS
 
@@ -9,26 +11,26 @@ $('div.contenedor div.left div.superior button').click(function(event) {
 	$('div.contenedor div.left div.' + id).animate({width: '100%'}, 300);
 	$('button#' + id).css('border-color', $('header h1').css('color'));
 	$('button#' + id2).css('border-color', $(this).css('background-color'));
+	if (id === 'amigos')
+		updateFriends();
 });
 
-$('div.buscar').keyup(function(event) {
+$('html').keyup(function(event) {
 	if (event.keyCode === 27) 
 		terminarMenu();
 });
 
-$('div.menu div.background').click(function(event) {
-	terminarMenu();
-});
-
-$('div.solicitudes div.superior button').click(function(event) {
+$('div.solicitudes div.superior button, div.menu div.background').click(function(event) {
 	terminarMenu();
 });
 
 $('div.buscar div.input input').keyup(function(event) {
-	if ($(this).val().trim().length > 0)
+	if ($(this).val().trim().length > 0){
 		searchUsers($(this).val());
-	else 
-		$('div.buscar div.listado div').remove();
+	} else {
+		$('div.buscar div.listado div.usuario').remove();
+		$('div.buscar div.listado div.none').css('display', 'none');
+	}
 });
 
 
@@ -38,7 +40,7 @@ $('button#friendRequests').click(function(event) {
 	$('div.menu div.solicitudes').animate({marginTop:'5%'}, 200);
 	$('div.menu div.background').css('display', 'flex');
 	$('div.menu div.background').css('background-color', 'rgba(30,136,229,0.9)');
-	searchRequests();
+	updateRequests();
 });
 $('button#addFriend').click(function(){
 	$('div.menu').css('display','flex');
@@ -57,35 +59,54 @@ $('button#logout').click(function(event) {
 
 // ------------------------------------------------- FUNCTIONS
 
-function searchRequests(){
+function updateFriends(){
+	$.get('/api/friends', function(friends){
+		$('main div.contenedor div.left div.inferior div.amigos div.usuario').remove();
+		if (friends.length)
+			$('main div.contenedor div.left div.inferior div.amigos h3').css('display', 'none');
+		else
+			$('main div.contenedor div.left div.inferior div.amigos h3').css('display', 'flex');
+		for (var i = friends.length - 1; i >= 0; i--) {
+			var div = $('<div class="usuario"><span></span><div></div></div>');
+			div.attr('id', friends[i]._id);
+			div.find('span').html(friends[i].nombre + ' ' + friends[i].apellido);
+			$('main div.contenedor div.left div.inferior div.amigos').append(div);
+		}
+	});
+}
+
+function updateRequests(){
 	$.get('/api/friends/requests', function(requests){
-		//if (requests.length === 0) 
-		$('div.solicitudes div.listado div').remove();
+		$('div.solicitudes div.listado div.usuario').remove();
+		if (requests.length === 0) 
+			$('div.solicitudes div.listado div.none').css('display', 'flex');
+		else	
+			$('div.solicitudes div.listado div.none').css('display', 'none');
 		for (var i = 0; i<requests.length; i++){
 			var div = $('<div></div>');
-			div.attr('id', requests[i]._id)
+			div.attr({
+			   	'id': requests[i]._id,
+			   	'class': 'usuario'
+			   })
 			   .append('<span>'+requests[i].nombre+' '+requests[i].apellido+'</span>');
 			var options = $('<div></div>').append('<button id="aceptar"><i class="fa fa-check"></i></button>')
 										  .append('<button id="rechazar"><i class="fa fa-times"></i></button>');
 			div.append(options);
 			div.find('div button').click(botonSolicitud);
-			//div.find('button#aceptar').click(botonAceptarSolicitud);
-			//div.find('button#rechazar').click(botonRechazarSolicitud);
 			$('div.solicitudes div.listado').append(div);
 		}
 	}, 'json');
 }
 
-
 function searchUsers(query){
 	$.get('/api/search/' + query, function (search) {
-		$('div.buscar div.listado div').remove();
-		console.log(search);
+		$('div.buscar div.listado div.usuario').remove();
 		for (var i = 0; i<search.resultados.length; i++){
 			var nombre = search.resultados[i].nombre+' '+search.resultados[i].apellido;
 			var user = $('<div></div>').append('<span>'+nombre+'</span>')
 							.append('<div class="options"><button><i class="fa fa-check"></i></button><button><i class="fa fa-times"></i></button></div>')
-							.append('<button><i class="fa fa-user-plus"></i></button>');
+							.append('<button><i class="fa fa-user-plus"></i></button>')
+							.attr('class', 'usuario');
 			user.find('div.options').css('display', 'none');
 			user.find('button').click(botonAgregar);
 			user.find('button').attr('id', search.resultados[i]._id);
@@ -104,6 +125,10 @@ function searchUsers(query){
 			if (search.resultados[i]._id != search.user._id)
 				$('div.buscar div.listado').append(user);
 		}
+		if (!$('div.buscar div.listado div.usuario').length)
+			$('div.buscar div.listado div.none').css('display', 'flex');
+		else 
+			$('div.buscar div.listado div.none').css('display', 'none');
 	},'json');
 }
 
@@ -158,6 +183,7 @@ function acceptRequest(from){
 		dataType: 'JSON'
 	}).done(function(data){
 		console.log(data);
+		updateFriends();
 	});
 };
 
@@ -178,8 +204,3 @@ function terminarMenu(){
 	});
 	$('div.menu div.background').css('background-color', 'rgba(30,136,229,0)');
 }
-
-
-
-
-
