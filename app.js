@@ -10,8 +10,8 @@ var flash = require('connect-flash');
 var session = require('express-session');
 var passport = require('passport');
 var mongoose = require('mongoose');
-var url = "mongodb+srv://fausto-fusse:1234@tarscluster-djpnf.gcp.mongodb.net/tars";
-//var url = "mongodb://localhost:27017/tars";
+//var url = "mongodb+srv://fausto-fusse:1234@tarscluster-djpnf.gcp.mongodb.net/tars";
+var url = "mongodb://localhost:27017/tars";
 
 mongoose.connect(url, {useNewUrlParser:true});
 

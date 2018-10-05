@@ -67,9 +67,13 @@ function updateFriends(){
 		else
 			$('main div.contenedor div.left div.inferior div.amigos h3').css('display', 'flex');
 		for (var i = friends.length - 1; i >= 0; i--) {
-			var div = $('<div class="usuario"><span></span><div></div></div>');
+			var div = $('<div class="usuario"><span></span></div>');
+			var opciones = $('<div><button id="videollamada"></button><button id="opciones"></button></div>')
+			opciones.find('button#videollamada').append('<i class="fa fa-video"></i>');
+			opciones.find('button#opciones').append('<i class="fa fa-ellipsis-v"></i>');
 			div.attr('id', friends[i]._id);
 			div.find('span').html(friends[i].nombre + ' ' + friends[i].apellido);
+			div.append(opciones);
 			$('main div.contenedor div.left div.inferior div.amigos').append(div);
 		}
 	});
