@@ -213,6 +213,7 @@ main div.contenedor div.left div.inferior div div.usuario {
 	/*----DIV AMIGO/ROBOT----*/
 	display: flex;
 	justify-content: space-between;
+	align-items: baseline;
 	border-bottom: 1px solid #bdbdbd;
 	padding: 1.2em;
 	min-height: 1.5em;
@@ -224,7 +225,29 @@ main div.contenedor div.left div.inferior div div span{
 }
 main div.contenedor div.left div.inferior div div div{
 	/*----OPCIONES----*/
-	background-color: blue;
+
+}
+main div.contenedor div.left div.inferior div div div button {
+	padding: 0;
+	cursor: pointer;
+	border: none;
+	background-color: rgba(0,0,0,0);
+}
+main div.contenedor div.left div.inferior div div div button i {
+	font-size: 1.5em;
+	margin-left: .7em;
+}
+main div.contenedor div.left div.inferior div div div button i.fa-video {
+	color: #388e3c;
+}
+main div.contenedor div.left div.inferior div div div button i.fa-ellipsis-v{
+	color: #9e9e9e;
+}
+main div.contenedor div.left div.inferior div div div button i.fa-video:hover {
+	color: #388e3c96;
+}
+main div.contenedor div.left div.inferior div div div button i.fa-ellipsis-v:hover {
+	color: #9e9e9e96;
 }
 
 main div.contenedor div.left div.inferior div h3{
