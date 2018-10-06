@@ -10,10 +10,8 @@ var flash = require('connect-flash');
 var session = require('express-session');
 var passport = require('passport');
 var mongoose = require('mongoose');
-var url = "mongodb+srv://fausto-fusse:1234@tarscluster-djpnf.gcp.mongodb.net/tars";
-//var url = "mongodb://localhost:27017/tars";
-
-mongoose.connect(url, {useNewUrlParser:true});
+//var url = "mongodb+srv://fausto-fusse:1234@tarscluster-djpnf.gcp.mongodb.net/tars";
+var url = "mongodb://localhost:27017/tars";
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -21,12 +19,15 @@ var apiRouter = require('./routes/api');
 
 var app = express();
 
+// database connection
+mongoose.connect(url, {useNewUrlParser:true});
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
 // middlewares
-app.use(logger('dev'));
+//app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());

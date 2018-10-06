@@ -1,3 +1,9 @@
+
+var socket = io();
+if (socket !== undefined){
+	console.log(socket);
+}
+
 updateFriends();
 updateRequests();
 
@@ -13,6 +19,10 @@ $('div.contenedor div.left div.superior button').click(function(event) {
 	$('button#' + id2).css('border-color', $(this).css('background-color'));
 	if (id === 'amigos')
 		updateFriends();
+});
+
+$('div:not(.usuario)').click(function(event) {
+	//$('ul').slideUp(200);
 });
 
 $('html').keyup(function(event) {
@@ -32,7 +42,6 @@ $('div.buscar div.input input').keyup(function(event) {
 		$('div.buscar div.listado div.none').css('display', 'none');
 	}
 });
-
 
 $('button#friendRequests').click(function(event) {
 	$('div.menu').css('display','flex');
@@ -71,9 +80,12 @@ function updateFriends(){
 			var opciones = $('<div><button id="videollamada"></button><button id="opciones"></button></div>')
 			var list = $('<ul></ul>');
 			list.append('<li><button id="perfil">Perfil</button></li>')
-				.append('<li><button id="eliminar">Eliminar</button></li>');
-			opciones.find('button#videollamada').append('<i class="fa fa-video"></i>');
-			opciones.find('button#opciones').append('<i class="fa fa-ellipsis-v"></i>');
+				.append('<li><button id="eliminar">Eliminar</button></li>')
+				.focus(focusOutLista);
+			list.find('button#perfil').click(botonPerfil);
+			list.find('button#eliminar').click(botonEliminar);
+			opciones.find('button#videollamada').append('<i class="fa fa-video"></i>').click(botonVideollamada);
+			opciones.find('button#opciones').append('<i class="fa fa-ellipsis-v"></i>').click(botonOpciones);
 			div.attr('id', friends[i]._id);
 			div.find('span').html(friends[i].nombre + ' ' + friends[i].apellido);
 			div.append(opciones);
@@ -140,6 +152,29 @@ function searchUsers(query){
 	},'json');
 }
 
+function focusOutLista(){
+	alert('lista');
+}
+
+function botonVideollamada(){
+	alert('video');
+}
+
+function botonOpciones(){
+	$('button#opciones ul').slideUp(200);
+	if ($(this).find('ul').css('display')==='none')
+		$(this).find('ul').slideDown(200);
+}
+
+function botonPerfil(){
+	alert('perfil');
+}
+
+function botonEliminar(){
+	var id = $(this).parent().parent().parent().parent().parent().attr('id');
+	deleteFriend(id);
+}
+
 function botonSolicitud(){
 	var div = $(this).parent().parent();
 	var id = div.attr('id');
@@ -178,15 +213,23 @@ function botonAgregar(event) {
 	}
 };
 
+function terminarMenu(){
+	$('div.buscar, div.solicitudes').animate({marginTop:'10%'}, 200, function(){
+		$('div.menu, div.menu > div').css('display', 'none');
+		$('div.menu').css('display', 'none');
+	});
+	$('div.menu div.background').css('background-color', 'rgba(30,136,229,0)');
+}
+
 function sendRequest(to){
-	$.post('/api/friends/sendReq/' + to, function(data){
+	$.post('/api/friends/requests/send/' + to, function(data){
 		console.log(data);
 	}, 'json');
 };
 
 function acceptRequest(from){
 	$.ajax({
-		url:'/api/friends/acceptReq/' + from,
+		url:'/api/friends/requests/accept/' + from,
 		type:'PUT',
 		dataType: 'JSON'
 	}).done(function(data){
@@ -197,7 +240,7 @@ function acceptRequest(from){
 
 function declineRequest(from){
 	$.ajax({
-		url:'/api/friends/declineReq/' + from,
+		url:'/api/friends/requests/decline/' + from,
 		type:'DELETE',
 		dataType: 'JSON'
 	}).done(function(data){
@@ -205,10 +248,12 @@ function declineRequest(from){
 	});
 };
 
-function terminarMenu(){
-	$('div.buscar, div.solicitudes').animate({marginTop:'10%'}, 200, function(){
-		$('div.menu, div.menu > div').css('display', 'none');
-		$('div.menu').css('display', 'none');
+function deleteFriend(id){
+	$.ajax({
+		url:'/api/friends/delete/' + id,
+		type:'DELETE',
+		dataType: 'JSON'
+	}).done(function(data){
+		console.log(data);
 	});
-	$('div.menu div.background').css('background-color', 'rgba(30,136,229,0)');
 }

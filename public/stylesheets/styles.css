@@ -225,13 +225,41 @@ main div.contenedor div.left div.inferior div div span{
 }
 main div.contenedor div.left div.inferior div div div{
 	/*----OPCIONES----*/
-
+	border-left: 2px solid #eee;
 }
 main div.contenedor div.left div.inferior div div div button {
 	padding: 0;
 	cursor: pointer;
 	border: none;
 	background-color: rgba(0,0,0,0);
+}
+main div.contenedor div.left div.inferior div div div button#opciones {
+	position: relative;
+}
+main div.contenedor div.left div.inferior div div div button ul{
+	position: absolute;
+	z-index: 1;
+	margin: 0;
+	padding: 0;
+	top: 100%;
+	right: 0;
+	background-color: #eee;
+	box-shadow: 3px 3px 13px -3px rgba(0,0,0,0.75);
+	list-style: none;
+	display: none;
+}
+main div.contenedor div.left div.inferior div div div button ul li {
+	
+}
+main div.contenedor div.left div.inferior div div div button ul li button{
+	padding:.4em;
+	font-size: 1.1em;
+	width: 100%;
+	color: #424242;
+	text-align: right;
+}
+main div.contenedor div.left div.inferior div div div button ul li button:hover{
+	background-color: #bdbdbd;	
 }
 main div.contenedor div.left div.inferior div div div button i {
 	font-size: 1.5em;
@@ -287,6 +315,7 @@ main div.contenedor div.videollamada h2{
 /*--------------------------------------------------------------------------------------------------*/
 
 div.menu {
+	z-index: 2;
 	position: fixed;
 	width: 100%;
 	height: 100%;
@@ -301,6 +330,7 @@ div.menu div.buscar, div.menu div.solicitudes {
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: center;
+	max-height: 80%;
 } 
 div.menu div.background {
 	position: fixed;

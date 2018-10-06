@@ -43,3 +43,9 @@ module.exports.comparePassword = function (candidatePassword, hash, callback){
         callback(null, isMatch);
     });
 };
+
+module.exports.deleteFriend = function(user1, user2, callback){
+    User.update({_id:user1}, {$pull: { friends: { _id: user2 } }}, function(err, raw){
+        User.update({_id:user2}, {$pull: { friends: { _id: user1 } }}, callback);
+    });
+}

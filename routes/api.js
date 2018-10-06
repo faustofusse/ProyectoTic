@@ -10,12 +10,6 @@ router.get('/friends', function(req,res,next){
     res.send(req.user.friends);
 });
 
-router.get('/friendrequests', function(req,res,next){
-  FriendRequest.find({to:req.user._id}, function(err, results){
-
-  });
-});
-
 router.get('/friends/requests', function(req, res, next){
     FriendRequest.find({to:req.user._id}, function(err, results){
         var requests = [];
@@ -37,7 +31,7 @@ router.get('/friends/requests', function(req, res, next){
     });
 });
 
-router.post('/friends/sendReq/:id', function(req,res,next){
+router.post('/friends/requests/send/:id', function(req,res,next){
   var idFrom = req.user._id;
   var idTo = req.params.id;
   FriendRequest.newFR(idFrom, idTo, function(err, fr){ 
@@ -48,7 +42,7 @@ router.post('/friends/sendReq/:id', function(req,res,next){
   });
 });
 
-router.put('/friends/acceptReq/:id', function(req,res,next){
+router.put('/friends/requests/accept/:id', function(req,res,next){
   var idTo = req.user._id;
   var idFrom = req.params.id;
   FriendRequest.acceptFR(idFrom, idTo, function(err, fr){
@@ -59,7 +53,7 @@ router.put('/friends/acceptReq/:id', function(req,res,next){
   });
 });
 
-router.delete('/friends/declineReq/:id', function(req,res,next){
+router.delete('/friends/requests/decline/:id', function(req,res,next){
   var idTo = req.user._id;
   var idFrom = req.params.id;
   FriendRequest.declineFR(idFrom, idTo, function(err){
@@ -71,42 +65,42 @@ router.delete('/friends/declineReq/:id', function(req,res,next){
 });
 
 router.get('/search/:query', function(req, res, next){
-    var busqueda = req.params.query;
-    var user = req.user;
-    busqueda = busqueda.toLowerCase().replace(/\s/g, '');
-    User.find(function(err, usuarios){
-      FriendRequest.find(function(err, friendRequests){
-        var resultados = []; 
-        for (var i = 0; i<usuarios.length; i++){
-          var nombre = (usuarios[i].nombre + usuarios[i].apellido).toLowerCase().replace(/\s/g, '');
-          if (nombre.indexOf(busqueda) !== -1){
-            var request = getRequestStatus(user._id, usuarios[i]._id, user.friends, friendRequests);
-            resultados.push({_id:usuarios[i]._id, 
-              nombre:usuarios[i].nombre, 
-              apellido:usuarios[i].apellido,
-              request:request
-            });
-          }
+  var busqueda = req.params.query;
+  var user = req.user;
+  busqueda = busqueda.toLowerCase().replace(/\s/g, '');
+  User.find(function(err, usuarios){
+    FriendRequest.find(function(err, friendRequests){
+      var resultados = []; 
+      for (var i = 0; i<usuarios.length; i++){
+        var nombre = (usuarios[i].nombre + usuarios[i].apellido).toLowerCase().replace(/\s/g, '');
+        if (nombre.indexOf(busqueda) !== -1){
+          var request = getRequestStatus(user._id, usuarios[i]._id, user.friends, friendRequests);
+          resultados.push({_id:usuarios[i]._id, 
+            nombre:usuarios[i].nombre, 
+            apellido:usuarios[i].apellido,
+            request:request
+          });
         }
-        res.send({
-          user:{_id:req.user._id},
-          resultados:resultados});
-      });
+      }
+      res.send({
+        user:{_id:req.user._id},
+        resultados:resultados});
     });
   });
-  
-  function getRequestStatus(myId, id, friends, friendRequests){
-    for (var i = 0; i<friends.length; i++){
-      if (friends[i]._id == id)
-        return 'friend';        
-    }
-    for (var i = 0; i<friendRequests.length; i++){
-      if (friendRequests[i].from == id && friendRequests[i].to == myId)
-        return 'received';
-      if (friendRequests[i].from == myId && friendRequests[i].to == id)
-        return 'sent';
-    }
-    return 'none';
+});
+
+function getRequestStatus(myId, id, friends, friendRequests){
+  for (var i = 0; i<friends.length; i++){
+    if (friends[i]._id == id)
+      return 'friend';        
   }
-  
-  module.exports = router;
+  for (var i = 0; i<friendRequests.length; i++){
+    if (friendRequests[i].from == id && friendRequests[i].to == myId)
+      return 'received';
+    if (friendRequests[i].from == myId && friendRequests[i].to == id)
+      return 'sent';
+  }
+  return 'none';
+}
+
+module.exports = router;
