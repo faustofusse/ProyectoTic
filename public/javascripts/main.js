@@ -1,11 +1,25 @@
-
-var socket = io();
-if (socket !== undefined){
-	console.log(socket);
-}
+// ------------------------------------------------- INICIALIZAR
 
 updateFriends();
 updateRequests();
+
+// ------------------------------------------------- SIMPLE PEER
+
+
+
+function botonVideollamada(){
+	alert('video');
+	var otherPeer = JSON.parse($('textarea').val());
+	peer.signal(otherPeer);	
+
+}
+
+// ------------------------------------------------- SOCKETS
+
+/*var socket = io();
+if (socket !== undefined){
+	console.log(socket);
+}*/
 
 // ------------------------------------------------- EVENTS
 
@@ -21,13 +35,11 @@ $('div.contenedor div.left div.superior button').click(function(event) {
 		updateFriends();
 });
 
-$('div:not(.usuario)').click(function(event) {
-	//$('ul').slideUp(200);
-});
-
 $('html').keyup(function(event) {
-	if (event.keyCode === 27) 
+	if (event.keyCode === 27) {
 		terminarMenu();
+		peer.send("Atende.");
+	}
 });
 
 $('div.solicitudes div.superior button, div.menu div.background').click(function(event) {
@@ -80,8 +92,7 @@ function updateFriends(){
 			var opciones = $('<div><button id="videollamada"></button><button id="opciones"></button></div>')
 			var list = $('<ul></ul>');
 			list.append('<li><button id="perfil">Perfil</button></li>')
-				.append('<li><button id="eliminar">Eliminar</button></li>')
-				.focus(focusOutLista);
+				.append('<li><button id="eliminar">Eliminar</button></li>');
 			list.find('button#perfil').click(botonPerfil);
 			list.find('button#eliminar').click(botonEliminar);
 			opciones.find('button#videollamada').append('<i class="fa fa-video"></i>').click(botonVideollamada);
@@ -152,13 +163,7 @@ function searchUsers(query){
 	},'json');
 }
 
-function focusOutLista(){
-	alert('lista');
-}
 
-function botonVideollamada(){
-	alert('video');
-}
 
 function botonOpciones(){
 	$('button#opciones ul').slideUp(200);
