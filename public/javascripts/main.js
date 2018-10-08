@@ -5,8 +5,11 @@ updateRequests();
 
 // -------------------------------------------------  PEER JS
 
-
-var peer = new Peer();
+var peer = new Peer({
+ 	host: location.hostname,
+	port: location.port || (location.protocol === 'https:' ? 443 : 80),
+	path: '/peerjs'
+});
 
 peer.on('open', function(id) {
 	console.log('My peer ID is: ' + id);
