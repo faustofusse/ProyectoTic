@@ -14,20 +14,33 @@ peer.on('open', function(id) {
 peer.on('call', function(call) {
 	var otherId = call.peer;
 	console.log('Call from ' + otherId);
-	navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-	navigator.getUserMedia({audio: true, video: true}, function(stream){
+
+	getUserVideo(function(localStream) {
+		call.answer(localStream);
+	});
+
+	//navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia /*|| navigator.mozGetUserMedia*/;
+	/*navigator.getUserMedia({audio: true, video: true}, function(stream){
 		window.localStream = stream;
 		call.answer(stream);
 	}, function(){
 		alert("Error! Make sure to click allow when asked for permission by the browser");
-	});
+	});*/
 });
 
 function botonVideollamada(){
 	var otherId = $(this).attr('id');
 	console.log('Calling '+otherId+'....');
-	navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-	navigator.getUserMedia({audio: true, video: true}, function(stream){
+	getUserVideo(function(localStream) {
+		var call = peer.call(otherId, localStream);
+		call.on('stream', function (stream) {
+			console.log('call answered.');
+			console.log(stream);
+		});
+	});
+	
+	//navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia/* || navigator.mozGetUserMedia*/;
+	/*navigator.getUserMedia({audio: true, video: true}, function(stream){
 		window.localStream = stream;
 		var call = peer.call(otherId, stream);
 		call.on('stream', function (stream) {
@@ -36,21 +49,17 @@ function botonVideollamada(){
 		});
 	}, function(){
 		alert("Error! Make sure to click allow when asked for permission by the browser");
-	});
+	});*/
 }
 
 function getUserVideo(callback) {
-	// select the right getUserMedia (deprecated)
-	navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+	navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia /*|| navigator.mozGetUserMedia*/;
 	navigator.getUserMedia({audio: true, video: true}, function(stream){
 		window.localStream = stream;
-		var call = peer.call(otherId, stream);
-		call.on('stream', function (stream) {
-			console.log('call answered.');
-			console.log(stream);
-		});
-	}, function(){
-		alert("Error! Make sure to click allow when asked for permission by the browser");
+		callback(stream);
+	}, function(e){
+		alert(e);
+		//alert("Error! Make sure to click allow when asked for permission by the browser");
 	});
 };
 
