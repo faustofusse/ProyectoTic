@@ -14,7 +14,7 @@ peer.on('open', function(id) {
 peer.on('call', function(call) {
 	var otherId = call.peer;
 	console.log('Call from ' + otherId);
-
+	call.answer(window.localStream);
 	getUserVideo(function(localStream) {
 		call.answer(localStream);
 	});
