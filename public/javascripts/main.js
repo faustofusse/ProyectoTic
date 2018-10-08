@@ -5,22 +5,54 @@ updateRequests();
 
 // -------------------------------------------------  PEER JS
 
-var peer = new Peer({
- 	host: location.hostname,
-	port: location.port || (location.protocol === 'https:' ? 443 : 80),
-	path: '/peerjs'
-});
+var peer = new Peer(userId, {host: location.hostname, port: 9000, path: '/tars'});
 
 peer.on('open', function(id) {
 	console.log('My peer ID is: ' + id);
 });
 
-function botonVideollamada(){
-	alert('video');
-	var otherPeer = JSON.parse($('textarea').val());
-	peer.signal(otherPeer);	
+peer.on('call', function(call) {
+	var otherId = call.peer;
+	console.log('Call from ' + otherId);
+	navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+	navigator.getUserMedia({audio: true, video: true}, function(stream){
+		window.localStream = stream;
+		call.answer(stream);
+	}, function(){
+		alert("Error! Make sure to click allow when asked for permission by the browser");
+	});
+});
 
+function botonVideollamada(){
+	var otherId = $(this).attr('id');
+	console.log('Calling '+otherId+'....');
+	navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+	navigator.getUserMedia({audio: true, video: true}, function(stream){
+		window.localStream = stream;
+		var call = peer.call(otherId, stream);
+		call.on('stream', function (stream) {
+			console.log('call answered.');
+			console.log(stream);
+		});
+	}, function(){
+		alert("Error! Make sure to click allow when asked for permission by the browser");
+	});
 }
+
+function getUserVideo(callback) {
+	// select the right getUserMedia (deprecated)
+	navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+	navigator.getUserMedia({audio: true, video: true}, function(stream){
+		window.localStream = stream;
+		var call = peer.call(otherId, stream);
+		call.on('stream', function (stream) {
+			console.log('call answered.');
+			console.log(stream);
+		});
+	}, function(){
+		alert("Error! Make sure to click allow when asked for permission by the browser");
+	});
+};
 
 // ------------------------------------------------- SOCKETS
 
@@ -103,7 +135,7 @@ function updateFriends(){
 				.append('<li><button id="eliminar">Eliminar</button></li>');
 			list.find('button#perfil').click(botonPerfil);
 			list.find('button#eliminar').click(botonEliminar);
-			opciones.find('button#videollamada').append('<i class="fa fa-video"></i>').click(botonVideollamada);
+			opciones.find('button#videollamada').append('<i class="fa fa-video"></i>').attr('id', friends[i]._id).click(botonVideollamada);
 			opciones.find('button#opciones').append('<i class="fa fa-ellipsis-v"></i>').click(botonOpciones);
 			div.attr('id', friends[i]._id);
 			div.find('span').html(friends[i].nombre + ' ' + friends[i].apellido);
