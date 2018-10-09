@@ -14,12 +14,12 @@ peer.on('open', function(id) {
 peer.on('call', function(call) {
 	var otherId = call.peer;
 	console.log('Call from ' + otherId);
-	call.answer(localStream);
+	call.answer(window.localStream);
+	console.log('Call answered.');
+	call.on('stream', function(stream) {
+		console.log(stream);
+	});
 	getUserVideo(function(localStream) {
-		console.log('Call answered.');
-		call.on('stream', function(stream) {
-			console.log(stream);
-		});
 	});
 });
 
