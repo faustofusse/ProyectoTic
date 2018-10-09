@@ -1,3 +1,16 @@
+/*#container {
+    margin: 0px auto;
+    width: 500px;
+    height: 375px;
+    border: 10px #333 solid;
+}
+#videoElement {
+    width: 500px;
+    height: 375px;
+    background-color: #666;
+}*/
+
+
 *{
 	font-family: 'Amaranth';
 }
@@ -292,12 +305,26 @@ main div.contenedor div.left div.inferior div h3{
 }
 
 main div.contenedor div.videollamada{
+	position: relative;
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
 	width: 65%;
 	background-color: #e0e0e0;
 	border: 1px solid #9e9e9e; 
+	background-color: #000;
+}
+
+main div.contenedor div.videollamada video#videoFriend {
+	width: 100%;
+	height: 100%;
+}
+
+main div.contenedor div.videollamada video#videoUser {
+	height: 25%;
+	position: absolute;
+	right: 4%;
+	bottom: 4%;
 }
 
 main div.contenedor div.videollamada h2{
@@ -305,6 +332,7 @@ main div.contenedor div.videollamada h2{
 	font-weight: bold;
 	font-style: italic;
 	font-size: 2em;
+	display: none;
 }
 
 

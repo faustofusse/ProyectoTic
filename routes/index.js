@@ -5,7 +5,6 @@ var mongoose = require('mongoose');
 var User = require('../models/user');
 var FriendRequest = require('../models/friendRequest');
 
-/* GET home page. */
 router.get('/', ensureAuthenticated, function(req, res, next) {
   res.render('index');
 });

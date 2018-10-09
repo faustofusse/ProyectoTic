@@ -5,6 +5,14 @@ updateRequests();
 
 // -------------------------------------------------  PEER JS
 
+var videoFriend = document.querySelector('#videoFriend');
+var videoUser = document.querySelector('#videoUser');
+
+getUserVideo(function(stream) {
+	videoFriend.srcObject = stream;
+	videoUser.srcObject = stream;
+});
+
 var peer = new Peer(userId, {host: location.hostname, port: 9000, path: '/tars'});
 
 peer.on('open', function(id) {
@@ -14,46 +22,48 @@ peer.on('open', function(id) {
 peer.on('call', function(call) {
 	var otherId = call.peer;
 	console.log('Call from ' + otherId);
-	call.answer(window.localStream);
-	console.log('Call answered.');
+	
 	call.on('stream', function(stream) {
-		console.log(stream);
+		console.log('stream detected.');
+		getUserVideo(function(localStream) {
+			call.answer(localStream);
+			videoUser.srcObject = localStream;
+			videoFriend.srcObject = stream;
+			console.log('Call answered.');
+		});
 	});
-	getUserVideo(function(localStream) {
-	});
+	
 });
 
 function botonVideollamada(){
 	var otherId = $(this).attr('id');
-	console.log('Calling '+otherId+'....');
 	getUserVideo(function(localStream) {
+		console.log('Calling '+otherId+'....');
 		var call = peer.call(otherId, localStream);
 		call.on('stream', function (stream) {
-			console.log('call answered.');
-			console.log(stream);
+			call.answer(localStream);
+			videoUser.srcObject = localStream;
+			videoFriend.srcObject = stream;
+			console.log('Call answered.');
 		});
 	});
 }
 
 function getUserVideo(callback) {
-	//navigator.mediaDevices.getUserMedia = navigator.mediaDevices.getUserMedia || navigator.mediaDevices.webkitGetUserMedia;
-	navigator.mediaDevices.getUserMedia({audio:true, video:true}).then(function(mediaStream) {
-	  /* usar el flujo de datos */
-	  window.localStream = mediaStream;
-		callback(mediaStream);
-	}).catch(function(err) {
-	  /* manejar el error */
-	  alert(err);
-	});
-	
-	/*navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-	navigator.getUserMedia({audio: true, video: true}, function(stream){
-		window.localStream = stream;
-		callback(stream);
-	}, function(e){
-		alert(e);
-		//alert("Error! Make sure to click allow when asked for permission by the browser");
-	});*/
+	var video = document.querySelector("#videoUser");
+ 
+	navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+	if (navigator.mediaDevices.getUserMedia) {       
+	    navigator.mediaDevices.getUserMedia({video: true})
+	  .then(function(stream) {
+	  	callback(stream);
+	    //video.srcObject = stream;
+	  })
+	  .catch(function(error) {
+	    console.log("Something went wrong!");
+	    console.error(error);
+	  });
+	}
 }
 
 // ------------------------------------------------- SOCKETS
