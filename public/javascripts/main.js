@@ -23,15 +23,19 @@ peer.on('call', function(call) {
 	var otherId = call.peer;
 	console.log('Call from ' + otherId);
 	
+	getUserVideo(function(localStream) {
+		call.answer(localStream);
+		videoUser.srcObject = localStream;
+		videoFriend.srcObject = stream;
+	});
+
 	call.on('stream', function(stream) {
 		console.log('stream detected.');
-		getUserVideo(function(localStream) {
-			call.answer(localStream);
-			videoUser.srcObject = localStream;
-			videoFriend.srcObject = stream;
-			console.log('Call answered.');
-		});
 	});
+
+	call.on('open', function() {
+		console.log('Call answered.');
+	})
 	
 });
 
@@ -39,13 +43,11 @@ function botonVideollamada(){
 	var otherId = $(this).attr('id');
 	getUserVideo(function(localStream) {
 		console.log('Calling '+otherId+'....');
-		var call = peer.call(otherId, localStream);
-		call.on('stream', function (stream) {
-			call.answer(localStream);
-			videoUser.srcObject = localStream;
-			videoFriend.srcObject = stream;
-			console.log('Call answered.');
-		});
+		try{
+			var call = peer.call(otherId, localStream);	
+		}catch (e){
+			console.error(e);
+		}
 	});
 }
 
