@@ -55,10 +55,7 @@ function getUserVideo(callback) {
 	navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 	if (navigator.mediaDevices.getUserMedia) {       
 	    navigator.mediaDevices.getUserMedia({video: true})
-	  .then(function(stream) {
-	  	callback(stream);
-	    //video.srcObject = stream;
-	  })
+	  .then(callback)
 	  .catch(function(error) {
 	    console.log("Something went wrong!");
 	    console.error(error);
