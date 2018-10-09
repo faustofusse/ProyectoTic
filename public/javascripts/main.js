@@ -14,18 +14,13 @@ peer.on('open', function(id) {
 peer.on('call', function(call) {
 	var otherId = call.peer;
 	console.log('Call from ' + otherId);
-	call.answer(window.localStream);
+	call.answer(localStream);
 	getUserVideo(function(localStream) {
-		call.answer(localStream);
+		console.log('Call answered.');
+		call.on('stream', function(stream) {
+			console.log(stream);
+		});
 	});
-
-	//navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia /*|| navigator.mozGetUserMedia*/;
-	/*navigator.getUserMedia({audio: true, video: true}, function(stream){
-		window.localStream = stream;
-		call.answer(stream);
-	}, function(){
-		alert("Error! Make sure to click allow when asked for permission by the browser");
-	});*/
 });
 
 function botonVideollamada(){
@@ -38,30 +33,28 @@ function botonVideollamada(){
 			console.log(stream);
 		});
 	});
-	
-	//navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia/* || navigator.mozGetUserMedia*/;
-	/*navigator.getUserMedia({audio: true, video: true}, function(stream){
-		window.localStream = stream;
-		var call = peer.call(otherId, stream);
-		call.on('stream', function (stream) {
-			console.log('call answered.');
-			console.log(stream);
-		});
-	}, function(){
-		alert("Error! Make sure to click allow when asked for permission by the browser");
-	});*/
 }
 
 function getUserVideo(callback) {
-	navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia /*|| navigator.mozGetUserMedia*/;
+	//navigator.mediaDevices.getUserMedia = navigator.mediaDevices.getUserMedia || navigator.mediaDevices.webkitGetUserMedia;
+	navigator.mediaDevices.getUserMedia({audio:true, video:true}).then(function(mediaStream) {
+	  /* usar el flujo de datos */
+	  window.localStream = mediaStream;
+		callback(mediaStream);
+	}).catch(function(err) {
+	  /* manejar el error */
+	  alert(err);
+	});
+	
+	/*navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 	navigator.getUserMedia({audio: true, video: true}, function(stream){
 		window.localStream = stream;
 		callback(stream);
 	}, function(e){
 		alert(e);
 		//alert("Error! Make sure to click allow when asked for permission by the browser");
-	});
-};
+	});*/
+}
 
 // ------------------------------------------------- SOCKETS
 
