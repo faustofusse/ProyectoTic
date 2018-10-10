@@ -9,6 +9,7 @@ var videoFriend = document.querySelector('#videoFriend');
 var videoUser = document.querySelector('#videoUser');
 
 getUserVideo(function(stream) {
+	window.localStream = stream;
 	videoFriend.srcObject = stream;
 	videoUser.srcObject = stream;
 });
@@ -19,18 +20,23 @@ peer.on('open', function(id) {
 	console.log('My peer ID is: ' + id);
 });
 
+peer.on('error', function(err) {
+	console.error(err);
+});
+
 peer.on('call', function(call) {
 	var otherId = call.peer;
 	console.log('Call from ' + otherId);
 	
 	getUserVideo(function(localStream) {
+		window.localStream = localStream;
 		call.answer(localStream);
-		videoUser.srcObject = localStream;
-		videoFriend.srcObject = stream;
 	});
 
 	call.on('stream', function(stream) {
 		console.log('stream detected.');
+		videoUser.srcObject = window.localStream;
+		videoFriend.srcObject = stream;
 	});
 
 	call.on('open', function() {
@@ -41,14 +47,12 @@ peer.on('call', function(call) {
 
 function botonVideollamada(){
 	var otherId = $(this).attr('id');
-	getUserVideo(function(localStream) {
-		console.log('Calling '+otherId+'....');
-		try{
-			var call = peer.call(otherId, localStream);	
-		}catch (e){
-			console.error(e);
-		}
-	});
+	console.log('Calling '+otherId+'....');
+	var call = peer.call(otherId, window.localStream);	
+	console.log(call);
+	/*call.on('stream', function(stream){
+		console.log('stream received');
+	});*/
 }
 
 function getUserVideo(callback) {
