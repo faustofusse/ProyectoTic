@@ -34,7 +34,7 @@ peer.on('call', function(call) {
 	});
 
 	call.on('stream', function(stream) {
-		console.log('Stream detected.');
+		console.log('stream detected.');
 		onStream(call.localStream, call.remoteStream);
 	});
 
@@ -47,11 +47,10 @@ peer.on('call', function(call) {
 function botonVideollamada(){
 	var otherId = $(this).attr('id');
 	console.log('Calling '+otherId+'....');
-
 	var call = peer.call(otherId, window.localStream);	
 	
 	call.on('stream', function(stream){
-		console.log('Stream detected.');
+		console.log('stream detected.');
 		onStream(call.localStream, call.remoteStream);
 	});
 }
