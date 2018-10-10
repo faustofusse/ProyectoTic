@@ -8,12 +8,12 @@ updateRequests();
 var videoFriend = document.querySelector('#videoFriend');
 var videoUser = document.querySelector('#videoUser');
 
-/*getUserVideo(function(stream) {
+getUserVideo(function(stream) {
 	window.localStream = stream;
 	videoFriend.srcObject = stream;
 	videoUser.srcObject = stream;
 });
-*/
+
 var peer = new Peer(userId, {host: location.hostname, port: 9000, path: '/tars'});
 
 peer.on('open', function(id) {
@@ -41,45 +41,19 @@ peer.on('call', function(call) {
 	call.on('open', function() {
 		console.log('Call answered.');
 	});
-
-	call.on('close', onClose);
-	call.on('error', onError);
+	
 });
-
-function atender(call){
-	getUserVideo(function(localStream) {
-		window.localStream = localStream;
-		call.answer(localStream);
-	});
-}
-
-function declinar(call){
-	call.close();
-}
-
-function onClose(){
-
-}
-
-function onError(err) {
-	console.error(err);
-}
 
 function botonVideollamada(){
 	var otherId = $(this).attr('id');
 	console.log('Calling '+otherId+'....');
 
-	getUserVideo(function(stream) {
-		var call = peer.call(otherId, stream);	
-	});
-
+	var call = peer.call(otherId, window.localStream);	
+	
 	call.on('stream', function(stream){
 		console.log('Stream detected.');
 		onStream(call.localStream, call.remoteStream);
 	});
-	
-	call.on('close', onClose);
-	call.on('error', onError);
 }
 
 function onStream(localStream, remoteStream){
