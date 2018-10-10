@@ -35,13 +35,12 @@ peer.on('call', function(call) {
 
 	call.on('stream', function(stream) {
 		console.log('stream detected.');
-		videoUser.srcObject = window.localStream;
-		videoFriend.srcObject = stream;
+		onStream(call.localStream, call.remoteStream);
 	});
 
 	call.on('open', function() {
 		console.log('Call answered.');
-	})
+	});
 	
 });
 
@@ -49,10 +48,16 @@ function botonVideollamada(){
 	var otherId = $(this).attr('id');
 	console.log('Calling '+otherId+'....');
 	var call = peer.call(otherId, window.localStream);	
-	console.log(call);
-	/*call.on('stream', function(stream){
-		console.log('stream received');
-	});*/
+	
+	call.on('stream', function(stream){
+		console.log('stream detected.');
+		onStream(call.localStream, call.remoteStream);
+	});
+}
+
+function onStream(localStream, remoteStream){
+	videoUser.srcObject = localStream;
+	videoFriend.srcObject = remoteStream;
 }
 
 function getUserVideo(callback) {
@@ -60,7 +65,7 @@ function getUserVideo(callback) {
  
 	navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 	if (navigator.mediaDevices.getUserMedia) {       
-	    navigator.mediaDevices.getUserMedia({video: true})
+	    navigator.mediaDevices.getUserMedia({video: true, audio:true})
 	  .then(callback)
 	  .catch(function(error) {
 	    console.log("Something went wrong!");
