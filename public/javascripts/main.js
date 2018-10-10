@@ -69,8 +69,10 @@ function botonVideollamada(){
 	var otherId = $(this).attr('id');
 	console.log('Calling '+otherId+'....');
 
-	var call = peer.call(otherId, window.localStream);	
-	
+	getUserVideo(function(stream) {
+		var call = peer.call(otherId, stream);	
+	});
+
 	call.on('stream', function(stream){
 		console.log('Stream detected.');
 		onStream(call.localStream, call.remoteStream);
