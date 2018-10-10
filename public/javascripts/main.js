@@ -28,10 +28,7 @@ peer.on('call', function(call) {
 	var otherId = call.peer;
 	console.log('Call from ' + otherId);
 	
-	getUserVideo(function(localStream) {
-		window.localStream = localStream;
-		call.answer(localStream);
-	});
+	atender(call);
 
 	call.on('stream', function(stream) {
 		console.log('Stream detected.');
@@ -41,8 +38,29 @@ peer.on('call', function(call) {
 	call.on('open', function() {
 		console.log('Call answered.');
 	});
-	
+
+	call.on('close', onClose);
+	call.on('error', onError);
 });
+
+function atender(call){
+	getUserVideo(function(localStream) {
+		window.localStream = localStream;
+		call.answer(localStream);
+	});
+}
+
+function declinar(call){
+	call.close();
+}
+
+function onClose(){
+
+}
+
+function onError(err) {
+	console.error(err);
+}
 
 function botonVideollamada(){
 	var otherId = $(this).attr('id');
@@ -54,6 +72,9 @@ function botonVideollamada(){
 		console.log('Stream detected.');
 		onStream(call.localStream, call.remoteStream);
 	});
+	
+	call.on('close', onClose);
+	call.on('error', onError);
 }
 
 function onStream(localStream, remoteStream){
