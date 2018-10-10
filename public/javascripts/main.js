@@ -8,12 +8,12 @@ updateRequests();
 var videoFriend = document.querySelector('#videoFriend');
 var videoUser = document.querySelector('#videoUser');
 
-getUserVideo(function(stream) {
+/*getUserVideo(function(stream) {
 	window.localStream = stream;
 	videoFriend.srcObject = stream;
 	videoUser.srcObject = stream;
 });
-
+*/
 var peer = new Peer(userId, {host: location.hostname, port: 9000, path: '/tars'});
 
 peer.on('open', function(id) {
@@ -28,7 +28,10 @@ peer.on('call', function(call) {
 	var otherId = call.peer;
 	console.log('Call from ' + otherId);
 	
-	atender(call);
+	getUserVideo(function(localStream) {
+		window.localStream = localStream;
+		call.answer(localStream);
+	});
 
 	call.on('stream', function(stream) {
 		console.log('Stream detected.');
