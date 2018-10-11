@@ -8,11 +8,11 @@ updateRequests();
 var videoFriend = document.querySelector('#videoFriend');
 var videoUser = document.querySelector('#videoUser');
 
-getUserVideo(function(stream) {
+/*getUserVideo(function(stream) {
 	window.localStream = stream;
 	videoFriend.srcObject = stream;
 	videoUser.srcObject = stream;
-});
+});*/
 
 var peer = new Peer(userId, {host: location.hostname, port: 9000, path: '/tars'});
 
@@ -28,41 +28,42 @@ peer.on('call', function(call) {
 	var otherId = call.peer;
 	console.log('Call from ' + otherId);
 	
-	getUserVideo(function(localStream) {
-		window.localStream = localStream;
-		call.answer(localStream);
-	});
+	getUserVideo(function(stream) {
+		window.localStream = stream;
+		call.answer(stream);
 
-	call.on('stream', function(stream) {
-		console.log('stream detected.');
-		onStream(call.localStream, call.remoteStream);
-	});
-
-	call.on('open', function() {
-		console.log('Call answered.');
-	});
-	
+		call.on('stream', onStream);
+		call.on('error', onError);
+		call.on('close', onClose);
+	});	
 });
 
 function botonVideollamada(){
 	var otherId = $(this).attr('id');
 	console.log('Calling '+otherId+'....');
-	var call = peer.call(otherId, window.localStream);	
-	
-	call.on('stream', function(stream){
-		console.log('stream detected.');
-		onStream(call.localStream, call.remoteStream);
+
+	getUserVideo(function (stream) {
+		window.localStream = stream;
+		var call = peer.call(otherId, stream);	
+		
+		call.on('stream', onStream);
+		call.on('error', onError);
+		call.on('close', onClose);
 	});
 }
 
-function onStream(localStream, remoteStream){
-	videoUser.srcObject = localStream;
-	videoFriend.srcObject = remoteStream;
+function onStream(stream){
+	videoUser.srcObject = window.localStream;
+	videoFriend.srcObject = stream;
+}
+function onError(err) {
+	console.error(err);
+}
+function onClose() {
+	console.log('Call ended.');
 }
 
 function getUserVideo(callback) {
-	var video = document.querySelector("#videoUser");
- 
 	navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 	if (navigator.mediaDevices.getUserMedia) {       
 	    navigator.mediaDevices.getUserMedia({video: true, audio:true})
