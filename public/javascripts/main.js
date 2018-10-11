@@ -20,39 +20,58 @@ peer.on('open', function(id) {
 	console.log('My peer ID is: ' + id);
 });
 
-peer.on('error', function(err) {
-	console.error(err);
-});
+peer.on('error', onError);
 
 peer.on('call', function(call) {
+	$('div.videollamada div.llamando').css('display', 'flex');
+	$('div.videollamada div.llamando button#atender').css('display', 'flex');
+	$('div.videollamada h2').css('display', 'none');
+
 	var otherId = call.peer;
 	console.log('Call from ' + otherId);
-	
-	getUserVideo(function(stream) {
-		window.localStream = stream;
-		call.answer(stream);
-
-		call.on('stream', onStream);
-		call.on('error', onError);
-		call.on('close', onClose);
-	});	
+	window.currentCall = call;
 });
 
 function botonVideollamada(){
 	var otherId = $(this).attr('id');
+	var nombre = $(this).parent().parent().find('span').html();
 	console.log('Calling '+otherId+'....');
 
 	getUserVideo(function (stream) {
+		$('div.videollamada div.llamando').css('display', 'flex');
+		$('div.videollamada div.llamando button#atender').css('display', 'none');
+		$('div.videollamada div.llamando h3').html('Llamando a ' + nombre + '....');
+		$('div.videollamada h2').css('display', 'none');
+
 		window.localStream = stream;
 		var call = peer.call(otherId, stream);	
-		
+		window.currentCall = call;
 		call.on('stream', onStream);
 		call.on('error', onError);
 		call.on('close', onClose);
 	});
 }
 
+function atender() {
+	getUserVideo(function(stream) {
+		window.localStream = stream;
+		var call = window.currentCall;
+		call.answer(stream);
+		call.on('stream', onStream);
+		call.on('error', onError);
+		call.on('close', onClose);
+	});	
+	$('div.videollamada div.llamando').css('display', 'none');
+}
+function declinar() {
+	window.currentCall.close();
+	$('div.videollamada div.llamando').css('display', 'none');
+	$('div.videollamada h2').css('display', 'flex');
+}
 function onStream(stream){
+	$('div.videollamada div.conferencia').css('display', 'flex');
+	$('div.videollamada div.llamando').css('display', 'none');
+	$('div.videollamada h2').css('display', 'none');
 	videoUser.srcObject = window.localStream;
 	videoFriend.srcObject = stream;
 }
@@ -61,6 +80,8 @@ function onError(err) {
 }
 function onClose() {
 	console.log('Call ended.');
+	$('div.videollamada div.conferencia').css('display', 'none');
+	$('div.videollamada h2').css('display', 'flex');
 }
 
 function getUserVideo(callback) {
@@ -83,6 +104,9 @@ if (socket !== undefined){
 }*/
 
 // ------------------------------------------------- EVENTS
+
+$('div.videollamada div.llamando div.opciones button#atender').click(atender);
+$('div.videollamada div.llamando div.opciones button#declinar').click(declinar);
 
 $('div.contenedor div.left div.superior button').click(function(event) {
 	var id = $(this).attr('id');
