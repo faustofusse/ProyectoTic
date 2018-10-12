@@ -47,10 +47,12 @@ peerserver.on('disconnect', function(id) {
  * Sockets.
  */
 
+/*
 var io = require('socket.io')(server);
 var sockets = require('../sockets/sockets');
 
 io.on('connection', sockets.connection);
+*/
 
 /**
  * Listen on provided port, on all network interfaces.
