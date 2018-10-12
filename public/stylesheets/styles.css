@@ -10,6 +10,19 @@
     background-color: #666;
 }*/
 
+:root {
+	--bg: #1565c0;
+	--bg-dark: #0d47a1;
+	--title: #42a5f5;
+	--navbar: #00897b;
+	--navbar-hover: #009688;
+	--menu: rgba(30,136,229,0);
+	--videocall: #388e3c;
+	--green: #00c853;
+	--red: #d32f2f;
+	--yellow: #fdd835;
+	--grey: #bdbdbd;
+}
 
 *{
 	font-family: 'Amaranth';
@@ -35,7 +48,7 @@ body.blockScroll {
 button:focus, button:active, input:focus, input:active{outline: none;}
 
 body > div.background{
-	background-color: #1565c0;
+	background-color: var(--bg);
 	position: absolute;
 	width: 100%;
 	height: 37%;
@@ -72,8 +85,7 @@ header h1 {
 	margin: 0;
 	padding: 0 .5em;
 	font-size: 4em;
-	/*color: #d32f2f;*/
-	color: #42a5f5;
+	color: var(--title);
 }
 
 
@@ -96,7 +108,7 @@ main {
 }
 
 main > nav {
-	background-color: #00897b;
+	background-color: var(--navbar);
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
@@ -112,7 +124,7 @@ main > nav div.usuario{
 main > nav div.usuario div.estado {
 	width: .7em;
 	height: .7em;
-	background-color: #00c853;
+	background-color: var(--green);
 	border-radius: 50%;
 	margin: 1em 0;
 	cursor: pointer;
@@ -143,7 +155,7 @@ main > nav > div.opciones button, main nav button#menu{
 	transition:background .4s;
 } 
 main > nav > div.opciones button:hover, main nav button#menu:hover{
-	background-color: #009688;
+	background-color: var(--navbar-hover);
 }
 
 main > nav > div.opciones button i, main nav button#menu i{
@@ -174,7 +186,6 @@ main div.contenedor div.left div.superior {
 	justify-content: space-between;
 	align-items: center;
 	width: 100%;
-	background-color: #1565c0;
 }
 
 main div.contenedor div.left div.inferior {
@@ -185,12 +196,12 @@ main div.contenedor div.left div.inferior {
 }
 
 main div.contenedor div.left div.superior button {
-	background-color: #0d47a1;
+	background-color: var(--bg-dark);
 	width: 50%;
 	padding: .7em 0;
 	font-size: 1.2em;
 	border: none;
-	border-bottom: 6px solid #42a5f5;
+	border-bottom: 6px solid var(--title);
 	color: #fff;
 	cursor: pointer;
 	-webkit-transition:border .4s;
@@ -219,7 +230,7 @@ main div.contenedor div.left div.robots{
 	min-height: 30em;
 	max-height: 35em;
 }
-main div.contenedor div.superior button#robots{border-color: #0d47a1}
+main div.contenedor div.superior button#robots{border-color: var(--bg-dark)}
 main div.contenedor div.left div.robots{width: 0;}
 
 main div.contenedor div.left div.inferior div div.usuario {
@@ -227,7 +238,7 @@ main div.contenedor div.left div.inferior div div.usuario {
 	display: flex;
 	justify-content: space-between;
 	align-items: baseline;
-	border-bottom: 1px solid #bdbdbd;
+	border-bottom: 1px solid var(--grey);
 	padding: 1.2em;
 	min-height: 1.5em;
 }
@@ -272,17 +283,17 @@ main div.contenedor div.left div.inferior div div div button ul li button{
 	text-align: right;
 }
 main div.contenedor div.left div.inferior div div div button ul li button:hover{
-	background-color: #bdbdbd;	
+	background-color: var(--grey);	
 }
 main div.contenedor div.left div.inferior div div div button i {
 	font-size: 1.5em;
 	margin-left: .7em;
 }
 main div.contenedor div.left div.inferior div div div button i.fa-video {
-	color: #388e3c;
+	color: var(--videocall);
 }
 main div.contenedor div.left div.inferior div div div button i.fa-ellipsis-v{
-	color: #bdbdbd;
+	color: var(--grey);
 }
 main div.contenedor div.left div.inferior div div div button i.fa-video:hover {
 	color: #388e3c96;
@@ -339,7 +350,37 @@ main div.contenedor div.videollamada div.llamando {
 	height: 100%;
 	width: 100%;
 	position: relative;
+	flex-direction: column;
+	justify-content: space-between;
 }
+
+main div.contenedor div.videollamada div.llamando h3 {
+	width: 100%;
+	padding: 3em 0;
+	text-align: center;
+	font-size: 1.8em;
+}
+
+main div.contenedor div.videollamada div.llamando div.opciones {
+	display: flex;
+	justify-content: space-around;
+	padding: 3em;
+}
+
+main div.contenedor div.videollamada div.llamando div.opciones button {
+	border-radius: 50%;
+	padding: 1.5em;
+	cursor: pointer;
+}
+
+main div.contenedor div.videollamada div.llamando div.opciones button i {
+	font-size: 2em;
+}
+
+main div.contenedor div.videollamada div.llamando div.opciones button#atender {}
+main div.contenedor div.videollamada div.llamando div.opciones button#atender i{}
+main div.contenedor div.videollamada div.llamando div.opciones button#declinar {}
+main div.contenedor div.videollamada div.llamando div.opciones button#declinar i{}
 
 main div.contenedor div.videollamada h2{
 	color: #9e9e9e;
@@ -378,7 +419,7 @@ div.menu div.background {
 	z-index: -1;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(30,136,229,0);
+	background-color: var(--menu);
 	-webkit-transition:background .3s;
 	-moz-transition:background .3s;
 	-o-transition:background .3s;
@@ -412,7 +453,7 @@ div.menu div div.listado > div button {
 div.menu div div.listado > div button i {
 	padding: 0 .6em;
 	font-size: 1.8em;
-	color: #0d47a1;
+	color: var(--bg-dark);
 	-webkit-transition:color .3s, text-shadow .3s;
 	-moz-transition:color .3s, text-shadow .3s;
 	-o-transition:color .3s, text-shadow .3s;
@@ -422,15 +463,15 @@ div.menu div div.listado div button i.fa-user-plus {
 	cursor: pointer;
 }
 div.menu div div.listado div button i.fa-user-clock {
-	color: #fdd835;
+	color: var(--yellow);
 }
 div.menu div div.listado div div button i.fa-check {
 	cursor: pointer;
-	color: #00c853;
+	color: var(--green);
 }
 div.menu div div.listado div div button i.fa-times {
 	cursor: pointer;
-	color: #d32f2f;
+	color: var(--red);
 }
 div.menu div div.listado div button i.fa-user-plus:hover {
 	color: #0d47a196;

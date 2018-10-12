@@ -77,6 +77,9 @@ function onStream(stream){
 }
 function onError(err) {
 	console.error(err);
+	$('div.videollamada div.conferencia, div.videollamada div.llamando').css('display', 'none');
+	$('div.videollamada h2').css('display', 'flex');
+	window.currentCall.close();
 }
 function onClose() {
 	console.log('Call ended.');
