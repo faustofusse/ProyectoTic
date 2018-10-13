@@ -26,6 +26,7 @@ peer.on('call', function(call) {
 	$('div.videollamada div.llamando').css('display', 'flex');
 	$('div.videollamada div.llamando button#atender').css('display', 'flex');
 	$('div.videollamada h2').css('display', 'none');
+	scrollTo($('div.videollamada'), 600);
 
 	var otherId = call.peer;
 	console.log('Call from ' + otherId);
@@ -42,6 +43,7 @@ function botonVideollamada(){
 		$('div.videollamada div.llamando button#atender').css('display', 'none');
 		$('div.videollamada div.llamando h3').html('Llamando a ' + nombre + '....');
 		$('div.videollamada h2').css('display', 'none');
+		scrollTo($('div.videollamada'), 600);
 
 		window.localStream = stream;
 		var call = peer.call(otherId, stream);	
@@ -53,6 +55,7 @@ function botonVideollamada(){
 }
 
 function atender() {
+	console.log('atender');
 	getUserVideo(function(stream) {
 		window.localStream = stream;
 		var call = window.currentCall;
@@ -97,6 +100,16 @@ function getUserVideo(callback) {
 	    console.error(error);
 	  });
 	}
+}
+
+function scrollTo(element, duration) {
+	$([document.documentElement, document.body]).animate({
+        scrollTop: element.offset().top
+    }, duration);
+}
+
+function findFriendById(id) {
+	// body...
 }
 
 // ------------------------------------------------- SOCKETS

@@ -1,27 +1,21 @@
-/*#container {
-    margin: 0px auto;
-    width: 500px;
-    height: 375px;
-    border: 10px #333 solid;
-}
-#videoElement {
-    width: 500px;
-    height: 375px;
-    background-color: #666;
-}*/
-
 :root {
-	--bg: #1565c0;
-	--bg-dark: #0d47a1;
+	--blue: #1565c0;
+	--dark-blue: #0d47a1;
+	--dark-blue-hover: #0d47a196;
 	--title: #42a5f5;
 	--navbar: #00897b;
 	--navbar-hover: #009688;
 	--menu: rgba(30,136,229,0);
 	--videocall: #388e3c;
+	--videocall-hover: #388e3c96;
 	--green: #00c853;
+	--green-hover:#00c85396;
 	--red: #d32f2f;
+	--red-hover:#d32f2f96;
 	--yellow: #fdd835;
+	--yellow-hover:#fdd83596;
 	--grey: #bdbdbd;
+	--grey-hover: #bdbdbd96;
 }
 
 *{
@@ -48,7 +42,7 @@ body.blockScroll {
 button:focus, button:active, input:focus, input:active{outline: none;}
 
 body > div.background{
-	background-color: var(--bg);
+	background-color: var(--blue);
 	position: absolute;
 	width: 100%;
 	height: 37%;
@@ -196,7 +190,7 @@ main div.contenedor div.left div.inferior {
 }
 
 main div.contenedor div.left div.superior button {
-	background-color: var(--bg-dark);
+	background-color: var(--dark-blue);
 	width: 50%;
 	padding: .7em 0;
 	font-size: 1.2em;
@@ -230,7 +224,7 @@ main div.contenedor div.left div.robots{
 	min-height: 30em;
 	max-height: 35em;
 }
-main div.contenedor div.superior button#robots{border-color: var(--bg-dark)}
+main div.contenedor div.superior button#robots{border-color: var(--dark-blue)}
 main div.contenedor div.left div.robots{width: 0;}
 
 main div.contenedor div.left div.inferior div div.usuario {
@@ -296,10 +290,10 @@ main div.contenedor div.left div.inferior div div div button i.fa-ellipsis-v{
 	color: var(--grey);
 }
 main div.contenedor div.left div.inferior div div div button i.fa-video:hover {
-	color: #388e3c96;
+	color: var(--videocall-hover);
 }
 main div.contenedor div.left div.inferior div div div button i.fa-ellipsis-v:hover {
-	color: #bdbdbd96;
+	color: var(--grey-hover);
 }
 
 main div.contenedor div.left div.inferior div h3{
@@ -368,19 +362,26 @@ main div.contenedor div.videollamada div.llamando div.opciones {
 }
 
 main div.contenedor div.videollamada div.llamando div.opciones button {
+	border: none;
 	border-radius: 50%;
 	padding: 1.5em;
 	cursor: pointer;
+	box-shadow: 0px 0px 21px 0px rgba(0,0,0,0.75);
+	-webkit-transition:all .3s;
+	-moz-transition:all .3s;
+	-o-transition:all .3s;
+	transition:all .3s;
 }
 
 main div.contenedor div.videollamada div.llamando div.opciones button i {
 	font-size: 2em;
+	color: #fff;
 }
 
-main div.contenedor div.videollamada div.llamando div.opciones button#atender {}
-main div.contenedor div.videollamada div.llamando div.opciones button#atender i{}
-main div.contenedor div.videollamada div.llamando div.opciones button#declinar {}
-main div.contenedor div.videollamada div.llamando div.opciones button#declinar i{}
+main div.contenedor div.videollamada div.llamando div.opciones button#atender {background-color: var(--green);}
+main div.contenedor div.videollamada div.llamando div.opciones button#atender:hover {background-color: var(--green-hover);}
+main div.contenedor div.videollamada div.llamando div.opciones button#declinar {background-color: var(--red);}
+main div.contenedor div.videollamada div.llamando div.opciones button#declinar:hover {background-color: var(--red-hover);}
 
 main div.contenedor div.videollamada h2{
 	color: #9e9e9e;
@@ -453,7 +454,7 @@ div.menu div div.listado > div button {
 div.menu div div.listado > div button i {
 	padding: 0 .6em;
 	font-size: 1.8em;
-	color: var(--bg-dark);
+	color: var(--dark-blue);
 	-webkit-transition:color .3s, text-shadow .3s;
 	-moz-transition:color .3s, text-shadow .3s;
 	-o-transition:color .3s, text-shadow .3s;
@@ -474,13 +475,13 @@ div.menu div div.listado div div button i.fa-times {
 	color: var(--red);
 }
 div.menu div div.listado div button i.fa-user-plus:hover {
-	color: #0d47a196;
+	color: var(--dark-blue-hover);
 }
 div.menu div div.listado div div button i.fa-check:hover {
-	color: #00c85396; /*en hexa el 96 es 60% de transparencia*/
+	color: var(--green-hover); /*en hexa el 96 es 60% de transparencia*/
 }
 div.menu div div.listado div div button i.fa-times:hover {
-	color: #d32f2f96; /*en hexa el 96 es 60% de transparencia*/
+	color: var(--red-hover); /*en hexa el 96 es 60% de transparencia*/
 }
 div.menu div div.listado div.none{
 	padding: 1.3em;

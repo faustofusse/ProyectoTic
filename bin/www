@@ -52,13 +52,14 @@ var io = require('socket.io')(server);
 var sockets = require('../sockets/sockets');
 
 io.on('connection', sockets.connection);
+module.exports = io;
 */
 
 /**
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port, '127.0.0.1');
+server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
@@ -123,4 +124,4 @@ function onListening() {
   console.log('Listening on port ' + addr.port + '....');
 }
 
-module.exports = io;
+
