@@ -1,33 +1,25 @@
-/*------------------ INICIO DE SESION --------------------*/
-
-var iniciarSesion = true;
-$('button#btnRegistrarse').css('background-color', '#42a5f5');
-//$('input#apellido, input#nombre, input#repeatPassword').css('display', 'none');
-if ($('input#nombre').attr('class') != "desplegado"){
+if (login){
 	$('button#btnIniciar').css('background-color', '#1976d2');
 	$('button#btnRegistrarse').css('background-color', '#42a5f5');
-	$('input#apellido, input#nombre, input#repeatPassword').css('display', 'none');
 }else{
 	$('button#btnIniciar').css('background-color', '#42a5f5');
 	$('button#btnRegistrarse').css('background-color', '#1976d2');
-	iniciarSesion = false;
+	$('input#apellido, input#nombre, input#repeatPassword').css('display', 'flex');
 }
 
 $('button#btnRegistrarse').click(function () {
-	iniciarSesion = false;
+	login = false;
 	$('form').attr('action', '/register');
 	$('button#btnIniciar').css('background-color', '#42a5f5');
 	$('button#btnRegistrarse').css('background-color', '#1976d2');
 	$('input#apellido, input#nombre, input#repeatPassword').slideDown();
-	//$('header').slideUp();
 });
 $('button#btnIniciar').click(function () {
-	iniciarSesion = true;
+	login = true;
 	$('form').attr('action', '/login');
 	$('button#btnIniciar').css('background-color', '#1976d2');
 	$('button#btnRegistrarse').css('background-color', '#42a5f5');
 	$('input#apellido, input#nombre, input#repeatPassword').slideUp();
-	//$('header').slideDown();
 });
 
 $('div.mensajes div').click(function(){

@@ -9,7 +9,7 @@ var FriendRequest = require('../models/friendRequest');
 /* GET PAGINA DE LOGIN/REGISTRO */
 router.get('/login', function(req, res, next) {
   req.logout();
-  res.render('login', {title: "TARS - Iniciar Sesion"});
+  res.render('login', {title: "TARS - Iniciar Sesion", login: true});
 });
 router.get('/register', function(req, res, next){
   res.redirect(302, '/login');
@@ -34,7 +34,7 @@ router.post('/register', function(req, res, next){
     res.render('login', {
       title: "TARS - Iniciar Sesion",
       errors: errors,
-      clase: "desplegado"
+      login: false
     });
   }else{
     var newUser = new User({

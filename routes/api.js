@@ -82,9 +82,7 @@ router.get('/search/:query', function(req, res, next){
           });
         }
       }
-      res.send({
-        user:{_id:req.user._id},
-        resultados:resultados});
+      res.send(resultados);
     });
   });
 });

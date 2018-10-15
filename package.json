@@ -27,5 +27,8 @@
     "peer": "^0.2.10",
     "simple-peer": "^9.1.2",
     "socket.io": "^2.1.1"
+  },
+  "devDependencies": {
+    "ip": "^1.1.5"
   }
 }

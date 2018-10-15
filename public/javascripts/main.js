@@ -30,6 +30,7 @@ peer.on('call', function(call) {
 
 	var otherId = call.peer;
 	console.log('Call from ' + otherId);
+	$('div.videollamada div.llamando h3').html('LLamada de ' + findFriendById(otherId) + '....');
 	window.currentCall = call;
 });
 
@@ -109,7 +110,7 @@ function scrollTo(element, duration) {
 }
 
 function findFriendById(id) {
-	// body...
+	return $('main div.contenedor div.left div.inferior div.amigos div#'+id+' span').html();
 }
 
 // ------------------------------------------------- SOCKETS
@@ -231,18 +232,18 @@ function updateRequests(){
 }
 
 function searchUsers(query){
-	$.get('/api/search/' + query, function (search) {
+	$.get('/api/search/' + query, function (resultados) {
 		$('div.buscar div.listado div.usuario').remove();
-		for (var i = 0; i<search.resultados.length; i++){
-			var nombre = search.resultados[i].nombre+' '+search.resultados[i].apellido;
+		for (var i = 0; i<resultados.length; i++){
+			var nombre = resultados[i].nombre+' '+resultados[i].apellido;
 			var user = $('<div></div>').append('<span>'+nombre+'</span>')
 							.append('<div class="options"><button><i class="fa fa-check"></i></button><button><i class="fa fa-times"></i></button></div>')
 							.append('<button><i class="fa fa-user-plus"></i></button>')
 							.attr('class', 'usuario');
 			user.find('div.options').css('display', 'none');
 			user.find('button').click(botonAgregar);
-			user.find('button').attr('id', search.resultados[i]._id);
-			switch(search.resultados[i].request){
+			user.find('button').attr('id', resultados[i]._id);
+			switch(resultados[i].request){
 				case 'sent':
 					user.find('button i').attr('class', 'fa fa-user-clock');
 					break;
@@ -254,7 +255,7 @@ function searchUsers(query){
 					user.find('div.options').css('display', 'flex');
 					break;	
 			}
-			if (search.resultados[i]._id != search.user._id)
+			if (resultados[i]._id !== userId)
 				$('div.buscar div.listado').append(user);
 		}
 		if (!$('div.buscar div.listado div.usuario').length)
