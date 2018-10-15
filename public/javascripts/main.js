@@ -14,7 +14,7 @@ var videoUser = document.querySelector('#videoUser');
 	videoUser.srcObject = stream;
 });*/
 
-var peer = new Peer(userId, {host: location.hostname, port: 9000, path: '/tars'});
+var peer = new Peer(userId, {host: location.hostname, port: 3000, path: '/peerjs'});
 
 peer.on('open', function(id) {
 	console.log('My peer ID is: ' + id);
@@ -34,25 +34,11 @@ peer.on('call', function(call) {
 	window.currentCall = call;
 });
 
-peer.on('connection', function(conn) {
-  conn.on('data', function(data){
-    // Will print 'hi!'
-    console.log(data);
-  });
-});
-
 function botonVideollamada(){
 	var otherId = $(this).attr('id');
 	var nombre = $(this).parent().parent().find('span').html();
 	console.log('Calling '+otherId+'....');
 
-	var conn = peer.connect(otherId);
-	// on open will be launch when you successfully connect to PeerServer
-	conn.on('open', function(){
-	  // here you have conn.id
-	  conn.send('hi!');
-	});
-/*
 	getUserVideo(function (stream) {
 		$('div.videollamada div.llamando').css('display', 'flex');
 		$('div.videollamada div.llamando button#atender').css('display', 'none');
@@ -66,7 +52,7 @@ function botonVideollamada(){
 		call.on('stream', onStream);
 		call.on('error', onError);
 		call.on('close', onClose);
-	});*/
+	});
 }
 
 function atender() {
