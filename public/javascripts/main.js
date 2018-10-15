@@ -16,8 +16,14 @@ var videoUser = document.querySelector('#videoUser');
 
 var peer = new Peer(userId, {host: location.hostname, port: 3000, path: '/peerjs'});
 
+function pingHeroku() {
+    peer.socket.send({type: 'ping'});
+    timeoutID = setTimeout(pingHeroku, 20000);
+}
+
 peer.on('open', function(id) {
 	console.log('My peer ID is: ' + id);
+	pingHeroku();
 });
 
 peer.on('error', onError);
