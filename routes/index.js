@@ -9,10 +9,9 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
   res.render('index');
 });
 
-/*
 router.get('/movimiento', function(req, res, next){
   res.send('Chupala imanol.');
-});*/
+});
 
 function ensureAuthenticated(req, res, next){
   if (req.isAuthenticated()){

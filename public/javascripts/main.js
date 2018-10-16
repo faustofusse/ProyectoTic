@@ -13,17 +13,12 @@ var videoUser = document.querySelector('#videoUser');
 	videoFriend.srcObject = stream;
 	videoUser.srcObject = stream;
 });*/
-console.log(location.hostname);
-var peer = new Peer(userId, {host: location.hostname, port: 3000, path: '/peerjs', secure:true});
 
-function pingHeroku() {
-    peer.socket.send({type: 'ping'});
-    timeoutID = setTimeout(pingHeroku, 20000);
-}
+console.log(location.hostname);
+var peer = new Peer(userId, {host: location.hostname, port: 9000, path: '/peerjs'});
 
 peer.on('open', function(id) {
 	console.log('My peer ID is: ' + id);
-	pingHeroku();
 });
 
 peer.on('error', onError);

@@ -8,9 +8,6 @@ var app = require('../app');
 var debug = require('debug')('proyecto:server');
 var http = require('http');
 
-
-//var peerserver = require('../peers/server');
-
 /**
  * Get port from environment and store in Express.
  */
@@ -29,6 +26,7 @@ var server = http.createServer(app);
  * Set PeerJs server
  */
 
+ /*
 var ExpressPeerServer = require('peer').ExpressPeerServer;
 var peerserver = ExpressPeerServer(server, {debug: true});
 
@@ -42,6 +40,11 @@ peerserver.on('connection', function(id) {
 peerserver.on('disconnect', function(id) {
   console.log(id + "disconnected")
 });
+*/
+
+var peerserver = require('../peers/server');
+
+
 /*
 
 /**
@@ -123,7 +126,7 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
   console.log('Listening on port ' + addr.port + '....');
-  //console.log('IP: '+ require('ip').address());
+  console.log('IP: '+ require('ip').address());
 }
 
 
