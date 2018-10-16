@@ -118,6 +118,34 @@ function findFriendById(id) {
 	return $('main div.contenedor div.left div.inferior div.amigos div#'+id+' span').html();
 }
 
+// pass the peer instance, and it will start sending heartbeats
+var heartbeater = makePeerHeartbeater( peer );
+
+// stop them later
+// heartbeater.stop();
+
+function makePeerHeartbeater ( peer ) {
+    var timeoutId = 0;
+    function heartbeat () {
+        timeoutId = setTimeout( heartbeat, 20000 );
+        if ( peer.socket._wsOpen() ) {
+            peer.socket.send( {type:'HEARTBEAT'} );
+        }
+    }
+    // Start 
+    heartbeat();
+    // return
+    return {
+        start : function () {
+            if ( timeoutId === 0 ) { heartbeat(); }
+        },
+        stop : function () {
+            clearTimeout( timeoutId );
+            timeoutId = 0;
+        }
+    };
+}
+
 // ------------------------------------------------- SOCKETS
 
 /*var socket = io();
