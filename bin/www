@@ -21,43 +21,31 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
-
 /**
  * Set PeerJs server
  */
 
-//*
 var ExpressPeerServer = require('peer').ExpressPeerServer;
 var peerserver = ExpressPeerServer(server, {debug: true});
 
 app.use('/', peerserver);
 
 peerserver.on('connection', function(id) {
-  console.log(id + 'connected.');
+  console.log(id + ' connected.');
 });
 
 peerserver.on('disconnect', function(id) {
-  console.log(id + 'disconnected');
+  console.log(id + ' disconnected');
 });
-
-//*/
-
-//var peerserver = require('../peers/server');
-
-
-/*
 
 /**
  * Sockets.
  */
 
-/*
 var io = require('socket.io')(server);
 var sockets = require('../sockets/sockets');
 
 io.on('connection', sockets.connection);
-module.exports = io;
-*/
 
 /**
  * Listen on provided port, on all network interfaces.

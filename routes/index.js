@@ -10,7 +10,7 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
 });
 
 router.get('/movimiento', function(req, res, next){
-  res.send('Chupala imanol.');
+  res.send('forward');
 });
 
 function ensureAuthenticated(req, res, next){

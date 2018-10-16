@@ -6,6 +6,7 @@ var peer = new Peer(userId, {
 	port: location.port || (location.protocol === 'https:' ? 443 : 80), 
 	secure: (location.protocol === 'https:')
 });
+var heartbeater = makePeerHeartbeater(peer); //to stop it: heartbeater.stop();
 
 peer.on('open', function(id) {
 	console.log('My peer ID is: ' + id);
@@ -58,11 +59,13 @@ function atender() {
 	});	
 	$('div.videollamada div.llamando').css('display', 'none');
 }
+
 function declinar() {
 	window.currentCall.close();
 	$('div.videollamada div.llamando').css('display', 'none');
 	$('div.videollamada h2').css('display', 'flex');
 }
+
 function onStream(stream){
 	$('div.videollamada div.conferencia').css('display', 'flex');
 	$('div.videollamada div.llamando').css('display', 'none');
@@ -70,12 +73,14 @@ function onStream(stream){
 	videoUser.srcObject = window.localStream;
 	videoFriend.srcObject = stream;
 }
+
 function onError(err) {
 	console.error(err);
 	$('div.videollamada div.conferencia, div.videollamada div.llamando').css('display', 'none');
 	$('div.videollamada h2').css('display', 'flex');
 	window.currentCall.close();
 }
+
 function onClose() {
 	console.log('Call ended.');
 	$('div.videollamada div.conferencia').css('display', 'none');
@@ -103,12 +108,6 @@ function scrollTo(element, duration) {
 function findFriendById(id) {
 	return $('main div.contenedor div.left div.inferior div.amigos div#'+id+' span').html();
 }
-
-// pass the peer instance, and it will start sending heartbeats
-var heartbeater = makePeerHeartbeater( peer );
-
-// stop them later
-// heartbeater.stop();
 
 function makePeerHeartbeater ( peer ) {
     var timeoutId = 0;
