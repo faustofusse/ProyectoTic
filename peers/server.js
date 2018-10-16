@@ -9,4 +9,4 @@ server.on('disconnect', function(id){
     console.log('User disconnected. ID: '+id);
 });
 
-module.exports = server;
+//module.exports = server;

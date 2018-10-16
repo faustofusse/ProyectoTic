@@ -126,7 +126,7 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
   console.log('Listening on port ' + addr.port + '....');
-  console.log('IP: '+ require('ip').address());
+  //console.log('IP: '+ require('ip').address());
 }
 
 
