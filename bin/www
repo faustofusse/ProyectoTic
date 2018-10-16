@@ -33,11 +33,11 @@ var peerserver = ExpressPeerServer(server, {debug: true});
 app.use('/peerjs', peerserver);
 
 peerserver.on('connection', function(id) {
-  console.log(id);
+  console.log(id + 'connected.');
 });
 
 peerserver.on('disconnect', function(id) {
-  console.log(id + "disconnected");
+  console.log(id + 'disconnected');
 });
 
 //*/

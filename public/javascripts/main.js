@@ -18,7 +18,7 @@ console.log(location.hostname);
 var peer = new Peer(userId, { 
 	host: location.hostname, 
 	port: location.port || (location.protocol === 'https:' ? 443 : 80), 
-	secure: true,
+	secure: (location.protocol === 'https:'),
 	path:'/peerjs'
 });
 
