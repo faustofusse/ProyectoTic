@@ -30,7 +30,7 @@ var server = http.createServer(app);
 var ExpressPeerServer = require('peer').ExpressPeerServer;
 var peerserver = ExpressPeerServer(server, {debug: true});
 
-app.use('/peerjs', peerserver);
+app.use('/', peerserver);
 
 peerserver.on('connection', function(id) {
   console.log(id + 'connected.');
