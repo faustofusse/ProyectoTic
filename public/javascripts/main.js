@@ -15,7 +15,7 @@ var videoUser = document.querySelector('#videoUser');
 });*/
 
 console.log(location.hostname);
-var peer = new Peer(userId, {host: location.hostname, port: 443, secure:true});
+var peer = new Peer(userId, {host: location.hostname, port: location.port || (location.protocol === 'https:' ? 443 : 80), secure:true});
 
 peer.on('open', function(id) {
 	console.log('My peer ID is: ' + id);

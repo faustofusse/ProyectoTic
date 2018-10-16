@@ -26,7 +26,7 @@ var server = http.createServer(app);
  * Set PeerJs server
  */
 
- /*
+//*
 var ExpressPeerServer = require('peer').ExpressPeerServer;
 var peerserver = ExpressPeerServer(server, {debug: true});
 
@@ -40,9 +40,9 @@ peerserver.on('connection', function(id) {
 peerserver.on('disconnect', function(id) {
   console.log(id + "disconnected")
 });
-*/
+//*/
 
-var peerserver = require('../peers/server');
+//var peerserver = require('../peers/server');
 
 
 /*
