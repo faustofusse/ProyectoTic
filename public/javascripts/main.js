@@ -14,7 +14,7 @@ var videoUser = document.querySelector('#videoUser');
 	videoUser.srcObject = stream;
 });*/
 console.log(location.hostname);
-var peer = new Peer(userId, {host: location.hostname, port: 3000, path: '/peerjs'});
+var peer = new Peer(userId, {host: location.hostname, port: 3000, path: '/peerjs', secure:true});
 
 function pingHeroku() {
     peer.socket.send({type: 'ping'});
