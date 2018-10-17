@@ -1,12 +1,12 @@
 var videoFriend = document.querySelector('#videoFriend');
 var videoUser = document.querySelector('#videoUser');
 
-getUserVideo(function(stream){
+/*getUserVideo(function(stream){
 	videoUser.srcObject = stream;
 	videoFriend.srcObject = stream;
 	$('div.videollamada div.conferencia').css('display', 'flex');
 	$('div.videollamada h2').css('display', 'none');
-});
+});*/
 
 var peer = new Peer(userId, { 
 	host: location.hostname, 
