@@ -24,6 +24,10 @@ socket.on('connect', function(socket) {
 $('div.videollamada div.llamando div.opciones button#atender').click(atender);
 $('div.videollamada div.llamando div.opciones button#declinar').click(declinar);
 
+$('button#opciones').blur(function(event) {
+	alert('blur');
+});
+
 $('div.contenedor div.left div.superior button').click(function(event) {
 	var id = $(this).attr('id');
 	var id2 = 'amigos';
