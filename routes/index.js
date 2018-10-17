@@ -10,7 +10,7 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
 });
 
 router.get('/movimiento', function(req, res, next){
-  res.jsonp({movimiento:'forward'});
+  res.json({movimiento:'forward'});
 });
 
 function ensureAuthenticated(req, res, next){
