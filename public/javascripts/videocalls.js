@@ -1,12 +1,16 @@
 var videoFriend = document.querySelector('#videoFriend');
 var videoUser = document.querySelector('#videoUser');
+var photo = document.querySelector('#photo');
+var canvas = document.querySelector('#canvas'),
+	width = 320,
+    height = 0;
 
-/*getUserVideo(function(stream){
+getUserVideo(function(stream){
 	videoUser.srcObject = stream;
 	videoFriend.srcObject = stream;
 	$('div.videollamada div.conferencia').css('display', 'flex');
 	$('div.videollamada h2').css('display', 'none');
-});*/
+});
 
 var peer = new Peer(userId, { 
 	host: location.hostname, 
@@ -136,4 +140,13 @@ function makePeerHeartbeater ( peer ) {
             timeoutId = 0;
         }
     };
+}
+
+function screenshot() {
+	console.log('screenshot');
+	canvas.width = width;
+	canvas.height = height;
+	canvas.getContext('2d').drawImage(videoFriend, 0, 0, width, height);
+	var data = canvas.toDataURL('image/png');
+	photo.setAttribute('src', data);
 }

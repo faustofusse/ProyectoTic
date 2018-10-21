@@ -21,15 +21,16 @@ $('div.videollamada div.llamando div.opciones button#atender').click(atender);
 $('div.videollamada div.llamando div.opciones button#declinar').click(declinar);
 
 $('div.conferencia div.opciones button#close').click(declinar);
-
+$('div.conferencia div.opciones button#screenshot').click(screenshot);
+$('h1').click(screenshot);
 $('div.conferencia').mouseenter(function(event) {
 	$(this).find('div.opciones').css({opacity: 0.0, visibility: "visible"}).animate({opacity: 1.0});
-	animateButtons('0%', 20);
+	animateButtons('5%', 20);
 });
 
 $('div.conferencia').mouseleave(function(event) {
 	$(this).find('div.opciones').css({opacity: 1.0, visibility: "visible"}).animate({opacity: 0}, 200);
-	animateButtons('50%', 20);
+	animateButtons('0%', 20);
 });
 
 $('div.contenedor div.left div.superior button').click(function(event) {
@@ -179,16 +180,16 @@ function searchUsers(query){
 function animateButtons(margin, speed){
 	var buttons = $('div.conferencia div.opciones button');
 	buttons.eq(0).animate({
-		marginRight: margin},
+		marginLeft: margin},
 		speed, function() {
 		buttons.eq(1).animate({
-			marginRight: margin},
+			marginLeft: margin},
 			speed, function() {
 			buttons.eq(2).animate({
-				marginRight: margin},
+				marginLeft: margin},
 				speed, function() {
 				buttons.eq(3).animate({
-					marginRight: margin},
+					marginLeft: margin},
 					speed, function() {
 				});
 			});
