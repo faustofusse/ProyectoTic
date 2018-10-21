@@ -321,6 +321,9 @@ main div.contenedor div.videollamada{
 
 main div.contenedor div.videollamada div.conferencia {
 	display: none;
+	top: 0;
+	left: 0;
+	z-index: 0;
 	width: 100%;
 	height: 100%;
 	position: relative;
@@ -342,10 +345,11 @@ main div.contenedor div.videollamada div.conferencia div.opciones {
 }
 
 main div.contenedor div.videollamada div.conferencia div.opciones button {
+	width: 4em;
+	height: 4em;
 	color: #fff;
 	border: none;
 	border-radius: 50%;
-	padding: 1em;
 	cursor: pointer;
 	margin: 1em auto 1em 0;
 	background-color: rgba(0,0,0,0);
@@ -360,7 +364,11 @@ main div.contenedor div.videollamada div.conferencia div.opciones button i{
 	font-size: 2em;
 	color: inherit;
 }
-main div.contenedor div.videollamada div.conferencia div.opciones button#close{background-color: var(--red);}
+main div.contenedor div.videollamada div.conferencia div.opciones button#close{
+	width: 5em;
+	height: 5em;
+	background-color: var(--red);
+}
 main div.contenedor div.videollamada div.conferencia div.opciones button#close i{font-size: 2.4em;}
 main div.contenedor div.videollamada div.conferencia div.opciones button:hover{
 	color:#424242;
@@ -606,6 +614,76 @@ div.buscar div.input input::-webkit-search-cancel-button {
 }
 
 
+/*--------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------*/
+/*------------------------------------- DIV SCREENSHOT ---------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------*/
+
+
+div.screenshot {
+	z-index: 20;
+	display: none;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	justify-content: center;
+}
+
+div.screenshot div.container {
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-content: stretch;
+	background-color: #fff;
+	box-shadow: 0px 0px 32px -2px rgba(0,0,0,0.75);
+}
+
+div.screenshot div.container h3 {
+	font-size: 1.5em;
+	padding: 0 1em;
+}
+
+div.screenshot div.container img {
+}
+
+div.screenshot div.container div {
+	display: flex;
+	justify-content: space-between;
+}
+
+div.screenshot div.container a, div.screenshot div.container button {
+	-webkit-transition:background .4s;
+	-moz-transition:background .4s;
+	-o-transition:background .4s;
+	transition:background .4s;
+	text-decoration: none;
+	width: 50%;
+	font-size: 1.2em;
+	padding: .5em;
+	text-align: center;
+	cursor: pointer;
+	border: none;
+}
+
+div.screenshot div.container a {
+	color: #fff;
+	background-color: var(--dark-blue);
+}
+
+div.screenshot div.container button {
+	color: var(--black);
+	background-color: #eee;
+}
+
+div.screenshot div.container a:hover {
+	background-color: var(--dark-blue-hover);
+}
+
+div.screenshot div.container button:hover {
+	background-color: #eee;
+}
 
 /*--------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------*/

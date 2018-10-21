@@ -22,7 +22,13 @@ $('div.videollamada div.llamando div.opciones button#declinar').click(declinar);
 
 $('div.conferencia div.opciones button#close').click(declinar);
 $('div.conferencia div.opciones button#screenshot').click(screenshot);
-$('h1').click(screenshot);
+$('div.conferencia div.opciones button#volume').click(volume);
+$('div.conferencia div.opciones button#expand').click(expand);
+
+$('div.screenshot a, div.screenshot button').click(function(event) {
+	$('div.screenshot').css('display', 'none');
+});
+
 $('div.conferencia').mouseenter(function(event) {
 	$(this).find('div.opciones').css({opacity: 0.0, visibility: "visible"}).animate({opacity: 1.0});
 	animateButtons('5%', 20);
