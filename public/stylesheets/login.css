@@ -2,10 +2,6 @@
 	font-family: 'Amaranth';
 }
 
-html {
-	font-size: calc(0.6em + .5vw);
-}  
-
 body{
 	background-color: #eceff1;
 	overflow-y: scroll;
@@ -147,40 +143,16 @@ button#robot:hover {
 	background-color: #009688;
 }
 
-@media (max-width: 1024px) and (orientation: portrait) {
-	/*----------mobiles tablets portrait----------*/
-	*{
-		background-color: green;
-	}
-	html {
-		font-size: calc(0.6em + 3vw);
-	}  	
+@media screen and (min-width: 780px) and (max-width: 1024px){
+
+}
+
+@media screen /*and (min-width: 480px)*/ and (max-width: 780px){	
 	main, header {
 		width:90%;
 	}
 }
 
-@media (min-width: 1024px) and (orientation: landscape) {
-	/*----------mobiles tablets landscape----------*/
-	html {
-		font-size: calc(0.6em + .4vw);
-	}  
-	/*
-	*{
-		background-color: #000;
-	}
-	*/
-}
+/*@media screen and (max-width: 480px){
 
-
-@media (min-width: 1281px) {
-	/*----------desktop----------*/
-	html {
-		font-size: calc(0.6em + .4vw);
-	}  
-	/*
-	*{
-		background-color: blue;
-	}
-	*/
-}
+}*/

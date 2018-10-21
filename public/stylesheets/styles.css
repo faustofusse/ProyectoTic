@@ -20,6 +20,7 @@
 
 *{
 	font-family: 'Amaranth';
+	box-sizing: border-box;
 }
 
 body{
@@ -691,11 +692,47 @@ div.screenshot div.container button:hover {
 /*--------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------*/
 
+@media screen and (min-width: 780px) and (max-width: 1024px){
+	/*----------TABLETS--------*/
+	header {
+		width: 90%;
+	}
+	main {
+		box-shadow: none;
+		width: 100%;
+		margin: 0;
+	}
+}
 
-@media screen and (max-device-width: 360px){
-	html {
-		font-size: calc(0.6em + 3vw);
-	}  	
+@media screen and (min-width: 480px) and (max-width: 780px){
+	/*----------MOBILE--------*/
+
+	header {
+		width: 90%;
+	}
+	main {
+		box-shadow: none;
+		width: 100%;
+		margin: 0;
+	}
+	main div.contenedor div.videollamada{
+		display: none;
+	}
+	main div.contenedor div.left{
+		width: 100%;
+	}
+	main > nav > div.opciones {
+		display: none;
+	}
+	main > nav button#menu {
+		display: block;
+	}
+}
+
+
+@media screen and (max-width: 480px){
+	/*----------MOBILE--------*/
+
 	header {
 		width: 90%;
 	}
