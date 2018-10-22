@@ -1,6 +1,13 @@
 var videoFriend = document.querySelector('#videoFriend');
 var videoUser = document.querySelector('#videoUser');
 
+getUserVideo(function(stream){
+	videoFriend.srcObject = stream;
+	videoUser.srcObject = stream;
+	$('div.videollamada div.conferencia').css('display', 'flex');
+	$('div.videollamada h2').css('display', 'none');
+});
+
 var peer = new Peer(userId, { 
 	host: location.hostname, 
 	port: location.port || (location.protocol === 'https:' ? 443 : 80), 
@@ -62,6 +69,7 @@ function atender() {
 
 function declinar() {
 	window.currentCall.close();
+	videoUser.src = null;
 	$('div.videollamada div.llamando').css('display', 'none');
 	$('div.videollamada h2').css('display', 'flex');
 }
