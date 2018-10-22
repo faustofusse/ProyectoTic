@@ -1,5 +1,13 @@
 var videoFriend = document.querySelector('#videoFriend');
 var videoUser = document.querySelector('#videoUser');
+videoUser.volume = 0.0;
+
+/*getUserVideo(function(stream){
+	videoUser.srcObject = stream;
+	videoFriend.srcObject = stream;
+	$('div.videollamada div.conferencia').css('display', 'flex');
+	$('div.videollamada h2').css('display', 'none');
+});*/
 
 getUserVideo(function(stream){
 	videoFriend.srcObject = stream;
@@ -137,3 +145,47 @@ function makePeerHeartbeater ( peer ) {
         }
     };
 }
+
+function screenshot() {
+	var canvas = document.createElement('canvas');
+	canvas.width = 640;
+	canvas.height = 480;
+	var ctx = canvas.getContext('2d');
+	ctx.drawImage(videoFriend, 0, 0, canvas.width, canvas.height);
+	var data = canvas.toDataURL('image/png');
+	$('div.screenshot img').attr('src', data);
+	$('div.screenshot a').attr('href', data);
+	$('div.screenshot').css('display', 'flex');
+}
+
+function volume(event){
+	var i = $(this).find('i');
+	switch(i.attr('class')){
+		case 'fa fa-volume-up':
+			videoFriend.volume = 0.0;
+			i.attr('class', 'fa fa-volume-off');
+			break;
+		case 'fa fa-volume-down':
+			videoFriend.volume = 1.0;
+			i.attr('class', 'fa fa-volume-up');
+			break;
+		case 'fa fa-volume-off':
+			videoFriend.volume = 0.5;
+			i.attr('class', 'fa fa-volume-down');
+			break;
+	}
+}
+
+function expand() {
+	var i = $(this).find('i');
+	var div = $('div.conferencia');
+	if(i.attr('class')=='fa fa-expand'){
+		i.attr('class', 'fa fa-compress');
+		div.css('position', 'fixed');
+	}else{
+		i.attr('class', 'fa fa-expand');
+		div.css('position', 'relative');
+	}
+}
+
+

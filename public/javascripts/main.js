@@ -20,8 +20,23 @@ socket.on('connect', function(socket) {
 $('div.videollamada div.llamando div.opciones button#atender').click(atender);
 $('div.videollamada div.llamando div.opciones button#declinar').click(declinar);
 
-$('button#opciones').blur(function(event) {
-	alert('blur');
+$('div.conferencia div.opciones button#close').click(declinar);
+$('div.conferencia div.opciones button#screenshot').click(screenshot);
+$('div.conferencia div.opciones button#volume').click(volume);
+$('div.conferencia div.opciones button#expand').click(expand);
+
+$('div.screenshot a, div.screenshot button').click(function(event) {
+	$('div.screenshot').css('display', 'none');
+});
+
+$('div.conferencia').mouseenter(function(event) {
+	$(this).find('div.opciones').css({opacity: 0.0, visibility: "visible"}).animate({opacity: 1.0});
+	animateButtons('5%', 20);
+});
+
+$('div.conferencia').mouseleave(function(event) {
+	$(this).find('div.opciones').css({opacity: 1.0, visibility: "visible"}).animate({opacity: 0}, 200);
+	animateButtons('0%', 20);
 });
 
 $('div.contenedor div.left div.superior button').click(function(event) {
@@ -168,7 +183,25 @@ function searchUsers(query){
 	},'json');
 }
 
-
+function animateButtons(margin, speed){
+	var buttons = $('div.conferencia div.opciones button');
+	buttons.eq(0).animate({
+		marginLeft: margin},
+		speed, function() {
+		buttons.eq(1).animate({
+			marginLeft: margin},
+			speed, function() {
+			buttons.eq(2).animate({
+				marginLeft: margin},
+				speed, function() {
+				buttons.eq(3).animate({
+					marginLeft: margin},
+					speed, function() {
+				});
+			});
+		});
+	});
+}
 
 function botonOpciones(){
 	$('button#opciones ul').slideUp(200);

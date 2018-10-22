@@ -20,6 +20,7 @@
 
 *{
 	font-family: 'Amaranth';
+	box-sizing: border-box;
 }
 
 body{
@@ -321,11 +322,64 @@ main div.contenedor div.videollamada{
 
 main div.contenedor div.videollamada div.conferencia {
 	display: none;
+	top: 0;
+	left: 0;
+	z-index: 0;
 	width: 100%;
 	height: 100%;
 	position: relative;
 	background-color: #000;
 }
+
+main div.contenedor div.videollamada div.conferencia div.opciones {
+	opacity: 0;
+	position: absolute;
+	z-index: 1;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: left;
+	align-content: left;
+	box-shadow: inset 50px 0px 167px -45px rgba(0,0,0,0.75);
+}
+
+main div.contenedor div.videollamada div.conferencia div.opciones button {
+	width: 4em;
+	height: 4em;
+	color: #fff;
+	border: none;
+	border-radius: 50%;
+	cursor: pointer;
+	margin: 1em auto 1em 0;
+	background-color: rgba(0,0,0,0);
+	box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+	-webkit-transition:all .3s;
+	-moz-transition:all .3s;
+	-o-transition:all .3s;
+	transition:all .3s;
+}
+
+main div.contenedor div.videollamada div.conferencia div.opciones button i{
+	font-size: 2em;
+	color: inherit;
+}
+main div.contenedor div.videollamada div.conferencia div.opciones button#close{
+	width: 5em;
+	height: 5em;
+	background-color: var(--red);
+}
+main div.contenedor div.videollamada div.conferencia div.opciones button#close i{font-size: 2.4em;}
+main div.contenedor div.videollamada div.conferencia div.opciones button:hover{
+	color:#424242;
+	background-color: #fff;
+}
+main div.contenedor div.videollamada div.conferencia div.opciones button#close:hover{
+	color: #fff;
+	background-color: var(--red-hover);
+}
+
 
 main div.contenedor div.videollamada div.conferencia video#videoFriend {
 	width: 100%;
@@ -561,6 +615,76 @@ div.buscar div.input input::-webkit-search-cancel-button {
 }
 
 
+/*--------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------*/
+/*------------------------------------- DIV SCREENSHOT ---------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------*/
+
+
+div.screenshot {
+	z-index: 20;
+	display: none;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	justify-content: center;
+}
+
+div.screenshot div.container {
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-content: stretch;
+	background-color: #fff;
+	box-shadow: 0px 0px 32px -2px rgba(0,0,0,0.75);
+}
+
+div.screenshot div.container h3 {
+	font-size: 1.5em;
+	padding: 0 1em;
+}
+
+div.screenshot div.container img {
+}
+
+div.screenshot div.container div {
+	display: flex;
+	justify-content: space-between;
+}
+
+div.screenshot div.container a, div.screenshot div.container button {
+	-webkit-transition:background .4s;
+	-moz-transition:background .4s;
+	-o-transition:background .4s;
+	transition:background .4s;
+	text-decoration: none;
+	width: 50%;
+	font-size: 1.2em;
+	padding: .5em;
+	text-align: center;
+	cursor: pointer;
+	border: none;
+}
+
+div.screenshot div.container a {
+	color: #fff;
+	background-color: var(--dark-blue);
+}
+
+div.screenshot div.container button {
+	color: var(--black);
+	background-color: #eee;
+}
+
+div.screenshot div.container a:hover {
+	background-color: var(--dark-blue-hover);
+}
+
+div.screenshot div.container button:hover {
+	background-color: #eee;
+}
 
 /*--------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------*/
@@ -568,11 +692,47 @@ div.buscar div.input input::-webkit-search-cancel-button {
 /*--------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------*/
 
+@media screen and (min-width: 780px) and (max-width: 1024px){
+	/*----------TABLETS--------*/
+	header {
+		width: 90%;
+	}
+	main {
+		box-shadow: none;
+		width: 100%;
+		margin: 0;
+	}
+}
 
-@media screen and (max-device-width: 360px){
-	html {
-		font-size: calc(0.6em + 3vw);
-	}  	
+@media screen /*and (min-width: 480px)*/ and (max-width: 780px){
+	/*----------MOBILE--------*/
+
+	header {
+		width: 90%;
+	}
+	main {
+		box-shadow: none;
+		width: 100%;
+		margin: 0;
+	}
+	main div.contenedor div.videollamada{
+		width: 0%;
+	}
+	main div.contenedor div.left{
+		width: 100%;
+	}
+	main > nav > div.opciones {
+		display: none;
+	}
+	main > nav button#menu {
+		display: block;
+	}
+}
+
+/*
+@media screen and (max-width: 480px){
+	/*----------MOBILE--------*/
+
 	header {
 		width: 90%;
 	}
@@ -594,3 +754,4 @@ div.buscar div.input input::-webkit-search-cancel-button {
 		display: block;
 	}
 }
+*/
