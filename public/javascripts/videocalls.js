@@ -12,8 +12,17 @@ videoUser.volume = 0.0;
 var peer = new Peer(userId, { 
 	host: location.hostname, 
 	port: location.port || (location.protocol === 'https:' ? 443 : 80), 
-	secure: (location.protocol === 'https:')
+	secure: (location.protocol === 'https:'),
+	config: {'iceServers': [
+		{ url: 'stun1.l.google.com:19302' },
+		{
+			url: 'turn:numb.viagenie.ca',
+			credential: 'muazkh',
+			username: 'webrtc@live.com'
+		}
+	]}
 });
+
 var heartbeater = makePeerHeartbeater(peer); //to stop it: heartbeater.stop();
 
 peer.on('open', function(id) {
