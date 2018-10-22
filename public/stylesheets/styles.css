@@ -704,7 +704,7 @@ div.screenshot div.container button:hover {
 	}
 }
 
-@media screen and (min-width: 480px) and (max-width: 780px){
+@media screen /*and (min-width: 480px)*/ and (max-width: 780px){
 	/*----------MOBILE--------*/
 
 	header {
@@ -716,7 +716,7 @@ div.screenshot div.container button:hover {
 		margin: 0;
 	}
 	main div.contenedor div.videollamada{
-		display: none;
+		width: 0%;
 	}
 	main div.contenedor div.left{
 		width: 100%;
@@ -729,7 +729,7 @@ div.screenshot div.container button:hover {
 	}
 }
 
-
+/*
 @media screen and (max-width: 480px){
 	/*----------MOBILE--------*/
 
@@ -754,3 +754,4 @@ div.screenshot div.container button:hover {
 		display: block;
 	}
 }
+*/
