@@ -5,12 +5,19 @@ var mongoose = require('mongoose');
 var User = require('../models/user');
 var FriendRequest = require('../models/friendRequest');
 
+var movimiento = "stop";
+
 router.get('/', ensureAuthenticated, function(req, res, next) {
   res.render('index');
 });
 
 router.get('/movimiento', function(req, res, next){
-  res.send('forward');
+  res.send(movimiento);
+});
+
+router.post('/movimiento/:direccion', function(req, res, next){
+  movimiento = req.params.direccion;
+  console.log(req.params.direccion);
 });
 
 function ensureAuthenticated(req, res, next){

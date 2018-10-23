@@ -17,6 +17,9 @@ $(document).keydown(function(e) {
         default: return; // exit this handler for other keys
     }
     e.preventDefault(); // prevent the default action (scroll / move caret)
+    $.post('/movimiento/'+movimiento, function (data) {
+        console.log(data);
+    });
 });
 
 $(document).keyup(function(e) {
@@ -36,4 +39,7 @@ $(document).keyup(function(e) {
         default: return; // exit this handler for other keys
     }
     e.preventDefault(); // prevent the default action (scroll / move caret)
+    $.post('/movimiento/'+movimiento, function (data) {
+        console.log(data);
+    });
 });
