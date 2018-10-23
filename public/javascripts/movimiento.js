@@ -1,5 +1,3 @@
-console.log('script movimiento');
-
 var movimiento = "stop";
 
 $(document).keydown(function(e) {
@@ -20,6 +18,7 @@ $(document).keydown(function(e) {
         default: return; // exit this handler for other keys
     }
     e.preventDefault(); // prevent the default action (scroll / move caret)
+    console.log(movimiento);
     $.post('/movimiento/'+movimiento, function (data) {
         console.log(data);
     });
