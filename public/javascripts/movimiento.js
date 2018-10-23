@@ -1,6 +1,9 @@
+console.log('script movimiento');
+
 var movimiento = "stop";
 
 $(document).keydown(function(e) {
+    console.log('keydown');
     switch(e.which) {
         case 37: // left
             movimiento = "left";
@@ -23,6 +26,7 @@ $(document).keydown(function(e) {
 });
 
 $(document).keyup(function(e) {
+    console.log('keyup');
     switch(e.which) {
         case 37: // left
             movimiento = "stop";
