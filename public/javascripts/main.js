@@ -5,11 +5,12 @@ updateRequests();
 
 // ------------------------------------------------- SOCKETS
 
-/*var socket = io();
+var socket = io('ws://localhost:3000', {transports: ['websocket']});
 
 socket.on('connect', function(socket) {
 	console.log(socket.connected);
-});*/
+	socket.emit('user-connection', {_id: userId});
+});
 
 // ------------------------------------------------- 
 // -------------------------------------------------

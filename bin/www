@@ -45,7 +45,21 @@ peerserver.on('disconnect', function(id) {
 var io = require('socket.io')(server);
 //var sockets = require('../sockets/sockets');
 
+io.on('connection', function(socket){
+  socket.emit('news', { hello: 'world' });
+  console.log('User connected!');
+  
+  socket.on('user-connection', function(data){
+    console.log('User connected: '+data);
+  });
 
+  socket.on('disconnect', function(){
+    console.log('user disconnected');
+  });
+  //socket.emit('request', /* */); // emit an event to the socket
+  //io.emit('broadcast', /* */); // emit an event to all connected sockets
+  //socket.on('reply', function(){ /* */ }); // listen to the event
+});
 
 /**
  * Listen on provided port, on all network interfaces.
