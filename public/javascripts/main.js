@@ -5,7 +5,7 @@ updateRequests();
 
 // ------------------------------------------------- SOCKETS
 
-var socket = io('ws://localhost:3000', {transports: ['websocket']});
+var socket = io('http://192.168.47:3000/', {transports: ['websocket']});
 
 socket.on('connect', function(socket) {
 	console.log(socket.connected);
