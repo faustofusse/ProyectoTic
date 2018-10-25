@@ -47,7 +47,6 @@ var io = require('socket.io')(server);
 
 io.on('connection', function(socket){
   socket.emit('news', { hello: 'world' });
-  console.log('User connected!');
   
   socket.on('user-connection', function(data){
     console.log('User connected: '+data);
