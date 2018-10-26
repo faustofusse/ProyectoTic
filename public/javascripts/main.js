@@ -15,8 +15,7 @@ var socket = io({transports: ['polling', 'websockets']});  // con transports: po
 console.log('Connecting to socket...');
 
 socket.on('connect', function() {
-	console.log('Socket connected. ID: '+socket.id);
-	socket.emit('movimiento', 'HOLA');
+	console.log('Socket connected.');
 	teclasMovimiento(socket);
 });
 
