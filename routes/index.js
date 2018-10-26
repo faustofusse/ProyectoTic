@@ -12,11 +12,11 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
 });
 
 router.get('/movimiento', function(req, res, next){
-  res.send(movimiento);
+  res.send(res.locals.movimiento);
 });
 
 router.post('/movimiento/:direccion', function(req, res, next){
-  movimiento = req.params.direccion;
+  res.locals.movimiento = req.params.direccion;
   console.log(req.params.direccion);
 });
 
