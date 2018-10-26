@@ -10,15 +10,6 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
 });
 
 router.get('/movimiento', function(req, res, next){
-<<<<<<< HEAD
-  res.send(res.locals.movimiento);
-});
-
-router.post('/movimiento/:direccion', function(req, res, next){
-  res.locals.movimiento = req.params.direccion;
-  console.log(req.params.direccion);
-});
-=======
   res.send(req.app.locals.movimiento);
 });
 
@@ -26,7 +17,6 @@ router.post('/movimiento/:direccion', function(req, res, next){
   req.app.locals.movimiento = req.params.direccion;
   console.log(req.app.locals.movimiento);
 });*/
->>>>>>> 409bc59c0f2f939ee58ae8443c543a530122813d
 
 function ensureAuthenticated(req, res, next){
   if (req.isAuthenticated()){
