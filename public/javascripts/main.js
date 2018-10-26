@@ -5,11 +5,19 @@ updateRequests();
 
 // ------------------------------------------------- SOCKETS
 
-var socket = io({transports: ['websocket']});
+var socket = io({transports: ['polling', 'websockets']});  // con transports: polling funciona - NO FUNCIONA con transports: websockets
+
+console.log('Connecting to socket...');
 
 socket.on('connect', function(socket) {
-	console.log(socket.connected);
-	socket.emit('user-connection', {_id: userId});
+	console.log('Socket connected.');
+	//socket.emit('user-connection', {_id: userId});
+});
+
+socket.on('reconnect_attempt', () => {
+	console.log('Reconnect attempt.');
+	// esto era cuando el transports estaba inicialmente en 'websockets', entonces si no funcionaba se ponia polling
+    //socket.io.ospts.transports = ['polling', 'websocket'];
 });
 
 // ------------------------------------------------- 

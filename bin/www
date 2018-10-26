@@ -31,11 +31,11 @@ var peerserver = ExpressPeerServer(server, {debug: true});
 app.use('/', peerserver);
 
 peerserver.on('connection', function(id) {
-  console.log(id + ' connected.');
+  //console.log(id + ' connected.');
 });
 
 peerserver.on('disconnect', function(id) {
-  console.log(id + ' disconnected');
+  //console.log(id + ' disconnected');
 });
 
 /**
@@ -46,14 +46,10 @@ var io = require('socket.io')(server);
 //var sockets = require('../sockets/sockets');
 
 io.on('connection', function(socket){
-  socket.emit('news', { hello: 'world' });
-  
-  socket.on('user-connection', function(data){
-    console.log('User connected: '+data);
-  });
+  console.log('User connected.')
 
   socket.on('disconnect', function(){
-    console.log('user disconnected');
+    console.log('User disconnected.');
   });
   //socket.emit('request', /* */); // emit an event to the socket
   //io.emit('broadcast', /* */); // emit an event to all connected sockets
