@@ -18,6 +18,7 @@ var usersRouter = require('./routes/users');
 var apiRouter = require('./routes/api');
 
 var app = express();
+app.locals.movimiento = "stop";
 
 // database connection
 mongoose.connect(url, {useNewUrlParser:true});

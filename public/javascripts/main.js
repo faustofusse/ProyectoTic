@@ -1,16 +1,72 @@
 // ------------------------------------------------- INICIALIZAR
 
+//if (location.protocol === 'http:' && location.hostname !== 'localhost')
+if (window.location.protocol !== 'https:' && location.hostname !== 'localhost') {
+   window.location.protocol = 'https:';
+   window.location.reload();
+}
 updateFriends();
 updateRequests();
 
 // ------------------------------------------------- SOCKETS
 
-/*var socket = io({transports: ['websocket']});
+var socket = io({transports: ['polling', 'websockets']});  // con transports: polling funciona - NO FUNCIONA con transports: websockets
 
-socket.on('connect', function(socket) {
-	console.log(socket.connected);
-	socket.emit('user-connection', {_id: userId});
-});*/
+console.log('Connecting to socket...');
+
+socket.on('connect', function() {
+	console.log('Socket connected.');
+	teclasMovimiento(socket);
+});
+
+socket.on('reconnect_attempt', () => {
+	console.log('Reconnect attempt.');
+	// esto era cuando el transports estaba inicialmente en 'websockets', entonces si no funcionaba se ponia polling
+    //socket.io.ospts.transports = ['polling', 'websocket'];
+});
+
+function teclasMovimiento(socket) {
+	$(document).keydown(function(e) {
+	    switch(e.which) {
+	        case 37: // left
+	            movimiento = "left";
+	            break;
+	        case 38: // up
+	            movimiento = "forward";
+	            break;
+	        case 39: // right
+	            movimiento = "right";
+	            break;
+	        case 40: // down
+	            movimiento = "backward";
+	            break;
+	        default: return; // exit this handler for other keys
+	    }
+	    e.preventDefault(); // prevent the default action (scroll / move caret)
+	    console.log(movimiento);
+	    socket.emit('movimiento', movimiento);
+	});
+
+	$(document).keyup(function(e) {
+	    switch(e.which) {
+	        case 37: // left
+	            movimiento = "stop";
+	            break;
+	        case 38: // up
+	            movimiento = "stop";
+	            break;
+	        case 39: // right
+	            movimiento = "stop";
+	            break;
+	        case 40: // down
+	            movimiento = "stop";
+	            break;
+	        default: return; // exit this handler for other keys
+	    }
+	    e.preventDefault(); // prevent the default action (scroll / move caret)
+	    socket.emit('movimiento', movimiento);
+	});
+}
 
 // ------------------------------------------------- 
 // -------------------------------------------------

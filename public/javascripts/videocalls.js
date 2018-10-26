@@ -23,7 +23,7 @@ var peer = new Peer(userId, {
 	]}
 });
 
-var heartbeater = makePeerHeartbeater(peer); //to stop it: heartbeater.stop();
+//var heartbeater = makePeerHeartbeater(peer); //to stop it: heartbeater.stop();
 
 peer.on('open', function(id) {
 	console.log('My peer ID is: ' + id);
