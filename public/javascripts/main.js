@@ -1,5 +1,10 @@
 // ------------------------------------------------- INICIALIZAR
 
+//if (location.protocol === 'http:' && location.hostname !== 'localhost')
+if (window.location.protocol !== 'https:' && location.hostname !== 'localhost') {
+   window.location.protocol = 'https:';
+   window.location.reload();
+}
 updateFriends();
 updateRequests();
 
