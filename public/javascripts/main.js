@@ -14,9 +14,10 @@ var socket = io({transports: ['polling', 'websockets']});  // con transports: po
 
 console.log('Connecting to socket...');
 
-socket.on('connect', function(socket) {
-	console.log('Socket connected.');
-	//socket.emit('user-connection', {_id: userId});
+socket.on('connect', function() {
+	console.log('Socket connected. ID: '+socket.id);
+	socket.emit('movimiento', 'HOLA');
+	teclasMovimiento(socket);
 });
 
 socket.on('reconnect_attempt', () => {
@@ -24,6 +25,49 @@ socket.on('reconnect_attempt', () => {
 	// esto era cuando el transports estaba inicialmente en 'websockets', entonces si no funcionaba se ponia polling
     //socket.io.ospts.transports = ['polling', 'websocket'];
 });
+
+function teclasMovimiento(socket) {
+	$(document).keydown(function(e) {
+	    switch(e.which) {
+	        case 37: // left
+	            movimiento = "left";
+	            break;
+	        case 38: // up
+	            movimiento = "forward";
+	            break;
+	        case 39: // right
+	            movimiento = "right";
+	            break;
+	        case 40: // down
+	            movimiento = "backward";
+	            break;
+	        default: return; // exit this handler for other keys
+	    }
+	    e.preventDefault(); // prevent the default action (scroll / move caret)
+	    console.log(movimiento);
+	    socket.emit('movimiento', movimiento);
+	});
+
+	$(document).keyup(function(e) {
+	    switch(e.which) {
+	        case 37: // left
+	            movimiento = "stop";
+	            break;
+	        case 38: // up
+	            movimiento = "stop";
+	            break;
+	        case 39: // right
+	            movimiento = "stop";
+	            break;
+	        case 40: // down
+	            movimiento = "stop";
+	            break;
+	        default: return; // exit this handler for other keys
+	    }
+	    e.preventDefault(); // prevent the default action (scroll / move caret)
+	    socket.emit('movimiento', movimiento);
+	});
+}
 
 // ------------------------------------------------- 
 // -------------------------------------------------

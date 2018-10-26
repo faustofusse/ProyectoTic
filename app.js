@@ -10,14 +10,15 @@ var flash = require('connect-flash');
 var session = require('express-session');
 var passport = require('passport');
 var mongoose = require('mongoose');
-//var url = "mongodb+srv://fausto-fusse:1234@tarscluster-djpnf.gcp.mongodb.net/tars";
-var url = "mongodb://localhost:27017/tars";
+var url = "mongodb+srv://fausto-fusse:1234@tarscluster-djpnf.gcp.mongodb.net/tars";
+//var url = "mongodb://localhost:27017/tars";
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var apiRouter = require('./routes/api');
 
 var app = express();
+app.locals.movimiento = "stop";
 
 // database connection
 mongoose.connect(url, {useNewUrlParser:true});
