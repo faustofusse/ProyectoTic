@@ -1,18 +1,12 @@
 // ------------------------------------------------- INICIALIZAR
 
-//if (location.protocol === 'http:' && location.hostname !== 'localhost')
-if (window.location.protocol !== 'https:' && location.hostname !== 'localhost') {
-   window.location.protocol = 'https:';
-   window.location.reload();
-}
+//if (location.protocol !== 'https:' && location.hostname !== 'localhost')
 updateFriends();
 updateRequests();
 
 // ------------------------------------------------- SOCKETS
 
 var socket = io({transports: ['polling', 'websockets']});  // con transports: polling funciona - NO FUNCIONA con transports: websockets
-
-console.log('Connecting to socket...');
 
 socket.on('connect', function() {
 	console.log('Socket connected.');

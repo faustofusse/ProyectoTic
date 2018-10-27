@@ -38,8 +38,8 @@
 		<form method="POST" action="/login">
 			<input type="text" name="nombre" id="nombre" placeholder="Nombre">
 			<input type="text" name="apellido" id="apellido" placeholder="Apellido">
-			<input type="email" name="correo" id="correo" placeholder="Correo Electronico">
-			<input type="password" name="password" id="password" placeholder="Contraseña">
+			<input type="email" name="correo" id="correo" placeholder="Correo Electronico" required>
+			<input type="password" name="password" id="password" placeholder="Contraseña" required>
 			<input type="password" name="repeatPassword" id="repeatPassword" placeholder="Repetir Contraseña">
 			<button type="submit" id="aceptar">Aceptar</button>
 		</form>
@@ -51,7 +51,7 @@
 		<button id="robot">Acceder como robot</button>
 	</main>
 
-	<script>var login = ('{{login}}' === 'true');</script>
+	<script>var login = ('{{login}}'==='true');</script>
 	<script type="text/javascript" src="./javascripts/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript" src="./javascripts/login.js"></script>
 </body>
