@@ -728,7 +728,12 @@ div.screenshot div.container button:hover {
 		margin: 0;
 	}
 	main div.contenedor div.videollamada{
-		width: 0%;
+		display: none;
+		box-sizing: border-box;
+		width: 0;
+	}
+	main div.contenedor div.videollamada h2{
+		width: 0;
 	}
 	main div.contenedor div.left{
 		width: 100%;

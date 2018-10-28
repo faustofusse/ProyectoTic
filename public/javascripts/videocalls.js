@@ -2,6 +2,8 @@ var videoFriend = document.querySelector('#videoFriend');
 var videoUser = document.querySelector('#videoUser');
 videoUser.volume = 0.0;
 
+var mobile = window.matchMedia("(max-width: 780px)").matches;
+
 /*getUserVideo(function(stream){
 	videoUser.srcObject = stream;
 	videoFriend.srcObject = stream;
@@ -37,6 +39,12 @@ peer.on('call', function(call) {
 	$('div.videollamada h2').css('display', 'none');
 	scrollTo($('div.videollamada'), 600);
 
+	if (mobile){
+		$('div.videollamada').css('display', 'flex');
+		$('div.left').animate({width:'0%'}, 200);
+		$('div.videollamada').animate({width:'100%'}, 200);
+	}
+
 	var otherId = call.peer;
 	console.log('Call from ' + otherId);
 	$('div.videollamada div.llamando h3').html('LLamada de ' + findFriendById(otherId) + '....');
@@ -54,6 +62,12 @@ function botonVideollamada(){
 		$('div.videollamada div.llamando h3').html('Llamando a ' + nombre + '....');
 		$('div.videollamada h2').css('display', 'none');
 		scrollTo($('div.videollamada'), 600);
+
+		if (mobile){
+			$('div.videollamada').css('display', 'flex');
+			$('div.left').animate({width:'0%'}, 200);
+			$('div.videollamada').animate({width:'100%'}, 200);
+		}
 
 		window.localStream = stream;
 		var call = peer.call(otherId, stream);	
@@ -95,14 +109,26 @@ function onStream(stream){
 function onError(err) {
 	console.error(err);
 	$('div.videollamada div.conferencia, div.videollamada div.llamando').css('display', 'none');
-	$('div.videollamada h2').css('display', 'flex');
+
+	if (mobile){
+		$('div.left').animate({width:'100%'}, 200);
+		$('div.videollamada').animate({width:'0%'}, 200);
+	}else{
+		$('div.videollamada h2').css('display', 'flex');
+	}
+
 	window.currentCall.close();
 }
 
 function onClose() {
 	console.log('Call ended.');
 	$('div.videollamada div.conferencia').css('display', 'none');
-	$('div.videollamada h2').css('display', 'flex');
+	if (mobile) {
+		$('div.left').animate({width:'100%'}, 200);
+		$('div.videollamada').animate({width:'0%'}, 200);
+	}else{
+		$('div.videollamada h2').css('display', 'flex');
+	}
 }
 
 function getUserVideo(callback) {
@@ -134,9 +160,7 @@ function makePeerHeartbeater ( peer ) {
         if ( peer.socket._wsOpen() )
             peer.socket.send( {type:'HEARTBEAT'} );
     }
-    // Start 
-    heartbeat();
-    // return
+    heartbeat(); // start
     return {
         start : function () {
             if ( timeoutId === 0 ) { heartbeat(); }
