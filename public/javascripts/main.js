@@ -6,7 +6,7 @@ updateRequests();
 
 // ------------------------------------------------- SOCKETS
 
-var socket = io({transports: ['polling', 'websockets']});  // con transports: polling funciona - NO FUNCIONA con transports: websockets
+var socket = io({transports: ['websockets']});  // con transports: polling funciona - NO FUNCIONA con transports: websockets
 
 socket.on('connect', function() {
 	console.log('Socket connected.');
@@ -16,7 +16,7 @@ socket.on('connect', function() {
 socket.on('reconnect_attempt', () => {
 	console.log('Reconnect attempt.');
 	// esto era cuando el transports estaba inicialmente en 'websockets', entonces si no funcionaba se ponia polling
-    //socket.io.ospts.transports = ['polling', 'websocket'];
+    socket.io.ospts.transports = ['polling', 'websocket'];
 });
 
 function teclasMovimiento(socket) {
