@@ -29,7 +29,9 @@
     "passport-local": "^1.0.0",
     "peer": "^0.2.10",
     "socket.io": "^2.1.1",
-    "socket.io-client": "^2.1.1"
+    "socket.io-client": "^2.1.1",
+    "websocket": "^1.0.28",
+    "ws": "^6.1.0"
   },
   "devDependencies": {}
 }
