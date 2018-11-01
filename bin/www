@@ -31,7 +31,7 @@ var websockets = require('../sockets/websockets')(app, server);
 
 //var wsServer = require('../sockets/socket-server');
 
-var socketIO = require('../sockets/socket.io')(app, server);
+//var socketIO = require('../sockets/socket.io')(app, server);
 
 /**
  * Listen on provided port, on all network interfaces.
