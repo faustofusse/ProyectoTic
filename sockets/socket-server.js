@@ -1,7 +1,7 @@
 var WebSocketServer = require('websocket').server;
 var http = require('http');
 
-var PORT = 8000;
+var PORT = 80;
 
 var server = http.createServer();
 server.listen(PORT, function () {
@@ -19,19 +19,12 @@ wsServer.on('request', function (request) {
   console.log('Connection accepted.');
 
   connection.on('message', function (message) {
-    console.log('DATa ', message);
-    if (message.type === 'utf8') {
-      console.log('Received Message: ' + message.utf8Data)
-    } else if (message.type === 'binary') {
-      console.log('Received Binary Message of ' + message.binaryData.length + ' bytes');
-    }
+    console.log('Received message: '+message);
   });
 
   connection.on('close', function (reasonCode, description) {
     console.log('Socket ' + connection.remoteAddress + ' disconnected.');
   });
-
-  connection.sendUTF('Hallo Client!');
 });
 
 module.exports = wsServer;

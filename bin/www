@@ -24,9 +24,9 @@ var server = http.createServer(app);
 /**
  * Set PeerJs server
  */
-
+/*
 var ExpressPeerServer = require('peer').ExpressPeerServer;
-var peerserver = ExpressPeerServer(server, {debug: true});
+var peerserver = ExpressPeerServer(server, {debug: true, port: 8000});
 
 app.use('/', peerserver);
 
@@ -37,30 +37,52 @@ peerserver.on('connection', function(id) {
 peerserver.on('disconnect', function(id) {
   //console.log(id + ' disconnected');
 });
-
+*/
 /**
  * Sockets.
  */
-/*
-const WebSocket = require('ws');
- 
-const wss = new WebSocket.Server({ server });
- 
-wss.on('connection', function connection(ws) {
-  console.log('User connected.');
 
-  ws.on('message', function incoming(message) {
-    console.log('received: %s', message);
-  });
- 
-  ws.send('something');
+var WebSocketServer = require('websocket').server;
+
+var wsServer = new WebSocketServer({
+  httpServer: server,
+  autoAcceptConnections: false
 });
 
-*/
+wsServer.on('request', function (request) {
+  console.log('request');
+  var connection = request.accept('arduino', request.origin);
+  console.log('Robot connected.');
+  
+  connection.on('message', function (message) {
+    console.log('DATa ', message);
+    if (message.type === 'utf8') {
+      console.log('Received Message: ' + message.utf8Data)
+    } else if (message.type === 'binary') {
+      console.log('Received Binary Message of ' + message.binaryData.length + ' bytes');
+    }
+  });
 
-var wsServer = require('../sockets/socket-server');
+  connection.on('close', function (reasonCode, description) {
+    console.log('Robot disconnected. IP:' + connection.remoteAddress);
+  });
+  
+});
 
-var io = require('socket.io')(server);
+wsServer.on('connect', function(connection){
+  console.log('Connected');
+});
+
+wsServer.on('close', function(webSocketConnection, closeReason, description){
+  console.log('closed');
+  console.log(closeReason);
+  console.log(description);
+});
+
+
+//var wsServer = require('../sockets/socket-server');
+
+/*var io = require('socket.io')(server);
 //var sockets = require('../sockets/sockets');
 
 io.on('connection', function(socket){
@@ -79,7 +101,7 @@ io.on('connection', function(socket){
   //io.emit('broadcast', ); // emit an event to all connected sockets
   //socket.on('reply', function(){ }); // listen to the event
 });
-
+*/
 
 
 /**
