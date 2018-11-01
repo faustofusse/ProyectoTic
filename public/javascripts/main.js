@@ -6,7 +6,7 @@ updateRequests();
 
 // ------------------------------------------------- SOCKETS
 
-var socket = io({transports: ['websockets']});  // con transports: polling funciona - NO FUNCIONA con transports: websockets
+var socket = io({transports: ['polling', 'websockets']});  // con transports: polling funciona - NO FUNCIONA con transports: websockets
 
 socket.on('connect', function() {
 	console.log('Socket connected.');

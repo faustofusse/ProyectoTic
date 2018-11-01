@@ -22,87 +22,16 @@ app.set('port', port);
 var server = http.createServer(app);
 
 /**
- * Set PeerJs server
- */
-/*
-var ExpressPeerServer = require('peer').ExpressPeerServer;
-var peerserver = ExpressPeerServer(server, {debug: true, port: 8000});
-
-app.use('/', peerserver);
-
-peerserver.on('connection', function(id) {
-  //console.log(id + ' connected.');
-});
-
-peerserver.on('disconnect', function(id) {
-  //console.log(id + ' disconnected');
-});
-*/
-/**
  * Sockets.
  */
 
-var WebSocketServer = require('websocket').server;
+//var peerJS = require('../sockets/peerjs')(app, server);
 
-var wsServer = new WebSocketServer({
-  httpServer: server,
-  autoAcceptConnections: false
-});
-
-wsServer.on('request', function (request) {
-  console.log('request');
-  var connection = request.accept('arduino', request.origin);
-  console.log('Robot connected.');
-  
-  connection.on('message', function (message) {
-    console.log('DATa ', message);
-    if (message.type === 'utf8') {
-      console.log('Received Message: ' + message.utf8Data)
-    } else if (message.type === 'binary') {
-      console.log('Received Binary Message of ' + message.binaryData.length + ' bytes');
-    }
-  });
-
-  connection.on('close', function (reasonCode, description) {
-    console.log('Robot disconnected. IP:' + connection.remoteAddress);
-  });
-  
-});
-
-wsServer.on('connect', function(connection){
-  console.log('Connected');
-});
-
-wsServer.on('close', function(webSocketConnection, closeReason, description){
-  console.log('closed');
-  console.log(closeReason);
-  console.log(description);
-});
-
+var websockets = require('../sockets/websockets')(app, server);
 
 //var wsServer = require('../sockets/socket-server');
 
-/*var io = require('socket.io')(server);
-//var sockets = require('../sockets/sockets');
-
-io.on('connection', function(socket){
-  console.log('User connected.');
-  socket.emit('light', true);
-
-  socket.on('disconnect', function(){
-    console.log('User disconnected.');
-  });
-
-  socket.on('movimiento', function(data){
-    app.locals.movimiento = data;
-  });
-
-  //socket.emit('request', ); // emit an event to the socket
-  //io.emit('broadcast', ); // emit an event to all connected sockets
-  //socket.on('reply', function(){ }); // listen to the event
-});
-*/
-
+var socketIO = require('../sockets/socket.io')(app, server);
 
 /**
  * Listen on provided port, on all network interfaces.
