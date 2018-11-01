@@ -57,6 +57,9 @@ wss.on('connection', function connection(ws) {
 });
 
 */
+
+var wsServer = require('../sockets/socket-server');
+
 var io = require('socket.io')(server);
 //var sockets = require('../sockets/sockets');
 
