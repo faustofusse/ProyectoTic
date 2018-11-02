@@ -3,8 +3,15 @@
 //if (location.protocol !== 'https:' && location.hostname !== 'localhost')
 updateFriends();
 updateRequests();
-
+var movimiento = "stop";
 // ------------------------------------------------- SOCKETS
+
+var websocket = new WebSocket('ws://'+location.hostname, ['arduino']);
+websocket.onopen = function (event) {
+	console.log('Socket connected.');
+	teclasMovimiento(websocket);
+}
+
 /*
 var socket = io({transports: ['polling', 'websockets']});  // con transports: polling funciona - NO FUNCIONA con transports: websockets
 
@@ -21,6 +28,7 @@ socket.on('reconnect_attempt', () => {
 */
 function teclasMovimiento(socket) {
 	$(document).keydown(function(e) {
+		var temp = movimiento;
 	    switch(e.which) {
 	        case 37: // left
 	            movimiento = "left";
@@ -37,8 +45,10 @@ function teclasMovimiento(socket) {
 	        default: return; // exit this handler for other keys
 	    }
 	    e.preventDefault(); // prevent the default action (scroll / move caret)
-	    console.log(movimiento);
-	    socket.emit('movimiento', movimiento);
+	    if(temp !== movimiento){
+	    	console.log(movimiento);
+	    	socket.send(movimiento);
+	    }
 	});
 
 	$(document).keyup(function(e) {
@@ -58,7 +68,7 @@ function teclasMovimiento(socket) {
 	        default: return; // exit this handler for other keys
 	    }
 	    e.preventDefault(); // prevent the default action (scroll / move caret)
-	    socket.emit('movimiento', movimiento);
+	    socket.send(movimiento);
 	});
 }
 

@@ -7,16 +7,15 @@ module.exports = function(app, server){
     });
 
     wsServer.on('request', function (request) {
+        var robot = request.accept('arduino', request.origin);
+        console.log('Someone connected.');
         
-        var connection = request.accept('arduino', request.origin);
-        console.log('Robot connected.');
-        
-        connection.on('message', function (message) {
-            console.log('Message: ', message);
+        robot.on('message', function (message) {
+            console.log('Message: ', message.utf8Data);
+            wsServer.broadcast(message.utf8Data);
         });
-
-        connection.on('close', function (reasonCode, description) {
-            console.log('Robot disconnected. IP:' + connection.remoteAddress);
+        robot.on('close', function (reasonCode, description) {
+            console.log('Robot disconnected.');
         });
     });
 };
