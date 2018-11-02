@@ -12,7 +12,7 @@ var http = require('http');
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || '80');
 app.set('port', port);
 
 /**
@@ -25,11 +25,13 @@ var server = http.createServer(app);
  * Sockets.
  */
 
-var peerJS = require('../sockets/peerjs')(app, server);
+var peerJsServer = require('../sockets/peerjs-server');
 
-//var websockets = require('../sockets/websockets')(app, server);
+//var peerJS = require('../sockets/peerjs')(app, server);
 
-var wsServer = require('../sockets/socket-server');
+var websockets = require('../sockets/websockets')(app, server);
+
+//var wsServer = require('../sockets/socket-server');
 
 //var socketIO = require('../sockets/socket.io')(app, server);
 
