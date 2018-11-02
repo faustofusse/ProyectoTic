@@ -13,7 +13,7 @@ var mobile = window.matchMedia("(max-width: 780px)").matches;
 
 var peer = new Peer(userId, { 
 	host: location.hostname, 
-	port: location.port || (location.protocol === 'https:' ? 443 : 80), 
+	port: 9000, 
 	secure: (location.protocol === 'https:'),
 	config: {'iceServers': [
 		{url:'stun:stun.l.google.com:19302'},
