@@ -46,20 +46,31 @@ var io = require('socket.io')(server);
 //var sockets = require('../sockets/sockets');
 
 io.on('connection', function(socket){
-  console.log('User connected.')
 
   socket.on('disconnect', function(){
     console.log('User disconnected.');
   });
 
-  socket.on('movimiento', function(data){
+  socket.on('movimiento', function(data){ZX
     app.locals.movimiento = data;
+  });
+
+  socket.on('user_connection', function(data){
+    console.log(data + ' connected.');
+    socket.id = data;
+    console.log(socket.id + ' socket id connected.');
+    io.clients((error, clients) => {
+      if (error) throw error;
+      console.log(clients); // => [6em3d4TJP8Et9EMNAAAA, G5p55dHhGgUnLUctAAAB]
+    });
   });
 
   //socket.emit('request', /* */); // emit an event to the socket
   //io.emit('broadcast', /* */); // emit an event to all connected sockets
   //socket.on('reply', function(){ /* */ }); // listen to the event
 });
+
+module.exports = io;
 
 /**
  * Listen on provided port, on all network interfaces.
