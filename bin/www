@@ -40,7 +40,27 @@ peerserver.on('disconnect', function(id) {
 
 //var peerJS = require('../sockets/peerjs')(app, server);
 
-var websockets = require('../sockets/websockets')(app, server);
+var WebSocketServer = require('websocket').server;
+
+var wsServer = new WebSocketServer({
+    httpServer: server,
+    autoAcceptConnections: false
+});
+
+wsServer.on('request', function (request) {
+    var robot = request.accept('arduino', request.origin);
+    console.log('Someone connected.');
+    
+    robot.on('message', function (message) {
+        console.log('Message: ', message.utf8Data);
+        wsServer.broadcast(message.utf8Data);
+    });
+    robot.on('close', function (reasonCode, description) {
+        console.log('Robot disconnected.');
+    });
+});
+
+//var websockets = require('../sockets/websockets')(app, server);
 
 //var wsServer = require('../sockets/socket-server');
 
