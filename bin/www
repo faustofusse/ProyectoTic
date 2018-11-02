@@ -29,7 +29,7 @@ var peerJS = require('../sockets/peerjs')(app, server);
 
 //var websockets = require('../sockets/websockets')(app, server);
 
-//var wsServer = require('../sockets/socket-server');
+var wsServer = require('../sockets/socket-server');
 
 //var socketIO = require('../sockets/socket.io')(app, server);
 
