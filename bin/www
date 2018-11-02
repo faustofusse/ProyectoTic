@@ -46,8 +46,6 @@ var websockets = require('../sockets/websockets')(app, server);
 
 //var socketIO = require('../sockets/socket.io')(app, server);
 
-module.exports = io;
-
 /**
  * Listen on provided port, on all network interfaces.
  */
