@@ -6,17 +6,18 @@ updateRequests();
 var movimiento = "stop";
 // ------------------------------------------------- SOCKETS
 
-var websocket = new WebSocket('ws://'+location.hostname, ['arduino']);
+/*var websocket = new WebSocket('ws://'+location.hostname, ['arduino']);
 websocket.onopen = function (event) {
 	console.log('Socket connected.');
 	teclasMovimiento(websocket);
-}
+}*/
 
-/*
+
 var socket = io({transports: ['polling', 'websockets']});  // con transports: polling funciona - NO FUNCIONA con transports: websockets
 
 socket.on('connect', function() {
 	console.log('Socket connected.');
+	socket.emit('user_connection', userId);
 	teclasMovimiento(socket);
 });
 
@@ -25,7 +26,7 @@ socket.on('reconnect_attempt', () => {
 	// esto era cuando el transports estaba inicialmente en 'websockets', entonces si no funcionaba se ponia polling
     // socket.io.ospts.transports = ['polling', 'websocket'];
 });
-*/
+
 function teclasMovimiento(socket) {
 	$(document).keydown(function(e) {
 		var temp = movimiento;
