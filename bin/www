@@ -25,8 +25,8 @@ var server = http.createServer(app);
  * Sockets.
  */
 
-/*var PeerServer = require('peer').PeerServer;
-var peerserver = PeerServer({port: 9000});
+var PeerServer = require('peer').PeerServer;
+var peerserver = PeerServer({port: 443});
 
 peerserver.on('connection', function(id) {
   console.log(id + ' connected.');
@@ -34,17 +34,17 @@ peerserver.on('connection', function(id) {
 
 peerserver.on('disconnect', function(id) {
   console.log(id + ' disconnected');
-});*/
+});
 
 //var peerJsServer = require('../sockets/peerjs-server');
-
-//var peerJS = require('../sockets/peerjs')(app, server);
 
 //var websockets = require('../sockets/websockets')(app, server);
 
 //var wsServer = require('../sockets/socket-server');
 
 var socketIO = require('../sockets/socket.io')(app, server);
+
+//var peerJS = require('../sockets/peerjs')(app, server);
 
 /**
  * Listen on provided port, on all network interfaces.
