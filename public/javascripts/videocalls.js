@@ -12,9 +12,9 @@ var mobile = window.matchMedia("(max-width: 780px)").matches;
 });*/
 
 var peer = new Peer(userId, { 
-	host: location.hostname, 
-	port: 9000, 
-	secure: (location.protocol === 'https:'),
+	host: 'tars-videocalls.herokuapp.com', 
+	port: 80, 
+	//secure: false,
 	config: {'iceServers': [
 		{url:'stun:stun.l.google.com:19302'},
 		{

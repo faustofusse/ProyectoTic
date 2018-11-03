@@ -24,7 +24,7 @@ var server = http.createServer(app);
 /**
  * Sockets.
  */
-
+/*
 var PeerServer = require('peer').PeerServer;
 var peerserver = PeerServer({port: 9000});
 
@@ -34,7 +34,7 @@ peerserver.on('connection', function(id) {
 
 peerserver.on('disconnect', function(id) {
   console.log(id + ' disconnected');
-});
+});*/
 
 //var peerJsServer = require('../sockets/peerjs-server');
 
