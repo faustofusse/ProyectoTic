@@ -26,7 +26,7 @@ var server = http.createServer(app);
  */
 
 var PeerServer = require('peer').PeerServer;
-var peerserver = PeerServer({port: 443});
+var peerserver = PeerServer({port: 9000});
 
 peerserver.on('connection', function(id) {
   console.log(id + ' connected.');
