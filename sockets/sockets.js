@@ -23,8 +23,8 @@ module.exports = function(app, server){
             io.emit('user-connection', data);
             data.socket = socket.id;
             app.locals.users.push(data);
-            if (app.locals.robots[0] !== undefined)
-                io.to(`${app.locals.robots[0].socket}`).emit('hola', 'arduino');
+            /*if (app.locals.robots[0] !== undefined)
+                io.to(`${app.locals.robots[0].socket}`).emit('hola', 'arduino');*/
         });
 
         socket.on('disconnect', function(){
