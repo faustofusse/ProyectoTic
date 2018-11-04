@@ -14,6 +14,10 @@ module.exports = function(app, server){
             app.locals.robots.push({mac:data.mac, socket:socket.id});
         });
 
+        socket.on('robot-request', function(data){
+            console.log('Request: '+data.mac);
+        });
+
         socket.on('user-connection', function(data){
             console.log('User connected. (ID: '+data.id+')');
             io.emit('user-connection', data);
@@ -38,7 +42,7 @@ module.exports = function(app, server){
             }
         }
     }
-    
+
     function disconnectUser(id){
         for(var i = 0; i<app.locals.users.length; i++){
             if (app.locals.users[i].socket === id){

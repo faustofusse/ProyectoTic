@@ -1,5 +1,4 @@
 // ------------------------------------------------- INICIALIZAR
-
 //if (location.protocol !== 'https:' && location.hostname !== 'localhost')
 updateFriends();
 updateRequests();
@@ -22,7 +21,7 @@ socket.on('connect', function() {
 	teclasMovimiento(socket);
 });
 
-socket.on('reconnect_attempt', () => {
+socket.on('reconnect_attempt', function() {
 	console.log('Reconnect attempt.');
 	// esto era cuando el transports estaba inicialmente en 'websockets', entonces si no funcionaba se ponia polling
     // socket.io.ospts.transports = ['polling', 'websocket'];
@@ -32,44 +31,26 @@ function teclasMovimiento(socket) {
 	$(document).keydown(function(e) {
 		var temp = movimiento;
 	    switch(e.which) {
-	        case 37: // left
-	            movimiento = "left";
-	            break;
-	        case 38: // up
-	            movimiento = "forward";
-	            break;
-	        case 39: // right
-	            movimiento = "right";
-	            break;
-	        case 40: // down
-	            movimiento = "backward";
-	            break;
+	        case 37: movimiento = "left"; break;
+	        case 38: movimiento = "forward"; break;
+	        case 39: movimiento = "right"; break;
+	        case 40: movimiento = "backward"; break;
 	        default: return; // exit this handler for other keys
 	    }
-	    e.preventDefault(); // prevent the default action (scroll / move caret)
+	    e.preventDefault();
 	    if(temp !== movimiento){
 	    	console.log(movimiento);
 	    	socket.emit('movimiento', {id:userId, movimiento:movimiento});
 	    }
-	});
-
-	$(document).keyup(function(e) {
+	}).keyup(function(e) {
 	    switch(e.which) {
-	        case 37: // left
-	            movimiento = "stop";
-	            break;
-	        case 38: // up
-	            movimiento = "stop";
-	            break;
-	        case 39: // right
-	            movimiento = "stop";
-	            break;
-	        case 40: // down
-	            movimiento = "stop";
-	            break;
+	        case 37: movimiento = "stop"; break;
+	        case 38: movimiento = "stop"; break;
+	        case 39: movimiento = "stop"; break;
+	        case 40: movimiento = "stop"; break;
 	        default: return; // exit this handler for other keys
 	    }
-	    e.preventDefault(); // prevent the default action (scroll / move caret)
+	    e.preventDefault();
 	    socket.emit('movimiento', {id:userId, movimiento:movimiento});
 	});
 }
@@ -80,9 +61,14 @@ function teclasMovimiento(socket) {
 // ------------------------------------------------- 
 // -------------------------------------------------
 
-$('form#connectRobot').submit(function(event) {
-	event.preventDefault();
-	alert('form');
+$('button#conectar').click(function(event) {
+	var mac = '';
+	for (var i = 0; i < $('div.mac input').length; i++) {
+		mac += $('div.mac input')[i].value.toUpperCase();
+		if(i!==$('div.mac input').length-1) mac += ':';
+	}
+	if (!validateMacAddress(mac)) return alert('Ingrese una direccion valida.');
+	socket.emit('robot-request', {id:userId, mac:mac});
 });
 
 $('div.videollamada div.llamando div.opciones button#atender').click(atender);
@@ -373,4 +359,9 @@ function deleteFriend(id){
 	}).done(function(data){
 		console.log(data);
 	});
+}
+
+function validateMacAddress(mac) {
+	var regex = /^([0-9A-F]{2}[:-]?){5}([0-9A-F]{2})$/;
+	return regex.test(mac);
 }
