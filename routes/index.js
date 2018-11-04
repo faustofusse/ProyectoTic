@@ -14,8 +14,8 @@ router.get('/movimiento', function(req, res, next){
   res.send(req.app.locals.movimiento);
 });
 
-router.get('/sockets', function(req, res, next){
-  res.send(io.sockets.clients());
+router.get('/robots', function(req, res, next){
+  res.send(req.app.locals.robots);
 });
 
 /*router.post('/movimiento/:direccion', function(req, res, next){

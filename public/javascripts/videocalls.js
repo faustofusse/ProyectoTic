@@ -13,7 +13,7 @@ var mobile = window.matchMedia("(max-width: 780px)").matches;
 
 var peer = new Peer(userId, { 
 	host: 'tars-videocalls.herokuapp.com', 
-	port: 443, 
+	port: location.protocol === 'https:' ? 443 : 80, 
 	secure: (location.protocol === 'https:'),
 	config: {'iceServers': [
 		{url:'stun:stun.l.google.com:19302'},

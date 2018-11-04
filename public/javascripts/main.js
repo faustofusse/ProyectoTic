@@ -17,7 +17,7 @@ var socket = io({transports: ['polling', 'websockets']});  // con transports: po
 
 socket.on('connect', function() {
 	console.log('Socket connected.');
-	socket.emit('user_connection', userId);
+	socket.emit('user-connection', userId);
 	teclasMovimiento(socket);
 });
 
@@ -48,7 +48,7 @@ function teclasMovimiento(socket) {
 	    e.preventDefault(); // prevent the default action (scroll / move caret)
 	    if(temp !== movimiento){
 	    	console.log(movimiento);
-	    	socket.send(movimiento);
+	    	socket.emit('movimiento', {id:userId, movimiento:movimiento});
 	    }
 	});
 
@@ -69,7 +69,7 @@ function teclasMovimiento(socket) {
 	        default: return; // exit this handler for other keys
 	    }
 	    e.preventDefault(); // prevent the default action (scroll / move caret)
-	    socket.send(movimiento);
+	    socket.emit('movimiento', {id:userId, movimiento:movimiento});
 	});
 }
 
