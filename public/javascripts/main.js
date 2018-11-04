@@ -6,19 +6,20 @@ var movimiento = "stop";
 var friends = [];
 // ------------------------------------------------- SOCKETS
 
-/*var websocket = new WebSocket('ws://'+location.hostname, ['arduino']);
-websocket.onopen = function (event) {
-	console.log('Socket connected.');
-	teclasMovimiento(websocket);
-}*/
-
-
 var socket = io({transports: ['polling', 'websockets']});  // con transports: polling funciona - NO FUNCIONA con transports: websockets
 
 socket.on('connect', function() {
 	console.log('Socket connected.');
 	socket.emit('user-connection', {id:userId, nombre:nombre, apellido:apellido});
 	teclasMovimiento(socket);
+});
+
+socket.on('robot-accepted', function(data) {
+	
+});
+
+socket.on('robot-declined', function(data) {
+	
 });
 
 socket.on('reconnect_attempt', function() {

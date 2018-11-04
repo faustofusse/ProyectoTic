@@ -22,6 +22,10 @@ router.get('/users', function(req, res, next){
   res.send(req.app.locals.users);
 });
 
+router.get('/connections', function(req, res, next){
+  res.send(req.app.locals.connections);
+});
+
 /*router.post('/movimiento/:direccion', function(req, res, next){
   req.app.locals.movimiento = req.params.direccion;
   console.log(req.app.locals.movimiento);

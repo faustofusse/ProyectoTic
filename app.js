@@ -21,6 +21,7 @@ var app = express();
 app.locals.movimiento = "stop";
 app.locals.robots = [];
 app.locals.users = [];
+app.locals.connections = [];
 
 // database connection
 mongoose.connect(url, {useNewUrlParser:true});
