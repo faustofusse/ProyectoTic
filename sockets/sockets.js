@@ -36,8 +36,8 @@ module.exports = function(app, server){
     function disconnectRobot(id){
         for(var i = 0; i<app.locals.robots.length; i++){
             if (app.locals.robots[i].socket === id){
-                app.locals.robots.splice(i, 1);
                 io.emit('robot-disconnect', app.locals.robots[i].mac);
+                app.locals.robots.splice(i, 1);
                 console.log('Arduino disconnected.');
             }
         }
