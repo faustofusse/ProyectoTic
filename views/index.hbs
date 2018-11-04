@@ -36,13 +36,31 @@
 			</div>
 		</div>
 		<div class="solicitudes">
-				<div class="superior">
-					<h2>Solicitudes de amistad</h2>
-					<button><i class="fa fa-times"></i></button>
+			<div class="superior">
+				<h2>Solicitudes de amistad</h2>
+				<button><i class="fa fa-times"></i></button>
+			</div>
+			<div class="listado">
+				<div class="none">No tienes ninguna solicitud :(</div>
+			</div>
+		</div>
+		<div class="addRobot">
+			<div class="superior">
+				<h2>Conectar un robot:</h2>
+				<button><i class="fa fa-times"></i></button>
+			</div>
+			<form id="connectRobot">
+				<span>Mac Address:</span>
+				<div class="inputs">
+					<input id="1" type="text" pattern="[a-fA-F0-9]" maxlength="2" style="text-transform:uppercase"><span>:</span>
+					<input id="2" type="text" pattern="[a-fA-F0-9]" maxlength="2" style="text-transform:uppercase"><span>:</span>
+					<input id="3" type="text" pattern="[a-fA-F0-9]" maxlength="2" style="text-transform:uppercase"><span>:</span>
+					<input id="4" type="text" pattern="[a-fA-F0-9]" maxlength="2" style="text-transform:uppercase"><span>:</span>
+					<input id="5" type="text" pattern="[a-fA-F0-9]" maxlength="2" style="text-transform:uppercase"><span>:</span>
+					<input id="6" type="text" pattern="[a-fA-F0-9]" maxlength="2" style="text-transform:uppercase">
 				</div>
-				<div class="listado">
-					<div class="none">No tienes ninguna solicitud :(</div>
-				</div>
+				<!--<input type="submit" value="Conectar">-->
+			</div>
 		</div>
 	</div>
 
@@ -60,8 +78,8 @@
 			<button id="menu"><i class="fa fa-bars"></i></button>
 			<div class="opciones">
 				<button id="friendRequests">Solicitudes<i class="fa fa-user-plus"></i></button>
-				<button id="addFriend">Agregar<i class="fa fa-search"></i></button>
-				<button id="settings">Configuracion<i class="fa fa-cog"></i></button>
+				<button id="addFriend">Agregar Amigo<i class="fa fa-search"></i></button>
+				<button id="connectRobot">Conectar Robot<i class="fa fa-link"></i></button>
 				<button id="logout">Salir<i class="fa fa-sign-out-alt"></i></button>
 			</div>
 		</nav> 
@@ -76,7 +94,7 @@
 						<h3>No tienes amigos :(</h3>
 					</div>
 					<div class="robots">
-						<h3>No hay robots conectados :(</h3>
+						<h3>No tienes ningun robot :(</h3>
 					</div>
 				</div>
 			</div>
@@ -103,7 +121,11 @@
 		</div>
 	</main>
 
-	<script>var userId = '{{user._id}}';</script>
+	<script>
+		var userId = '{{user._id}}',
+			nombre = '{{user.nombre}}',
+			apellido = '{{user.apellido}}';
+	</script>
 	<script type="text/javascript" src="./javascripts/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript" src="./socket.io/socket.io.js"></script>
 	<script type="text/javascript" src="./javascripts/peer.min.js"></script>

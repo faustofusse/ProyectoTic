@@ -15,14 +15,16 @@ module.exports = function(app, server){
         });
 
         socket.on('user-connection', function(data){
-            console.log('User connected. (ID: '+data+')');
+            console.log('User connected. (ID: '+data.id+')');
             io.emit('user-connection', data);
-            //io.emit('usuarioconectado', true);
+            data.socket = socket.id;
+            app.locals.users.push(data);
             if (app.locals.robots[0] !== undefined)
                 io.to(`${app.locals.robots[0].socket}`).emit('hola', 'arduino');
         });
 
         socket.on('disconnect', function(){
+            disconnectUser(socket.id);
             disconnectRobot(socket.id);
         });
     });
@@ -31,7 +33,18 @@ module.exports = function(app, server){
         for(var i = 0; i<app.locals.robots.length; i++){
             if (app.locals.robots[i].socket === id){
                 app.locals.robots.splice(i, 1);
+                io.emit('robot-disconnect', app.locals.robots[i].mac);
                 console.log('Arduino disconnected.');
+            }
+        }
+    }
+    
+    function disconnectUser(id){
+        for(var i = 0; i<app.locals.users.length; i++){
+            if (app.locals.users[i].socket === id){
+                io.emit('user-disconnect', app.locals.users[i].id);
+                app.locals.users.splice(i, 1);
+                console.log('User disconnected.');
             }
         }
     }

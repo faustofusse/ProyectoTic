@@ -18,6 +18,10 @@ router.get('/robots', function(req, res, next){
   res.send(req.app.locals.robots);
 });
 
+router.get('/users', function(req, res, next){
+  res.send(req.app.locals.users);
+});
+
 /*router.post('/movimiento/:direccion', function(req, res, next){
   req.app.locals.movimiento = req.params.direccion;
   console.log(req.app.locals.movimiento);

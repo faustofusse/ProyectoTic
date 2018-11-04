@@ -20,6 +20,7 @@ var apiRouter = require('./routes/api');
 var app = express();
 app.locals.movimiento = "stop";
 app.locals.robots = [];
+app.locals.users = [];
 
 // database connection
 mongoose.connect(url, {useNewUrlParser:true});

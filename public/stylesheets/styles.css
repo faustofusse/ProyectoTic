@@ -21,6 +21,7 @@
 *{
 	font-family: 'Amaranth';
 	box-sizing: border-box;
+	white-space: nowrap;	
 }
 
 body{
@@ -472,7 +473,9 @@ div.menu {
 	flex-direction: column;
 	align-items: center;
 }
-div.menu div.buscar, div.menu div.solicitudes {
+div.menu div.buscar, 
+div.menu div.solicitudes, 
+div.menu div.addRobot {
 	width: 25em;
 	display: none;
 	margin-top: 10%;
@@ -566,25 +569,25 @@ div.menu div.buscar div.listado div.none {display: none;}
 /*--------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------*/
 
-div.solicitudes div.superior {
+div.menu div div.superior {
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
 	border-bottom: 2px solid #fff;
 }
-div.solicitudes div.superior h2{
+div.menu div div.superior h2{
 	color: #fff;
 	margin: 0;
 	padding: .5em 0;
 	font-weight: normal;
 	font-size: 1.6em;
 }
-div.solicitudes div.superior button {
+div.menu div div.superior button {
 	border: none;
 	background-color: rgba(0,0,0,0);
 	cursor: pointer;
 }
-div.solicitudes div.superior button i{
+div.menu div div.superior button i{
 	color: #fff;
 	font-size: 2em;
 }
@@ -626,6 +629,13 @@ div.buscar div.input input::-webkit-search-cancel-button {
 	-webkit-appearance:none;
 }
 
+/*--------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------*/
+/*------------------------------------- DIV AGREGAR ROBOT -----------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------*/
+
+/*div.addRobot 
 
 /*--------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------*/

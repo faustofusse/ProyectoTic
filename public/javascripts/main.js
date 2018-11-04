@@ -4,6 +4,7 @@
 updateFriends();
 updateRequests();
 var movimiento = "stop";
+var friends = [];
 // ------------------------------------------------- SOCKETS
 
 /*var websocket = new WebSocket('ws://'+location.hostname, ['arduino']);
@@ -17,7 +18,7 @@ var socket = io({transports: ['polling', 'websockets']});  // con transports: po
 
 socket.on('connect', function() {
 	console.log('Socket connected.');
-	socket.emit('user-connection', userId);
+	socket.emit('user-connection', {id:userId, nombre:nombre, apellido:apellido});
 	teclasMovimiento(socket);
 });
 
@@ -79,6 +80,11 @@ function teclasMovimiento(socket) {
 // ------------------------------------------------- 
 // -------------------------------------------------
 
+$('form#connectRobot').submit(function(event) {
+	event.preventDefault();
+	alert('form');
+});
+
 $('div.videollamada div.llamando div.opciones button#atender').click(atender);
 $('div.videollamada div.llamando div.opciones button#declinar').click(declinar);
 
@@ -120,7 +126,7 @@ $('html').keyup(function(event) {
 	}
 });
 
-$('div.solicitudes div.superior button, div.menu div.background').click(function(event) {
+$('div.menu div div.superior button, div.menu div.background').click(function(event) {
 	terminarMenu();
 });
 
@@ -149,8 +155,12 @@ $('button#addFriend').click(function(){
 	$('div.menu div.background').css('background-color', 'rgba(30,136,229,0.9)');
 	$('input#buscar').focus();
 });
-$('button#settings').click(function(event) {
-	
+$('button#connectRobot').click(function(event) {
+	$('div.menu').css('display','flex');
+	$('div.addRobot').css('display','flex');
+	$('div.menu div.addRobot').animate({marginTop:'5%'}, 200);
+	$('div.menu div.background').css('display', 'flex');
+	$('div.menu div.background').css('background-color', 'rgba(30,136,229,0.9)');
 });
 $('button#logout').click(function(event) {
 	document.location.href = '/logout';
@@ -163,13 +173,15 @@ $('button#logout').click(function(event) {
 // ------------------------------------------------- 
 
 function updateFriends(){
-	$.get('/api/friends', function(friends){
+	$.get('/api/friends', function(data){
+		friends = data;
 		$('main div.contenedor div.left div.inferior div.amigos div.usuario').remove();
-		if (friends.length)
+		if (data.length)
 			$('main div.contenedor div.left div.inferior div.amigos h3').css('display', 'none');
 		else
 			$('main div.contenedor div.left div.inferior div.amigos h3').css('display', 'flex');
-		for (var i = friends.length - 1; i >= 0; i--) {
+		
+		for (var i = data.length - 1; i >= 0; i--) {
 			var div = $('<div class="usuario"><span></span></div>');
 			var opciones = $('<div><button id="videollamada"></button><button id="opciones"></button></div>')
 			var list = $('<ul></ul>');
@@ -177,10 +189,10 @@ function updateFriends(){
 				.append('<li><button id="eliminar">Eliminar</button></li>');
 			list.find('button#perfil').click(botonPerfil);
 			list.find('button#eliminar').click(botonEliminar);
-			opciones.find('button#videollamada').append('<i class="fa fa-video"></i>').attr('id', friends[i]._id).click(botonVideollamada);
+			opciones.find('button#videollamada').append('<i class="fa fa-video"></i>').attr('id', data[i]._id).click(botonVideollamada);
 			opciones.find('button#opciones').append('<i class="fa fa-ellipsis-v"></i>').click(botonOpciones);
-			div.attr('id', friends[i]._id);
-			div.find('span').html(friends[i].nombre + ' ' + friends[i].apellido);
+			div.attr('id', data[i]._id);
+			div.find('span').html(data[i].nombre + ' ' + data[i].apellido);
 			div.append(opciones);
 			div.find('button#opciones').append(list);
 			$('main div.contenedor div.left div.inferior div.amigos').append(div);
@@ -319,7 +331,7 @@ function botonAgregar(event) {
 };
 
 function terminarMenu(){
-	$('div.buscar, div.solicitudes').animate({marginTop:'10%'}, 200, function(){
+	$('div.buscar, div.solicitudes, div.addRobot').animate({marginTop:'10%'}, 200, function(){
 		$('div.menu, div.menu > div').css('display', 'none');
 		$('div.menu').css('display', 'none');
 	});
