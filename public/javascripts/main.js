@@ -14,12 +14,8 @@ socket.on('connect', function() {
 	teclasMovimiento(socket);
 });
 
-socket.on('robot-accepted', function(data) {
-	
-});
-
-socket.on('robot-declined', function(data) {
-	
+socket.on('robot-request', function(data) {
+	alert(data);
 });
 
 socket.on('reconnect_attempt', function() {

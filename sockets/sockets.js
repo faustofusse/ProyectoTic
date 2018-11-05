@@ -4,9 +4,13 @@ module.exports = function(app, server){
     io.on('connection', function(socket){
 
         socket.on('movimiento', function(data){
-            app.locals.movimiento = data.movimiento;
+            var socketRobot;
+            for (var i = 0; i < app.locals.connections.length; i++) {
+                if(app.locals.connections[i].socketUser === socket.id)
+                    socketRobot = app.locals.connections[i].socketRobot;
+            }
             if (app.locals.robots[0] !== undefined)
-                io.to(`${app.locals.robots[0].socket}`).emit('movimiento', data.movimiento);
+                io.to(`${socketRobot}`).emit('movimiento', data.movimiento);
         });
 
         socket.on('arduino-connection', function(data){
@@ -16,6 +20,16 @@ module.exports = function(app, server){
 
         socket.on('robot-request', function(data){
             console.log('Request: '+data.mac);
+            var request = robotRequest(data.id, data.mac);
+            if (request === 'Conexion aceptada.'){
+                var robotId = getRobotId(data.mac);
+                console.log(robotId);
+                app.locals.connections.push({id:data.id, mac:data.mac, socketUser:socket.id, socketRobot:robotId});
+                console.log('Conexion aceptada papu');
+            }else{
+                console.log(request);
+            }
+            socket.emit('robot-request', request);
         });
 
         socket.on('user-connection', function(data){
@@ -28,6 +42,10 @@ module.exports = function(app, server){
         });
 
         socket.on('disconnect', function(){
+            for (var i = 0; i < app.locals.connections.length; i++) {
+                if(app.locals.connections[i].socketRobot === socket.id || app.locals.connections[i].socketUser === socket.id)
+                    app.locals.connections.splice(i, 1);
+            }
             disconnectUser(socket.id);
             disconnectRobot(socket.id);
         });
@@ -51,5 +69,33 @@ module.exports = function(app, server){
                 console.log('User disconnected.');
             }
         }
+    }
+
+    function getRobotId(mac) {
+        for (var i = 0; i < app.locals.robots.length; i++) {
+            if(app.locals.robots[i].mac === mac)
+                return app.locals.robots[i].socket;
+        }
+    }
+
+    function robotRequest(userId, mac) {
+        for (var i = 0; i < app.locals.connections.length; i++) {
+            if (app.locals.connections[i].id === userId){
+                return 'Ya estas conectado a un robot.';
+            }
+            if (app.locals.connections[i].mac === mac){
+                if (app.locals.connections[i].id === userId){
+                    return 'Ya estas conectado a ese robot.';
+                }else{
+                    return 'El robot esta ocupado.';
+                }
+            }
+        }
+        for (var i = 0; i < app.locals.robots.length; i++) {
+            if(app.locals.robots[i].mac === mac){
+                return 'Conexion aceptada.';
+            }
+        }
+        return 'El robot no existe o no esta conectado.';
     }
 }
