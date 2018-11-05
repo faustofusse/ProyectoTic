@@ -19,9 +19,15 @@ var peer = new Peer(userId, {
 		{url:'stun:stun.l.google.com:19302'},
 		{
 			url: 'turn:numb.viagenie.ca',
+			credential: 'F@usto123',
+			username: 'faustofusse@gmail.com'
+		}	
+		/*{url:'stun:stun.l.google.com:19302'},
+		{
+			url: 'turn:numb.viagenie.ca',
 			credential: 'muazkh',
 			username: 'webrtc@live.com'
-		}
+		}*/
 	]}
 });
 
