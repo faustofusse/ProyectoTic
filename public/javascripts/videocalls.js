@@ -16,7 +16,8 @@ var peer = new Peer(userId, {
 	port: location.protocol === 'https:' ? 443 : 80, 
 	secure: (location.protocol === 'https:'),
 	config: {'iceServers': [
-		{url:'stun:sp-turn1.xirsys.com'},
+		{url:'stun:sp-turn1.xirsys.com',credential:'eebe899c-e0fc-11e8-8276-c35ebd4a49e7',
+			username:'eebe88fc-e0fc-11e8-b9c1-4d6b2edf0bba'},
 		{
 			url:'turn:sp-turn1.xirsys.com:80?transport=udp',
 			credential:'eebe899c-e0fc-11e8-8276-c35ebd4a49e7',
