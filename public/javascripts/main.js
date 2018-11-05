@@ -1,75 +1,54 @@
 // ------------------------------------------------- INICIALIZAR
-
 //if (location.protocol !== 'https:' && location.hostname !== 'localhost')
 updateFriends();
 updateRequests();
 var movimiento = "stop";
+var friends = [];
 // ------------------------------------------------- SOCKETS
 
-var websocket = new WebSocket('ws://'+location.hostname, ['arduino']);
-websocket.onopen = function (event) {
-	console.log('Socket connected.');
-	teclasMovimiento(websocket);
-}
-
-/*
 var socket = io({transports: ['polling', 'websockets']});  // con transports: polling funciona - NO FUNCIONA con transports: websockets
 
 socket.on('connect', function() {
 	console.log('Socket connected.');
-	socket.emit('user_connection', userId);
+	socket.emit('user-connection', {id:userId, nombre:nombre, apellido:apellido});
 	teclasMovimiento(socket);
 });
 
-socket.on('reconnect_attempt', () => {
+socket.on('robot-request', function(data) {
+	alert(data);
+});
+
+socket.on('reconnect_attempt', function() {
 	console.log('Reconnect attempt.');
 	// esto era cuando el transports estaba inicialmente en 'websockets', entonces si no funcionaba se ponia polling
     // socket.io.ospts.transports = ['polling', 'websocket'];
 });
-*/
+
 function teclasMovimiento(socket) {
 	$(document).keydown(function(e) {
 		var temp = movimiento;
 	    switch(e.which) {
-	        case 37: // left
-	            movimiento = "left";
-	            break;
-	        case 38: // up
-	            movimiento = "forward";
-	            break;
-	        case 39: // right
-	            movimiento = "right";
-	            break;
-	        case 40: // down
-	            movimiento = "backward";
-	            break;
+	        case 37: movimiento = "left"; break;
+	        case 38: movimiento = "forward"; break;
+	        case 39: movimiento = "right"; break;
+	        case 40: movimiento = "backward"; break;
 	        default: return; // exit this handler for other keys
 	    }
-	    e.preventDefault(); // prevent the default action (scroll / move caret)
+	    e.preventDefault();
 	    if(temp !== movimiento){
 	    	console.log(movimiento);
-	    	socket.send(movimiento);
+	    	socket.emit('movimiento', {id:userId, movimiento:movimiento});
 	    }
-	});
-
-	$(document).keyup(function(e) {
+	}).keyup(function(e) {
 	    switch(e.which) {
-	        case 37: // left
-	            movimiento = "stop";
-	            break;
-	        case 38: // up
-	            movimiento = "stop";
-	            break;
-	        case 39: // right
-	            movimiento = "stop";
-	            break;
-	        case 40: // down
-	            movimiento = "stop";
-	            break;
+	        case 37: movimiento = "stop"; break;
+	        case 38: movimiento = "stop"; break;
+	        case 39: movimiento = "stop"; break;
+	        case 40: movimiento = "stop"; break;
 	        default: return; // exit this handler for other keys
 	    }
-	    e.preventDefault(); // prevent the default action (scroll / move caret)
-	    socket.send(movimiento);
+	    e.preventDefault();
+	    socket.emit('movimiento', {id:userId, movimiento:movimiento});
 	});
 }
 
@@ -78,6 +57,16 @@ function teclasMovimiento(socket) {
 // ------------------------------------------------- EVENTS
 // ------------------------------------------------- 
 // -------------------------------------------------
+
+$('button#conectar').click(function(event) {
+	var mac = '';
+	for (var i = 0; i < $('div.mac input').length; i++) {
+		mac += $('div.mac input')[i].value.toUpperCase();
+		if(i!==$('div.mac input').length-1) mac += ':';
+	}
+	if (!validateMacAddress(mac)) return alert('Ingrese una direccion valida.');
+	socket.emit('robot-request', {id:userId, mac:mac});
+});
 
 $('div.videollamada div.llamando div.opciones button#atender').click(atender);
 $('div.videollamada div.llamando div.opciones button#declinar').click(declinar);
@@ -101,7 +90,7 @@ $('div.conferencia').mouseleave(function(event) {
 	animateButtons('0%', 20);
 });
 
-$('div.contenedor div.left div.superior button').click(function(event) {
+$('div.contenedor div.left div.superior button, div.menuBottom button#amigos, div.menuBottom button#robots').click(function(event) {
 	var id = $(this).attr('id');
 	var id2 = 'amigos';
 	if (id == 'amigos') id2 = 'robots';
@@ -120,7 +109,7 @@ $('html').keyup(function(event) {
 	}
 });
 
-$('div.solicitudes div.superior button, div.menu div.background').click(function(event) {
+$('div.menu div div.superior button, div.menu div.background').click(function(event) {
 	terminarMenu();
 });
 
@@ -133,7 +122,7 @@ $('div.buscar div.input input').keyup(function(event) {
 	}
 });
 
-$('button#friendRequests').click(function(event) {
+$('button#friendRequests, div.menuBottom button#solicitudes').click(function(event) {
 	$('div.menu').css('display','flex');
 	$('div.solicitudes').css('display','flex');
 	$('div.menu div.solicitudes').animate({marginTop:'5%'}, 200);
@@ -141,7 +130,7 @@ $('button#friendRequests').click(function(event) {
 	$('div.menu div.background').css('background-color', 'rgba(30,136,229,0.9)');
 	updateRequests();
 });
-$('button#addFriend').click(function(){
+$('button#addFriend, button#buscar').click(function(){
 	$('div.menu').css('display','flex');
 	$('div.buscar').css('display','flex');
 	$('div.menu div.buscar').animate({marginTop:'5%'}, 200);
@@ -149,11 +138,22 @@ $('button#addFriend').click(function(){
 	$('div.menu div.background').css('background-color', 'rgba(30,136,229,0.9)');
 	$('input#buscar').focus();
 });
-$('button#settings').click(function(event) {
-	
+$('button#connectRobot').click(function(event) {
+	$('div.menu').css('display','flex');
+	$('div.addRobot').css('display','flex');
+	$('div.menu div.addRobot').animate({marginTop:'5%'}, 200);
+	$('div.menu div.background').css('display', 'flex');
+	$('div.menu div.background').css('background-color', 'rgba(30,136,229,0.9)');
 });
 $('button#logout').click(function(event) {
 	document.location.href = '/logout';
+});
+
+$('div.menuBottom button#amigos').click(function (e) {
+	
+});
+$('div.menuBottom button#robots').click(function (e) {
+	
 });
 
 // ------------------------------------------------- 
@@ -163,13 +163,15 @@ $('button#logout').click(function(event) {
 // ------------------------------------------------- 
 
 function updateFriends(){
-	$.get('/api/friends', function(friends){
+	$.get('/api/friends', function(data){
+		friends = data;
 		$('main div.contenedor div.left div.inferior div.amigos div.usuario').remove();
-		if (friends.length)
+		if (data.length)
 			$('main div.contenedor div.left div.inferior div.amigos h3').css('display', 'none');
 		else
 			$('main div.contenedor div.left div.inferior div.amigos h3').css('display', 'flex');
-		for (var i = friends.length - 1; i >= 0; i--) {
+		
+		for (var i = data.length - 1; i >= 0; i--) {
 			var div = $('<div class="usuario"><span></span></div>');
 			var opciones = $('<div><button id="videollamada"></button><button id="opciones"></button></div>')
 			var list = $('<ul></ul>');
@@ -177,10 +179,10 @@ function updateFriends(){
 				.append('<li><button id="eliminar">Eliminar</button></li>');
 			list.find('button#perfil').click(botonPerfil);
 			list.find('button#eliminar').click(botonEliminar);
-			opciones.find('button#videollamada').append('<i class="fa fa-video"></i>').attr('id', friends[i]._id).click(botonVideollamada);
-			opciones.find('button#opciones').append('<i class="fa fa-ellipsis-v"></i>').click(botonOpciones);
-			div.attr('id', friends[i]._id);
-			div.find('span').html(friends[i].nombre + ' ' + friends[i].apellido);
+			opciones.find('button#videollamada').append('<i class="fa fa-video"></i>').attr('id', data[i]._id).click(botonVideollamada);
+			//opciones.find('button#opciones').append('<i class="fa fa-ellipsis-v"></i>').click(botonOpciones);
+			div.attr('id', data[i]._id);
+			div.find('span').html(data[i].nombre + ' ' + data[i].apellido);
 			div.append(opciones);
 			div.find('button#opciones').append(list);
 			$('main div.contenedor div.left div.inferior div.amigos').append(div);
@@ -319,7 +321,7 @@ function botonAgregar(event) {
 };
 
 function terminarMenu(){
-	$('div.buscar, div.solicitudes').animate({marginTop:'10%'}, 200, function(){
+	$('div.buscar, div.solicitudes, div.addRobot').animate({marginTop:'10%'}, 200, function(){
 		$('div.menu, div.menu > div').css('display', 'none');
 		$('div.menu').css('display', 'none');
 	});
@@ -361,4 +363,9 @@ function deleteFriend(id){
 	}).done(function(data){
 		console.log(data);
 	});
+}
+
+function validateMacAddress(mac) {
+	var regex = /^([0-9A-F]{2}[:-]?){5}([0-9A-F]{2})$/;
+	return regex.test(mac);
 }

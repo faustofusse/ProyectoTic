@@ -25,46 +25,7 @@ var server = http.createServer(app);
  * Sockets.
  */
 
-/*var PeerServer = require('peer').PeerServer;
-var peerserver = PeerServer({port: 9000});
-
-peerserver.on('connection', function(id) {
-  console.log(id + ' connected.');
-});
-
-peerserver.on('disconnect', function(id) {
-  console.log(id + ' disconnected');
-});*/
-
-//var peerJsServer = require('../sockets/peerjs-server');
-
-//var peerJS = require('../sockets/peerjs')(app, server);
-
-var WebSocketServer = require('websocket').server;
-
-var wsServer = new WebSocketServer({
-    httpServer: server,
-    autoAcceptConnections: false
-});
-
-wsServer.on('request', function (request) {
-    var robot = request.accept('arduino', request.origin);
-    console.log('Someone connected.');
-    
-    robot.on('message', function (message) {
-        console.log('Message: ', message.utf8Data);
-        wsServer.broadcast(message.utf8Data);
-    });
-    robot.on('close', function (reasonCode, description) {
-        console.log('Robot disconnected.');
-    });
-});
-
-//var websockets = require('../sockets/websockets')(app, server);
-
-//var wsServer = require('../sockets/socket-server');
-
-//var socketIO = require('../sockets/socket.io')(app, server);
+var sockets = require('../sockets/sockets')(app, server);
 
 /**
  * Listen on provided port, on all network interfaces.

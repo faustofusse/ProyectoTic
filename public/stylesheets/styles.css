@@ -21,6 +21,7 @@
 *{
 	font-family: 'Amaranth';
 	box-sizing: border-box;
+	white-space: nowrap;	
 }
 
 body{
@@ -133,7 +134,7 @@ main > nav > div.opciones {
 	display: flex;
 	align-items: stretch;
 }
-main > nav > div.opciones button, main nav button#menu{
+main > nav > div.opciones button{
 	color: #fff;
 	font-size: 1.1em;
 	cursor: pointer;	
@@ -149,18 +150,13 @@ main > nav > div.opciones button, main nav button#menu{
 	-o-transition:background .4s;
 	transition:background .4s;
 } 
-main > nav > div.opciones button:hover, main nav button#menu:hover{
+main > nav > div.opciones button:hover{
 	background-color: var(--navbar-hover);
 }
-
-main > nav > div.opciones button i, main nav button#menu i{
-	padding-left: .4em;
+main > nav > div.opciones button i{
+	padding-left: .5em;
 }
 
-button#menu{
-	padding: .4em 1em;
-	display:none;
-}
 
 main div.contenedor {
 	width: 100%;
@@ -472,14 +468,15 @@ div.menu {
 	flex-direction: column;
 	align-items: center;
 }
-div.menu div.buscar, div.menu div.solicitudes {
+div.menu div.buscar, 
+div.menu div.solicitudes, 
+div.menu div.addRobot {
 	width: 25em;
 	display: none;
 	margin-top: 10%;
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: center;
-	max-height: 80%;
 } 
 div.menu div.background {
 	position: fixed;
@@ -495,7 +492,8 @@ div.menu div.background {
 
 div.menu div div.listado {
 	width: 100%;
-	max-height: 80%;
+	margin-top: .2em;
+	max-height: 30em;
 	overflow-y: auto;
 }
 div.menu div div.listado > div {
@@ -566,25 +564,25 @@ div.menu div.buscar div.listado div.none {display: none;}
 /*--------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------*/
 
-div.solicitudes div.superior {
+div.menu div div.superior {
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
 	border-bottom: 2px solid #fff;
 }
-div.solicitudes div.superior h2{
+div.menu div div.superior h2{
 	color: #fff;
 	margin: 0;
 	padding: .5em 0;
 	font-weight: normal;
 	font-size: 1.6em;
 }
-div.solicitudes div.superior button {
+div.menu div div.superior button {
 	border: none;
 	background-color: rgba(0,0,0,0);
 	cursor: pointer;
 }
-div.solicitudes div.superior button i{
+div.menu div div.superior button i{
 	color: #fff;
 	font-size: 2em;
 }
@@ -626,6 +624,45 @@ div.buscar div.input input::-webkit-search-cancel-button {
 	-webkit-appearance:none;
 }
 
+/*--------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------*/
+/*------------------------------------- DIV AGREGAR ROBOT -----------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------*/
+
+div.addRobot div.mac {
+	margin: .3em 0;
+	width: 100%;
+	background-color: #fff;
+	box-shadow: 0px 0px 13px -3px rgba(0,0,0,0.75);
+}
+div.addRobot div.mac > span {
+	width: 100%;
+	font-size: 1.3em;
+	padding: .5em;
+} 
+div.addRobot div.mac div.inputs {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+div.addRobot div.mac div.inputs input {
+	text-transform:uppercase;
+	text-align: center;
+	width: 3em;
+	font-size: 1.3em;
+}
+div.addRobot div.mac div.inputs span {
+	
+}
+div.addRobot > button {
+	cursor: pointer;
+	font-size: 1.3em;
+	padding: .3em;
+	width: 100%;
+	border: none;
+	box-shadow: 0px 0px 13px -3px rgba(0,0,0,0.75);
+}
 
 /*--------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------*/
@@ -656,9 +693,6 @@ div.screenshot div.container {
 div.screenshot div.container h3 {
 	font-size: 1.5em;
 	padding: 0 1em;
-}
-
-div.screenshot div.container img {
 }
 
 div.screenshot div.container div {
@@ -698,6 +732,37 @@ div.screenshot div.container button:hover {
 	background-color: #eee;
 }
 
+
+/*--------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------*/
+/*------------------------------------- DIV MENU BOTTOM ---------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------*/
+
+div.menuBottom {
+	display: none;
+	height: 4em;
+	z-index: 2;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	justify-content: space-around;
+	background-color: #fff;
+	box-shadow: 0px 0px 22px -2px rgba(0,0,0,0.75);
+}
+div.menuBottom button{
+	border: none;
+	padding:1em;
+	background-color: rgba(0,0,0,0);
+}
+div.menuBotton button#robots {
+	border-right: 7px solid grey;
+}
+div.menuBottom button i{
+	font-size: 1.5em;
+	color: var(--blue);
+}
 /*--------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------*/
 /*------------------------------------- MEDIA QUERIES ----------------------------------------------*/
@@ -718,9 +783,12 @@ div.screenshot div.container button:hover {
 
 @media screen /*and (min-width: 480px)*/ and (max-width: 780px){
 	/*----------MOBILE--------*/
-
+	html, body{
+		overflow:hidden;
+	}
 	header {
 		width: 90%;
+		padding: 1em 0;
 	}
 	main {
 		box-shadow: none;
@@ -729,20 +797,33 @@ div.screenshot div.container button:hover {
 	}
 	main div.contenedor div.videollamada{
 		display: none;
-		box-sizing: border-box;
-		width: 0;
-	}
-	main div.contenedor div.videollamada h2{
-		width: 0;
+		position: fixed;
+		top:0;left: 0;
+		z-index: 5;
+		width: 100%;
+		height: 100%;
 	}
 	main div.contenedor div.left{
 		width: 100%;
 	}
-	main > nav > div.opciones {
+	main div.contenedor div.left div.superior{
 		display: none;
 	}
-	main > nav button#menu {
-		display: block;
+	main nav div.usuario {
+		padding: .5em 1em;
+	}
+	main nav div.opciones{
+		display: none;
+	}
+	main div.contenedor div.left div {
+		min-height: 0;
+		max-height: 100%;
+	}
+	div.menu div.buscar, div.menu div.solicitudes, div.menu div.addRobot{
+		width: 90%;
+	}
+	div.menuBottom {
+		display: flex;
 	}
 }
 
