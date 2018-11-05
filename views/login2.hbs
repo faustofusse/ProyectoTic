@@ -1,0 +1,58 @@
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no">
+	<title>{{title}}</title>
+	<link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:800|Orbitron:900" rel="stylesheet">
+	<link href='https://fonts.googleapis.com/css?family=Amaranth' rel='stylesheet'>
+	<link rel="shortcut icon" href="./images/icono.ico"/>
+	<link rel="stylesheet" href="/stylesheets/login2.css">
+</head>
+<body>
+	<div class="mensajes">
+		{{#if success_msg}}
+			<div class="success">{{success_msg}}</div>
+		{{/if}}
+		{{#if error_msg}}
+			<div class="alert">{{error_msg}}</div>
+		{{/if}}
+		{{#if error}}
+			<div class="alert">{{error}}</div>
+		{{/if}}
+		{{#if errors}}
+			{{#each errors}}
+				<div class="alert">{{msg}}</div>
+			{{/each}}
+		{{/if}}
+	</div>
+	<header>
+		<img src="./images/LogoTarsCircular.svg" alt="Logo">
+		<h1>TARS</h1>
+	</header>
+	<main>	
+		<div class="botones">
+			<button id="btnIniciar">Iniciar Sesion</button>
+			<button id="btnRegistrarse">Registrarse</button>
+		</div>
+		<form method="POST" action="/login">
+			<input type="text" name="nombre" id="nombre" placeholder="Nombre">
+			<input type="text" name="apellido" id="apellido" placeholder="Apellido">
+			<input type="email" name="correo" id="correo" placeholder="Correo Electronico" required>
+			<!--pattern=".{8,}" title="Debe tener 8 o mas caracteres"-->
+			<input type="password" name="password" id="password" placeholder="Contraseña" required>
+			<input type="password" name="repeatPassword" id="repeatPassword" placeholder="Repetir Contraseña">
+			<button type="submit" id="aceptar">Aceptar</button>
+		</form>
+		<!--<div class="separador">
+			<div class="linea"></div>
+			<span>o</span>
+			<div class="linea"></div>
+		</div>
+		<button id="robot">Acceder como robot</button>-->
+	</main>
+
+	<script>var login = ('{{login}}'==='true');</script>
+	<script type="text/javascript" src="./javascripts/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="./javascripts/login.js"></script>
+</body>
+</html>

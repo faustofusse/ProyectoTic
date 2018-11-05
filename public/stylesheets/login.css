@@ -9,11 +9,17 @@ body{
 	margin: 0;
 	height: inherit;
 	display: flex;
-	flex-direction: column;
-	justify-content: center;
+	justify-content: space-around;
+	align-items: center;
 }
 
 button:focus, button:active, input:focus, input:active{outline: none;}
+
+video {
+	z-index: -10;
+	position: fixed;
+	width: 100%;
+}
 
 div.mensajes{
 	align-self: center;
@@ -40,22 +46,20 @@ div.mensajes div.success {
 header{
 	margin: 1em auto 0;
 	width: 24em;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
 }
 
-header img{
-	width: 30%;
-}
-
-header h1{
-	color: #00897b;
+header h1, header h2{
+	display: block;
+	white-space: nowrap;
+	color: #fff;
 	font-family: "Alegreya Sans";
-	font-size: 6.5em;
-	border-left: 1px solid #00897b;
-	padding-left: .1em;
+	font-size: 4.7em;
 	margin: 0;
+}
+
+header h2 {
+	white-space: pre-line;
+	font-size: 1.5em;
 }
 
 main{

@@ -9,6 +9,10 @@
 	<link rel="stylesheet" href="/stylesheets/login.css">
 </head>
 <body>
+	<video autoplay muted loop id="myVideo">
+	  <source src="./videos/background.mp4" type="video/mp4">
+	</video>
+
 	<div class="mensajes">
 		{{#if success_msg}}
 			<div class="success">{{success_msg}}</div>
@@ -25,9 +29,13 @@
 			{{/each}}
 		{{/if}}
 	</div>
-	<header>
+	<!--<header>
 		<img src="./images/LogoTarsCircular.svg" alt="Logo">
 		<h1>TARS</h1>
+	</header>-->
+	<header>
+		<h1>Bienvenido a <span>TARS.</span></h1>
+		<h2>La mejor Web de videollamadas y simulacion de presencia.</h2>
 	</header>
 	<main>	
 		<div class="botones">
@@ -43,12 +51,12 @@
 			<input type="password" name="repeatPassword" id="repeatPassword" placeholder="Repetir Contraseña">
 			<button type="submit" id="aceptar">Aceptar</button>
 		</form>
-		<!--<div class="separador">
+		<div class="separador">
 			<div class="linea"></div>
 			<span>o</span>
 			<div class="linea"></div>
 		</div>
-		<button id="robot">Acceder como robot</button>-->
+		<button id="robot">Acceder como robot</button>
 	</main>
 
 	<script>var login = ('{{login}}'==='true');</script>
