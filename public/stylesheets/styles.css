@@ -695,9 +695,6 @@ div.screenshot div.container h3 {
 	padding: 0 1em;
 }
 
-div.screenshot div.container img {
-}
-
 div.screenshot div.container div {
 	display: flex;
 	justify-content: space-between;
@@ -743,9 +740,9 @@ div.screenshot div.container button:hover {
 /*--------------------------------------------------------------------------------------------------*/
 
 div.menuBottom {
+	display: none;
 	height: 4em;
 	z-index: 2;
-	display: none;
 	position: fixed;
 	left: 0;
 	bottom: 0;
@@ -825,7 +822,7 @@ div.menuBottom button i{
 	div.menu div.buscar, div.menu div.solicitudes, div.menu div.addRobot{
 		width: 90%;
 	}
-	div.menuBotton {
+	div.menuBottom {
 		display: flex;
 	}
 }
