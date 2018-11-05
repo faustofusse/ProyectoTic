@@ -153,6 +153,9 @@ main > nav > div.opciones button{
 main > nav > div.opciones button:hover{
 	background-color: var(--navbar-hover);
 }
+main > nav > div.opciones button i{
+	padding-left: .5em;
+}
 
 
 main div.contenedor {
@@ -747,7 +750,6 @@ div.menuBottom {
 	left: 0;
 	bottom: 0;
 	width: 100%;
-	display: flex;
 	justify-content: space-around;
 	background-color: #fff;
 	box-shadow: 0px 0px 22px -2px rgba(0,0,0,0.75);
