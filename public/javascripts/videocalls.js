@@ -37,12 +37,12 @@ peer.on('call', function(call) {
 	$('div.videollamada div.llamando').css('display', 'flex');
 	$('div.videollamada div.llamando button#atender').css('display', 'flex');
 	$('div.videollamada h2').css('display', 'none');
-	scrollTo($('div.videollamada'), 600);
+	scrollTo($('div.videollamada div.llamando button'), 600);
 
 	if (mobile){
 		$('div.videollamada').css('display', 'flex');
-		$('div.left').animate({width:'0%'}, 200);
-		$('div.videollamada').animate({width:'100%'}, 200);
+		/*$('div.left').animate({width:'0%'}, 200);
+		$('div.videollamada').animate({width:'100%'}, 200);*/
 	}
 
 	var otherId = call.peer;
@@ -65,8 +65,9 @@ function botonVideollamada(){
 
 		if (mobile){
 			$('div.videollamada').css('display', 'flex');
-			$('div.left').animate({width:'0%'}, 200);
-			$('div.videollamada').animate({width:'100%'}, 200);
+			scrollTo($('header'), 200);
+			/*$('div.left').animate({width:'0%'}, 200);
+			$('div.videollamada').animate({width:'100%'}, 200);*/
 		}
 
 		window.localStream = stream;
@@ -94,8 +95,10 @@ function atender() {
 function declinar() {
 	window.currentCall.close();
 	videoUser.src = null;
+	$('div.videollamada div.videollamada').css('display', 'none');
 	$('div.videollamada div.llamando').css('display', 'none');
 	$('div.videollamada h2').css('display', 'flex');
+	scrollTo($('header'), 200);
 }
 
 function onStream(stream){
@@ -111,12 +114,11 @@ function onError(err) {
 	$('div.videollamada div.conferencia, div.videollamada div.llamando').css('display', 'none');
 
 	if (mobile){
-		$('div.left').animate({width:'100%'}, 200);
-		$('div.videollamada').animate({width:'0%'}, 200);
+		$('div.videollamada').css('display', 'none');
 	}else{
 		$('div.videollamada h2').css('display', 'flex');
 	}
-
+	scrollTo($('header'), 200);
 	window.currentCall.close();
 }
 
@@ -124,11 +126,11 @@ function onClose() {
 	console.log('Call ended.');
 	$('div.videollamada div.conferencia').css('display', 'none');
 	if (mobile) {
-		$('div.left').animate({width:'100%'}, 200);
-		$('div.videollamada').animate({width:'0%'}, 200);
+		$('div.videollamada').css('display', 'none');;
 	}else{
 		$('div.videollamada h2').css('display', 'flex');
 	}
+	scrollTo($('header'), 200);
 }
 
 function getUserVideo(callback) {

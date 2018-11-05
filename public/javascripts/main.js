@@ -90,7 +90,7 @@ $('div.conferencia').mouseleave(function(event) {
 	animateButtons('0%', 20);
 });
 
-$('div.contenedor div.left div.superior button').click(function(event) {
+$('div.contenedor div.left div.superior button, div.menuBottom button#amigos, div.menuBottom button#robots').click(function(event) {
 	var id = $(this).attr('id');
 	var id2 = 'amigos';
 	if (id == 'amigos') id2 = 'robots';
@@ -122,7 +122,7 @@ $('div.buscar div.input input').keyup(function(event) {
 	}
 });
 
-$('button#friendRequests').click(function(event) {
+$('button#friendRequests, div.menuBottom button#solicitudes').click(function(event) {
 	$('div.menu').css('display','flex');
 	$('div.solicitudes').css('display','flex');
 	$('div.menu div.solicitudes').animate({marginTop:'5%'}, 200);
@@ -130,7 +130,7 @@ $('button#friendRequests').click(function(event) {
 	$('div.menu div.background').css('background-color', 'rgba(30,136,229,0.9)');
 	updateRequests();
 });
-$('button#addFriend').click(function(){
+$('button#addFriend, button#buscar').click(function(){
 	$('div.menu').css('display','flex');
 	$('div.buscar').css('display','flex');
 	$('div.menu div.buscar').animate({marginTop:'5%'}, 200);
@@ -147,6 +147,13 @@ $('button#connectRobot').click(function(event) {
 });
 $('button#logout').click(function(event) {
 	document.location.href = '/logout';
+});
+
+$('div.menuBottom button#amigos').click(function (e) {
+	
+});
+$('div.menuBottom button#robots').click(function (e) {
+	
 });
 
 // ------------------------------------------------- 
@@ -173,7 +180,7 @@ function updateFriends(){
 			list.find('button#perfil').click(botonPerfil);
 			list.find('button#eliminar').click(botonEliminar);
 			opciones.find('button#videollamada').append('<i class="fa fa-video"></i>').attr('id', data[i]._id).click(botonVideollamada);
-			opciones.find('button#opciones').append('<i class="fa fa-ellipsis-v"></i>').click(botonOpciones);
+			//opciones.find('button#opciones').append('<i class="fa fa-ellipsis-v"></i>').click(botonOpciones);
 			div.attr('id', data[i]._id);
 			div.find('span').html(data[i].nombre + ' ' + data[i].apellido);
 			div.append(opciones);
