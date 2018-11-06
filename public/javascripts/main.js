@@ -1,9 +1,15 @@
+// ------------------------------------------------- CHECKEAR HTTPS
+
+if (location.protocol !== 'https:' && location.hostname !== 'localhost')
+	window.location.href = 'https://'+location.hostname;
+	
 // ------------------------------------------------- INICIALIZAR
-//if (location.protocol !== 'https:' && location.hostname !== 'localhost')
+
 updateFriends();
 updateRequests();
 var movimiento = "stop";
 var friends = [];
+
 // ------------------------------------------------- SOCKETS
 
 var socket = io({transports: ['polling', 'websockets']});  // con transports: polling funciona - NO FUNCIONA con transports: websockets
