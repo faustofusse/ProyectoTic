@@ -46,16 +46,21 @@ module.exports.createUserGoogle = function(newUser, callback){
         if (googleUser){
             // Existe el usuario con el googleId (ya habia iniciado con Google)
             console.log('Ya habia iniciado con Google.');
+            callback(googleUser);
         } else {
             User.findOne({correo:newUser.correo}, function(err, user){
                 if (err) throw err;
                 if (user){
                     console.log('Existe un usuario con el mismo correo.');
                     user.googleId = newUser.googleId;
-                    user.save(callback);
+                    user.save(function(){
+                        callback(user)
+                    });                    
                 }else{
                     console.log('No existe el usuario y nunca habia iniciado sesion.')
-                    newUser.save(callback);
+                    newUser.save(function(){
+                        callback(newUser);
+                    });  
                 }
             });
         }
