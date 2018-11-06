@@ -1,18 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var mongoose = require('mongoose');
-var io = require('../bin/www');
-
-var User = require('../models/user');
-var FriendRequest = require('../models/friendRequest');
 
 router.get('/', ensureAuthenticated, function(req, res, next) {
   res.render('index');
 });
-
-/*router.get('/movimiento', function(req, res, next){
-  res.send(req.app.locals.movimiento);
-});*/
 
 router.get('/robots', function(req, res, next){
   res.send(req.app.locals.robots);

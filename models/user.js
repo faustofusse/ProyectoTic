@@ -12,7 +12,8 @@ var UserSchema = mongoose.Schema({
         _id:{type:String},
         nombre:{type:String},
         apellido:{type:String}
-    }]
+    }],
+    googleId:{type:String}
 });
 
 var User = module.exports = mongoose.model('User', UserSchema);
@@ -27,6 +28,39 @@ module.exports.createUser = function (newUser, callback){
         });
     });
 };
+
+module.exports.addPassword = function(newUser, googleUser, callback){
+    googleUser.nombre = newUser.nombre;
+    googleUser.apellido = newUser.apellido;
+    bcrypt.genSalt(10, function(err, salt){
+        bcrypt.hash(newUser.password, salt, function (err, hash){
+            googleUser.password = hash;
+            googleUser.save(callback);
+        });
+    });
+};
+
+module.exports.createUserGoogle = function(newUser, callback){
+    User.findOne({googleId:newUser.googleId}, function(err, googleUser){
+        if (err) throw err;
+        if (googleUser){
+            // Existe el usuario con el googleId (ya habia iniciado con Google)
+            console.log('Ya habia iniciado con Google.');
+        } else {
+            User.findOne({correo:newUser.correo}, function(err, user){
+                if (err) throw err;
+                if (user){
+                    console.log('Existe un usuario con el mismo correo.');
+                    user.googleId = newUser.googleId;
+                    user.save(callback);
+                }else{
+                    console.log('No existe el usuario y nunca habia iniciado sesion.')
+                    newUser.save(callback);
+                }
+            });
+        }
+    });
+}
 
 module.exports.getUserByEmail = function (correo, callback){
     var query = {correo: correo};
