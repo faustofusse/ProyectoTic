@@ -10,6 +10,7 @@ body{
 	height: inherit;
 	display: flex;
 	justify-content: space-around;
+	flex-wrap: wrap;
 	align-items: center;
 }
 
@@ -18,6 +19,7 @@ button:focus, button:active, input:focus, input:active{outline: none;}
 video {
 	z-index: -10;
 	position: fixed;
+	top: 0;
 	width: 100%;
 }
 
@@ -138,13 +140,42 @@ button#aceptar:hover {
 }
 
 button#robot {
-	box-shadow: rgba(0, 0, 0, 0.75) 0px 0px 8px .2px;
 	background-color: #00897b;
 	border-radius: 0.7em;
+	box-shadow: rgba(0, 0, 0, 0.75) 0px 0px 8px .2px;
 }
 
 button#robot:hover {
 	background-color: #009688;
+}
+
+a#googleButton {
+	box-shadow: rgba(0, 0, 0, 0.75) 0px 0px 8px .2px;
+	background-color: #fff;
+	border-radius: 0.7em;
+	padding: .8em 0;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-content: baseline;
+	text-transform: none;
+	text-decoration: none;
+	color: #212121;
+	transition: all .3s;
+}
+
+a#googleButton:hover{
+	background-color: #e0e0e0;
+}
+
+a#googleButton img{
+	width: 1.7em;
+	height: 1.7em;
+}
+
+a#googleButton span{
+	margin: 0 1em;
+	font-size: 1.3em;
 }
 
 @media screen and (min-width: 780px) and (max-width: 1024px){

@@ -6,7 +6,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:800|Orbitron:900" rel="stylesheet">
 	<link href='https://fonts.googleapis.com/css?family=Amaranth' rel='stylesheet'>
 	<link rel="shortcut icon" href="./images/icono.ico"/>
-	<link rel="stylesheet" href="/stylesheets/login.css">
+	<link rel="stylesheet" href="./stylesheets/login.css">
 </head>
 <body>
 	<video autoplay muted loop id="myVideo">
@@ -56,8 +56,24 @@
 			<span>o</span>
 			<div class="linea"></div>
 		</div>
-		<!--<button id="robot">Acceder como robot</button>-->
+		<a id="googleButton" href="/auth/google">
+			<img alt="Google &quot;G&quot; Logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"/>
+			<span>Iniciar con Google</span>
+		</a>
+		<!--<div class="btn white darken-4 col s10 m4">
+		     <a href="/auth/google" style="text-transform:none">
+		         <div class="left">
+		             <img width="20px" alt="Google &quot;G&quot; Logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"/>
+		         </div>
+		         Iniciar con Google
+		     </a>
+		</div>
+		 <div id="customBtn" class="customGPlusSignIn">
+	      <span class="icon"></span>
+	      <span class="buttonText">Iniciar Sesion con Google</span>
+	    </div>
 		<a href="/auth/google">Iniciar con Google</a>
+		<button id="robot">Acceder como robot</button>-->
 	</main>
 
 	<script>var login = ('{{login}}'==='true');</script>
