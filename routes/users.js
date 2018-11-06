@@ -53,9 +53,9 @@ router.post('/register', function(req, res, next){
 
     User.findOne({correo:correo}, function(err, user) {
       if (err) throw err;
-      if (user.password){
+      if (user && user.password){
         res.render('login', {title: "TARS - Iniciar Sesion", error:'El correo electronico ya existe.', login: false});
-      }else if (user.googleId){
+      }else if (user && user.googleId){
         User.addPassword(newUser, user, function(err, user){
           if (err) throw err;
           console.log('Contrasenia agregada a: '+ user)
