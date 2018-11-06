@@ -85,7 +85,7 @@ function(correo, password, done) {
     if (err) throw err;
     if (!user) return done(null, false, {message: "El correo electronico no ha sido registrado"})
     
-    if (user.googleId){
+    if (user.googleId && !user.password){
       return done(null, false, {message: "Inicia con Gooogle o registrate"});
     }else{
       User.comparePassword(password, user.password, function(err, isMatch){
