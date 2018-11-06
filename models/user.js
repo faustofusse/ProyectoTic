@@ -41,28 +41,21 @@ module.exports.addPassword = function(newUser, googleUser, callback){
 };
 
 module.exports.createUserGoogle = function(newUser, callback){
-    User.findOne({googleId:newUser.googleId}, function(err, googleUser){
-        if (err) throw err;
-        if (googleUser){
-            // Existe el usuario con el googleId (ya habia iniciado con Google)
+    User.findOne({correo:newUser.correo}, function(err, user){
+        if(user && user.googleId && user.googleId === newUser.googleId){
             console.log('Ya habia iniciado con Google.');
-            callback(googleUser);
-        } else {
-            User.findOne({correo:newUser.correo}, function(err, user){
-                if (err) throw err;
-                if (user){
-                    console.log('Existe un usuario con el mismo correo.');
-                    user.googleId = newUser.googleId;
-                    user.save(function(){
-                        callback(user)
-                    });                    
-                }else{
-                    console.log('No existe el usuario y nunca habia iniciado sesion.')
-                    newUser.save(function(){
-                        callback(newUser);
-                    });  
-                }
+            callback(user);
+        }else if (user && user.correo === newUser.correo){
+            console.log('Existe un usuario con el mismo correo.');
+            user.googleId = newUser.googleId;
+            user.save(function(){
+                callback(user);
             });
+        }else{
+            console.log('No existe el usuario y nunca habia iniciado sesion.');
+            newUser.save(function(){
+                callback(newUser);
+            }); 
         }
     });
 }

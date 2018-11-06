@@ -58,12 +58,12 @@ router.post('/register', function(req, res, next){
       }else if (user && user.googleId){
         User.addPassword(newUser, user, function(err, user){
           if (err) throw err;
-          console.log('Contrasenia agregada a: '+ user)
+          console.log('Contrasenia agregada a: '+ user);
         });
       }else{
         User.createUser(newUser, function(err, user){
           if (err) throw err;
-          console.log('Usuario creado: '+user)
+          console.log('Usuario creado: '+user);
         });
       }
     });
