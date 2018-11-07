@@ -20,6 +20,16 @@ socket.on('connect', function() {
 	teclasMovimiento(socket);
 });
 
+socket.on('user-connection', function(data) {
+	if (data.id !== userId && isMyFriend(data.id)){
+		showMessage(data.nombre + ' ' + data.apellido, ' se ha conectado.', 'green');
+	}
+});
+
+socket.on('user-disconnect', function(data) {
+	// alert('User disconnected: '+data);
+});
+
 socket.on('robot-request', function(data) {
 	alert(data);
 });
@@ -374,4 +384,34 @@ function deleteFriend(id){
 function validateMacAddress(mac) {
 	var regex = /^([0-9A-F]{2}[:-]?){5}([0-9A-F]{2})$/;
 	return regex.test(mac);
+}
+
+function showMessage(strong, text, status) {
+	var div = $('<div><div class="status"></div><span><strong></strong></span><button id="cerrar"><i class="fa fa-times"></i></button></div>')
+	div.find('strong').html(strong);
+	div.find('span').append(text);
+	div.find('div.status').attr('class', 'status '+status);
+	div.find('button#cerrar').click(cerrarMensaje);
+	$('div.mensajes').append(div);
+	div.css('display', 'flex');
+	div.animate({paddingLeft:'1em', width:'100%'}, 300);
+	setTimeout(function() {
+		div.slideUp(300, function() {
+			div.remove();
+		});
+	}, 5000);
+}
+
+function cerrarMensaje(event) {
+	var div = $(this).parent();
+	div.slideUp(400, function() {
+		div.remove();
+	});
+}
+
+function isMyFriend(id) {
+	for (var i = 0; i < friends.length; i++) {
+		if(friends[i]._id === id)
+			return true;
+	}
 }

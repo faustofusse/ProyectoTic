@@ -24,6 +24,10 @@
 	white-space: nowrap;	
 }
 
+.mobile {
+	display: none;
+}
+
 body{
 	display: flex;
 	flex-direction: column;
@@ -40,6 +44,8 @@ body.blockScroll {
   position: fixed;
   width: 100%;
 }
+
+button, a, input {-webkit-tap-highlight-color: transparent;}
 
 button:focus, button:active, input:focus, input:active{outline: none;}
 
@@ -134,7 +140,7 @@ main > nav > div.opciones {
 	display: flex;
 	align-items: stretch;
 }
-main > nav > div.opciones button{
+main > nav > div.opciones button, nav button#logout{
 	color: #fff;
 	font-size: 1.1em;
 	cursor: pointer;	
@@ -150,13 +156,12 @@ main > nav > div.opciones button{
 	-o-transition:background .4s;
 	transition:background .4s;
 } 
-main > nav > div.opciones button:hover{
+main > nav > div.opciones button:hover, nav button#logout:hover{
 	background-color: var(--navbar-hover);
 }
 main > nav > div.opciones button i{
 	padding-left: .5em;
 }
-
 
 main div.contenedor {
 	width: 100%;
@@ -732,6 +737,64 @@ div.screenshot div.container button:hover {
 	background-color: #eee;
 }
 
+/*--------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------*/
+/*------------------------------------- DIV MENSAJES -----------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------*/
+
+div.mensajes {
+	max-height: 25em;
+	overflow: auto;
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	z-index: 1;
+	padding: 1em;
+	display: flex;
+	flex-direction: column-reverse;
+	align-items: flex-end;
+}
+div.mensajes > div {
+	min-height: 3em;
+	margin-top: .7em;
+	box-sizing: border-box;
+	padding-left: 1em;
+	border-radius: .7em;
+	background-color: #fff;
+	box-shadow: rgba(0, 0, 0, 0.75) 0px 0px 20px .2px;
+	display: flex;
+	justify-content: space-between;
+	align-content: center;
+	width: 0;
+	padding: 0;
+	display: none;
+}
+div.mensajes > div span {
+	padding: 1em;
+	padding-left: .7em;
+}
+div.mensajes > div button {
+	cursor: pointer;
+	padding: 1em 1.2em;
+	border:none;
+	/*border-left: 1px #9e9e9e solid;*/
+	background-color: #e0e0e0;
+	border-radius: 0 .7em .7em 0;
+}
+div.mensajes > div button i {
+	color: #9e9e9e;
+	font-weight: bold;
+	font-size: 1.2em;
+}
+div.mensajes > div div.status {
+	height: .6em;
+	width: .6em;
+	align-self: center;
+	border-radius: 50%;
+	display: inline-block;
+}
+div.mensajes > div div.status.green {background-color: var(--green)}
 
 /*--------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------*/
@@ -825,30 +888,13 @@ div.menuBottom button i{
 	div.menuBottom {
 		display: flex;
 	}
+	.mobile {
+		display: flex;
+	}		
 }
 
 /*
 @media screen and (max-width: 480px){
 
-	header {
-		width: 90%;
-	}
-	main {
-		box-shadow: none;
-		width: 100%;
-		margin: 0;
-	}
-	main div.contenedor div.videollamada{
-		display: none;
-	}
-	main div.contenedor div.left{
-		width: 100%;
-	}
-	main > nav > div.opciones {
-		display: none;
-	}
-	main > nav button#menu {
-		display: block;
-	}
 }
 */

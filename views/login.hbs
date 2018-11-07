@@ -5,13 +5,15 @@
 	<title>{{title}}</title>
 	<link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:800|Orbitron:900" rel="stylesheet">
 	<link href='https://fonts.googleapis.com/css?family=Amaranth' rel='stylesheet'>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 	<link rel="shortcut icon" href="./images/icono.ico"/>
 	<link rel="stylesheet" href="./stylesheets/login.css">
 </head>
 <body>
-	<video autoplay muted loop id="myVideo">
+	<div class="background"></div>
+	<!-- <video autoplay muted loop id="myVideo">
 	  <source src="./videos/background.mp4" type="video/mp4">
-	</video>
+	</video> -->
 
 	<div class="mensajes">
 		{{#if success_msg}}
@@ -29,13 +31,12 @@
 			{{/each}}
 		{{/if}}
 	</div>
-	<!--<header>
-		<img src="./images/LogoTarsCircular.svg" alt="Logo">
-		<h1>TARS</h1>
-	</header>-->
 	<header>
 		<h1>Bienvenido a <span>TARS.</span></h1>
 		<h2>Videollamadas y simulacion de presencia.</h2>
+		<button id="scrollDown">
+			<i class="fas fa-chevron-down"></i>
+		</button>
 	</header>
 	<main>	
 		<div class="botones">
@@ -60,24 +61,11 @@
 			<img alt="Google &quot;G&quot; Logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"/>
 			<span>Iniciar con Google</span>
 		</a>
-		<!--<div class="btn white darken-4 col s10 m4">
-		     <a href="/auth/google" style="text-transform:none">
-		         <div class="left">
-		             <img width="20px" alt="Google &quot;G&quot; Logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"/>
-		         </div>
-		         Iniciar con Google
-		     </a>
-		</div>
-		 <div id="customBtn" class="customGPlusSignIn">
-	      <span class="icon"></span>
-	      <span class="buttonText">Iniciar Sesion con Google</span>
-	    </div>
-		<a href="/auth/google">Iniciar con Google</a>
-		<button id="robot">Acceder como robot</button>-->
 	</main>
 
 	<script>var login = ('{{login}}'==='true');</script>
 	<script type="text/javascript" src="./javascripts/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="./javascripts/jquery.particleground.min.js"></script>
 	<script type="text/javascript" src="./javascripts/login.js"></script>
 </body>
 </html>

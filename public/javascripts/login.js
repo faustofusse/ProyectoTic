@@ -1,3 +1,14 @@
+$('div.background').particleground({
+    // curvedLines: true,
+    // proximity: 130,
+    // parallaxMultiplier: 2,
+   	density: 7000, 
+    dotColor: '#00c853',
+    lineColor: '#1565c0',
+}).css('background-color', '#212121');;
+
+scrollTo($('header'), 0);
+
 if (login){
 	$('button#btnIniciar').css('background-color', '#1976d2');
 	$('button#btnRegistrarse').css('background-color', '#42a5f5');
@@ -6,6 +17,16 @@ if (login){
 	$('button#btnRegistrarse').css('background-color', '#1976d2');
 	$('input#apellido, input#nombre, input#repeatPassword').css('display', 'flex').prop('required', true);
 }
+
+// $(window).resize(function () {
+// 	if (window.matchMedia("(max-width: 780px)").matches){
+// 		$('main, header').css('height', window.innerHeight + "px");
+// 	}
+// });
+
+$('button#scrollDown').click(function(event) {
+	scrollTo($('main'), 400);
+});
 
 $('button#btnRegistrarse').click(function () {
 	login = false;
@@ -29,3 +50,9 @@ $('div.mensajes div').click(function(){
 $('button#logout').click(function(){
 	window.location.href = "/logout";
 });
+
+function scrollTo(element, duration) {
+	$([document.documentElement, document.body]).animate({
+        scrollTop: element.offset().top
+    }, duration);
+}
