@@ -888,6 +888,9 @@ div.menuBottom button i{
 	div.menuBottom {
 		display: flex;
 	}
+	div.mensajes{
+		display: none;
+	}
 	.mobile {
 		display: flex;
 	}		
