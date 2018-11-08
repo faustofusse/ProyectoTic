@@ -1,3 +1,5 @@
+$(function(){
+
 // ------------------------------------------------- CHECKEAR HTTPS
 
 if (location.protocol !== 'https:' && location.hostname !== 'localhost')
@@ -82,18 +84,6 @@ $('button#conectar').click(function(event) {
 	}
 	if (!validateMacAddress(mac)) return alert('Ingrese una direccion valida.');
 	socket.emit('robot-request', {id:userId, mac:mac});
-});
-
-$('div.videollamada div.llamando div.opciones button#atender').click(atender);
-$('div.videollamada div.llamando div.opciones button#declinar').click(declinar);
-
-$('div.conferencia div.opciones button#close').click(declinar);
-$('div.conferencia div.opciones button#screenshot').click(screenshot);
-$('div.conferencia div.opciones button#volume').click(volume);
-$('div.conferencia div.opciones button#expand').click(expand);
-
-$('div.screenshot a, div.screenshot button').click(function(event) {
-	$('div.screenshot').css('display', 'none');
 });
 
 $('div.conferencia').mouseenter(function(event) {
@@ -415,3 +405,5 @@ function isMyFriend(id) {
 			return true;
 	}
 }
+
+});
