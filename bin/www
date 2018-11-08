@@ -37,10 +37,10 @@ var httpsOptions = {
   cert: fs.readFileSync('./config/cert/server.crt')
 };
 
-https.createServer(httpsOptions, app).listen(httpsPort, function (err) {
+/*https.createServer(httpsOptions, app).listen(httpsPort, function (err) {
   if (err) throw err;
   console.log('Secure server is listening on '+ httpsPort +'...');
-});
+});*/
 
 /**
  * Sockets.
