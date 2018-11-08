@@ -4,6 +4,9 @@
  * Module dependencies.
  */
 
+var https = require('https');
+var config = require('config');
+var fs = require('fs');
 var app = require('../app');
 var debug = require('debug')('proyecto:server');
 var http = require('http');
@@ -21,6 +24,20 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
+/**
+ * Create HTTPS server.
+ */
+
+var httpsPort = process.env.SECURE_PORT || config.get('host').httpsPort || 443;
+var httpsOptions = {
+  key: fs.readFileSync('../config/cert/server.key'), 
+  cert: fs.readFileSync('../config/cert/server.crt')
+};
+https.createServer(httpsOptions, app).listen(httpsPort, function (err) {
+  if (err) throw err;
+  console.log('Secure server is listening on '+ httpsPort +'...');
+});
+ 
 /**
  * Sockets.
  */

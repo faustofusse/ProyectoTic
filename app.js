@@ -7,9 +7,6 @@ var expressValidator = require('express-validator');
 var flash = require('connect-flash');
 var session = require('express-session');
 
-var passport = require('passport');
-var passportSetup = require('./config/passport');
-
 var databaseSetup = require('./config/database');
 
 var indexRouter = require('./routes/index');
@@ -21,6 +18,9 @@ var app = express();
 app.locals.robots = [];
 app.locals.users = [];
 app.locals.connections = [];
+
+var passport = require('passport');
+var passportSetup = require('./config/passport');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
