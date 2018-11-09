@@ -16,7 +16,6 @@ module.exports = function(app, server){
         socket.on('arduino-connection', function(data){
             console.log('Arduino connected. (MAC: '+data.mac+')');
             app.locals.robots.push({mac:data.mac, socket:socket.id});
-            io.emit('arduino-freno', 'Hola me dicen gomes');
         });
 
         socket.on('robot-request', function(data){
@@ -40,15 +39,6 @@ module.exports = function(app, server){
             app.locals.users.push(data);
             /*if (app.locals.robots[0] !== undefined)
                 io.to(`${app.locals.robots[0].socket}`).emit('hola', 'arduino');*/
-        });
-
-        socket.on('arduino-freno', function(data){
-            for (let i = 0; i < app.locals.connections.length; i++) {
-                const element = app.locals.connections[i];
-                if (element.socketRobot === socket.id){
-                    io.to(`${element.socketUser}`).emit('arduino-freno', data);
-                }
-            }
         });
 
         socket.on('disconnect', function(){

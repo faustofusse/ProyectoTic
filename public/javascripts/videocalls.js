@@ -4,19 +4,39 @@ videoUser.volume = 0.0;
 
 var mobile = window.matchMedia("(max-width: 780px)").matches;
 
+/*getUserVideo(function(stream){
+	videoUser.srcObject = stream;
+	videoFriend.srcObject = stream;
+	$('div.videollamada div.conferencia').css('display', 'flex');
+	$('div.videollamada h2').css('display', 'none');
+});*/
+
 var peer = new Peer(userId, { 
 	host: 'tars-videocalls.herokuapp.com', 
 	port: location.protocol === 'https:' ? 443 : 80, 
 	secure: (location.protocol === 'https:'),
-	/*config: {'iceServers': [
- 		{url:'stun:stun.l.google.com:19302'},
- 		{
- 			url: 'turn:numb.viagenie.ca',
- 			credential: 'muazkh',
- 			username: 'webrtc@live.com'
- 		}
- 	]}*/
+	config: {'iceServers': [
+		//{url:'stun:sp-turn1.xirsys.com'},
+		{url:'stun:stun.l.google.com:19302'},
+		{
+			url:'turn:sp-turn1.xirsys.com:80?transport=udp',
+			credential:'eebe899c-e0fc-11e8-8276-c35ebd4a49e7',
+			username:'eebe88fc-e0fc-11e8-b9c1-4d6b2edf0bba'
+		}
+		/*{
+			url: 'turn:numb.viagenie.ca',
+			credential: 'F@usto123',
+			username: 'faustofusse@gmail.com'
+		}*/	
+		/*{
+			url: 'turn:numb.viagenie.ca',
+			credential: 'muazkh',
+			username: 'webrtc@live.com'
+		}*/
+	]}
 });
+
+var heartbeater = makePeerHeartbeater(peer); //to stop it: heartbeater.stop();
 
 peer.on('open', function(id) {
 	console.log('My peer ID is: ' + id);
@@ -42,33 +62,7 @@ peer.on('call', function(call) {
 	window.currentCall = call;
 });
 
-function findFriendById(id) {
-	return $('main div.contenedor div.left div.inferior div.amigos div#'+id+' span').html();
-}
-
-// var peer = new Peer(userId, { 
-// 	host: 'tars-videocalls.herokuapp.com', 
-// 	port: location.protocol === 'https:' ? 443 : 80, 
-// 	secure: (location.protocol === 'https:'),
-// 	config: {'iceServers': [
-// 		//{url:'stun:sp-turn1.xirsys.com'},
-// 		{url:'stun:stun.l.google.com:19302'},
-// 		/*{
-// 			url: 'turn:numb.viagenie.ca',
-// 			credential: 'F@usto123',
-// 			username: 'faustofusse@gmail.com'
-// 		}*/	
-// 		/*{
-// 			url: 'turn:numb.viagenie.ca',
-// 			credential: 'muazkh',
-// 			username: 'webrtc@live.com'
-// 		}*/
-// 	]}
-// });
-
-var heartbeater = makePeerHeartbeater(peer); //to stop it: heartbeater.stop();
-
-botonVideollamada = function(){
+function botonVideollamada(){
 	var otherId = $(this).attr('id');
 	var nombre = $(this).parent().parent().find('span').html();
 	console.log('Calling '+otherId+'....');
@@ -126,7 +120,18 @@ function onStream(stream){
 	videoFriend.srcObject = stream;
 }
 
+function onError(err) {
+	console.error(err);
+	$('div.videollamada div.conferencia, div.videollamada div.llamando').css('display', 'none');
 
+	if (mobile){
+		$('div.videollamada').css('display', 'none');
+	}else{
+		$('div.videollamada h2').css('display', 'flex');
+	}
+	scrollTo($('header'), 200);
+	window.currentCall.close();
+}
 
 function onClose() {
 	console.log('Call ended.');
@@ -157,7 +162,9 @@ function scrollTo(element, duration) {
     }, duration);
 }
 
-
+function findFriendById(id) {
+	return $('main div.contenedor div.left div.inferior div.amigos div#'+id+' span').html();
+}
 
 function makePeerHeartbeater ( peer ) {
     var timeoutId = 0;
@@ -220,15 +227,4 @@ function expand() {
 	}
 }
 
-function onError(err) {
-	console.error(err);
-	$('div.videollamada div.conferencia, div.videollamada div.llamando').css('display', 'none');
 
-	if (mobile){
-		$('div.videollamada').css('display', 'none');
-	}else{
-		$('div.videollamada h2').css('display', 'flex');
-	}
-	scrollTo($('header'), 200);
-	//window.currentCall.close();
-}

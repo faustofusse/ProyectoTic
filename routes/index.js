@@ -10,10 +10,7 @@ router.get('/robots', function(req, res, next){
 });
 
 router.get('/users', function(req, res, next){
-  for(var session in req.sessionStore.sessions){
-    console.log(session);
-  }
-  res.send(req.sessionStore.sessions);
+  res.send(req.app.locals.users);
 });
 
 router.get('/connections', function(req, res, next){

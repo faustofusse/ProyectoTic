@@ -1,4 +1,3 @@
-var app = require('../app');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var GoogleStrategy = require('passport-google-oauth20');
@@ -16,15 +15,15 @@ function(correo, password, done) {
         if (!user) return done(null, false, {message: "El correo electronico no ha sido registrado"})
         
         if (user.googleId && !user.password){
-            return done(null, false, {message: "Inicia con Gooogle o registrate"});
+        return done(null, false, {message: "Inicia con Gooogle o registrate"});
         }else{
-            User.comparePassword(password, user.password, function(err, isMatch){
-                if (err) throw err;
-                if (isMatch)
-                    return done(null, user);
-                else 
-                    return done(null, false, {message: "Contrasena invalida"});
-            });
+        User.comparePassword(password, user.password, function(err, isMatch){
+            if (err) throw err;
+            if (isMatch)
+            return done(null, user);
+            else
+            return done(null, false, {message: "Contrasena invalida"});
+        });
         }
     });
 }));

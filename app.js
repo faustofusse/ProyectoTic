@@ -7,6 +7,9 @@ var expressValidator = require('express-validator');
 var flash = require('connect-flash');
 var session = require('express-session');
 
+var passport = require('passport');
+var passportSetup = require('./config/passport');
+
 var databaseSetup = require('./config/database');
 
 var indexRouter = require('./routes/index');
@@ -14,7 +17,7 @@ var usersRouter = require('./routes/users');
 var apiRouter = require('./routes/api');
 
 var app = express();
-
+//app.locals.movimiento = "stop";
 app.locals.robots = [];
 app.locals.users = [];
 app.locals.connections = [];
@@ -34,8 +37,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({secret:'secret',saveUninitialized:true,resave:true}));
 
 // passport
-var passport = require('passport');
-var passportSetup = require('./config/passport');
 app.use(passport.initialize());
 app.use(passport.session());
 

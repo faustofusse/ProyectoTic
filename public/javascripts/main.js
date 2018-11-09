@@ -1,16 +1,14 @@
 // ------------------------------------------------- CHECKEAR HTTPS
 
 if (location.protocol !== 'https:' && location.hostname !== 'localhost')
-	//window.location.href = 'https://'+location.hostname;
+	window.location.href = 'https://'+location.hostname;
 	
 // ------------------------------------------------- INICIALIZAR
 
-var movimiento = "stop";
-var friends = [];
-
 updateFriends();
 updateRequests();
-updateStatus();
+var movimiento = "stop";
+var friends = [];
 
 // ------------------------------------------------- SOCKETS
 
@@ -18,7 +16,7 @@ var socket = io({transports: ['polling', 'websockets']});  // con transports: po
 
 socket.on('connect', function() {
 	console.log('Socket connected.');
-	socket.emit('user-connection', {id:userId, correo:correo, nombre:nombre, apellido:apellido});
+	socket.emit('user-connection', {id:userId, nombre:nombre, apellido:apellido});
 	teclasMovimiento(socket);
 });
 
@@ -30,10 +28,6 @@ socket.on('user-connection', function(data) {
 
 socket.on('user-disconnect', function(data) {
 	// alert('User disconnected: '+data);
-});
-
-socket.on('arduino-freno', function(data){
-	console.log('FRENO: '+ data);
 });
 
 socket.on('robot-request', function(data) {
@@ -80,6 +74,16 @@ function teclasMovimiento(socket) {
 // ------------------------------------------------- 
 // -------------------------------------------------
 
+$('button#conectar').click(function(event) {
+	var mac = '';
+	for (var i = 0; i < $('div.mac input').length; i++) {
+		mac += $('div.mac input')[i].value.toUpperCase();
+		if(i!==$('div.mac input').length-1) mac += ':';
+	}
+	if (!validateMacAddress(mac)) return alert('Ingrese una direccion valida.');
+	socket.emit('robot-request', {id:userId, mac:mac});
+});
+
 $('div.videollamada div.llamando div.opciones button#atender').click(atender);
 $('div.videollamada div.llamando div.opciones button#declinar').click(declinar);
 
@@ -90,16 +94,6 @@ $('div.conferencia div.opciones button#expand').click(expand);
 
 $('div.screenshot a, div.screenshot button').click(function(event) {
 	$('div.screenshot').css('display', 'none');
-});
-
-$('button#conectar').click(function(event) {
-	var mac = '';
-	for (var i = 0; i < $('div.mac input').length; i++) {
-		mac += $('div.mac input')[i].value.toUpperCase();
-		if(i!==$('div.mac input').length-1) mac += ':';
-	}
-	if (!validateMacAddress(mac)) return alert('Ingrese una direccion valida.');
-	socket.emit('robot-request', {id:userId, mac:mac});
 });
 
 $('div.conferencia').mouseenter(function(event) {
@@ -184,12 +178,6 @@ $('div.menuBottom button#robots').click(function (e) {
 // ------------------------------------------------- 
 // ------------------------------------------------- 
 
-function updateStatus(){
-	$.get('/api/users/connected', function(data){
-		console.log(data);
-	});
-}
-
 function updateFriends(){
 	$.get('/api/friends', function(data){
 		friends = data;
@@ -215,8 +203,6 @@ function updateFriends(){
 			div.find('button#opciones').append(list);
 			$('main div.contenedor div.left div.inferior div.amigos').append(div);
 		}
-
-		updateStatus();
 	});
 }
 
