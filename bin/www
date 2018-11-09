@@ -35,13 +35,13 @@ var httpsOptions = {
  * Create HTTP server.
  */
 
-// var server = http.createServer(app);
+var server = http.createServer(app);
 // https.createServer(httpsOptions, app).listen(httpsPort, function (err) {
 //   if (err) throw err;
 //   console.log('Secure server is listening on '+ httpsPort +'...');
 // });
 
-var server = https.createServer(httpsOptions, app);
+// var server = https.createServer(httpsOptions, app);
 
 /**
  * Sockets.
