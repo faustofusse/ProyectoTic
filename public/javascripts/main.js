@@ -1,16 +1,15 @@
-$(function(){
-
 // ------------------------------------------------- CHECKEAR HTTPS
 
 if (location.protocol !== 'https:' && location.hostname !== 'localhost')
-	window.location.href = 'https://'+location.hostname;
+	//window.location.href = 'https://'+location.hostname;
 	
 // ------------------------------------------------- INICIALIZAR
 
-updateFriends();
-updateRequests();
 var movimiento = "stop";
 var friends = [];
+
+// updateFriends();
+// updateRequests();
 
 // ------------------------------------------------- SOCKETS
 
@@ -18,7 +17,7 @@ var socket = io({transports: ['polling', 'websockets']});  // con transports: po
 
 socket.on('connect', function() {
 	console.log('Socket connected.');
-	socket.emit('user-connection', {id:userId, correo:correo});
+	socket.emit('user-connection', {id:userId, correo:correo, nombre:nombre, apellido:apellido});
 	teclasMovimiento(socket);
 });
 
@@ -405,5 +404,3 @@ function isMyFriend(id) {
 			return true;
 	}
 }
-
-});

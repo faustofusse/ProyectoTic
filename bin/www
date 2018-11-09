@@ -17,17 +17,11 @@ var http = require('http');
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '80');
+var port = normalizePort(process.env.PORT || '443');
 app.set('port', port);
 
 /**
- * Create HTTP server.
- */
-
-var server = http.createServer(app);
-
-/**
- * Create HTTPS server.
+ * Set up HTTPS
  */
 
 var httpsPort = process.env.SECURE_PORT || config.get('host').httpsPort || 443;
@@ -37,10 +31,17 @@ var httpsOptions = {
   cert: fs.readFileSync('./config/cert/server.crt')
 };
 
-/*https.createServer(httpsOptions, app).listen(httpsPort, function (err) {
-  if (err) throw err;
-  console.log('Secure server is listening on '+ httpsPort +'...');
-});*/
+/**
+ * Create HTTP server.
+ */
+
+// var server = http.createServer(app);
+// https.createServer(httpsOptions, app).listen(httpsPort, function (err) {
+//   if (err) throw err;
+//   console.log('Secure server is listening on '+ httpsPort +'...');
+// });
+
+var server = https.createServer(httpsOptions, app);
 
 /**
  * Sockets.

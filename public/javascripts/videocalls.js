@@ -52,17 +52,8 @@ function create(ice) {
 		window.currentCall = call;
 	});
 
-	function onError(err) {
-		console.error(err);
-		$('div.videollamada div.conferencia, div.videollamada div.llamando').css('display', 'none');
-
-		if (mobile){
-			$('div.videollamada').css('display', 'none');
-		}else{
-			$('div.videollamada h2').css('display', 'flex');
-		}
-		scrollTo($('header'), 200);
-		window.currentCall.close();
+	function findFriendById(id) {
+		return $('main div.contenedor div.left div.inferior div.amigos div#'+id+' span').html();
 	}
 
     setup();
@@ -193,9 +184,7 @@ function setup() {
 	    }, duration);
 	}
 
-	function findFriendById(id) {
-		return $('main div.contenedor div.left div.inferior div.amigos div#'+id+' span').html();
-	}
+	
 
 	function makePeerHeartbeater ( peer ) {
 	    var timeoutId = 0;
@@ -258,4 +247,20 @@ function setup() {
 		}
 	}
 
+
+	updateFriends();
+	updateRequests();
+}
+
+function onError(err) {
+	console.error(err);
+	$('div.videollamada div.conferencia, div.videollamada div.llamando').css('display', 'none');
+
+	if (mobile){
+		$('div.videollamada').css('display', 'none');
+	}else{
+		$('div.videollamada h2').css('display', 'flex');
+	}
+	scrollTo($('header'), 200);
+	window.currentCall.close();
 }
