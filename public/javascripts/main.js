@@ -31,6 +31,10 @@ socket.on('user-disconnect', function(data) {
 	// alert('User disconnected: '+data);
 });
 
+socket.on('arduino-freno', function(data){
+	console.log('FRENO: '+ data);
+});
+
 socket.on('robot-request', function(data) {
 	alert(data);
 });

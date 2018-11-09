@@ -41,6 +41,15 @@ module.exports = function(app, server){
                 io.to(`${app.locals.robots[0].socket}`).emit('hola', 'arduino');*/
         });
 
+        socket.on('arduino-freno', function(data){
+            for (let i = 0; i < app.locals.connections.length; i++) {
+                const element = app.locals.connections[i];
+                if (element.socketRobot === socket.id){
+                    io.to(`${element.socketUser}`).emit('arduino-freno', data);
+                }
+            }
+        });
+
         socket.on('disconnect', function(){
             for (var i = 0; i < app.locals.connections.length; i++) {
                 if(app.locals.connections[i].socketRobot === socket.id || app.locals.connections[i].socketUser === socket.id)
