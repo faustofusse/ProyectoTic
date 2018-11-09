@@ -4,6 +4,10 @@ var router = express.Router();
 var User = require('../models/user');
 var FriendRequest = require('../models/friendRequest');
 
+router.get('/users/connected', function(req, res, next){
+  res.send(req.app.locals.users);
+});
+
 router.get('/friends', function(req,res,next){
     var friends = [];
     friends.push(req.user.friends);

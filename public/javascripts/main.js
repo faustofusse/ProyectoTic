@@ -8,8 +8,9 @@ if (location.protocol !== 'https:' && location.hostname !== 'localhost')
 var movimiento = "stop";
 var friends = [];
 
-// updateFriends();
-// updateRequests();
+updateFriends();
+updateRequests();
+updateStatus();
 
 // ------------------------------------------------- SOCKETS
 
@@ -78,6 +79,18 @@ function teclasMovimiento(socket) {
 // ------------------------------------------------- EVENTS
 // ------------------------------------------------- 
 // -------------------------------------------------
+
+$('div.videollamada div.llamando div.opciones button#atender').click(atender);
+$('div.videollamada div.llamando div.opciones button#declinar').click(declinar);
+
+$('div.conferencia div.opciones button#close').click(declinar);
+$('div.conferencia div.opciones button#screenshot').click(screenshot);
+$('div.conferencia div.opciones button#volume').click(volume);
+$('div.conferencia div.opciones button#expand').click(expand);
+
+$('div.screenshot a, div.screenshot button').click(function(event) {
+	$('div.screenshot').css('display', 'none');
+});
 
 $('button#conectar').click(function(event) {
 	var mac = '';
@@ -171,6 +184,12 @@ $('div.menuBottom button#robots').click(function (e) {
 // ------------------------------------------------- 
 // ------------------------------------------------- 
 
+function updateStatus(){
+	$.get('/api/users/connected', function(data){
+		console.log(data);
+	});
+}
+
 function updateFriends(){
 	$.get('/api/friends', function(data){
 		friends = data;
@@ -196,6 +215,8 @@ function updateFriends(){
 			div.find('button#opciones').append(list);
 			$('main div.contenedor div.left div.inferior div.amigos').append(div);
 		}
+
+		updateStatus();
 	});
 }
 

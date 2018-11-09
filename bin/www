@@ -5,26 +5,23 @@
  */
 
 var https = require('https');
-var config = require('config');
 var fs = require('fs');
 var app = require('../app');
 var debug = require('debug')('proyecto:server');
 var http = require('http');
 
-
-
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '443');
+var port = normalizePort(process.env.PORT || '8080');
 app.set('port', port);
 
 /**
  * Set up HTTPS
  */
 
-var httpsPort = process.env.SECURE_PORT || config.get('host').httpsPort || 443;
+var httpsPort = process.env.SECURE_PORT || 443;
 
 var httpsOptions = {
   key: fs.readFileSync('./config/cert/server.key'), 
@@ -36,12 +33,7 @@ var httpsOptions = {
  */
 
 var server = http.createServer(app);
-// https.createServer(httpsOptions, app).listen(httpsPort, function (err) {
-//   if (err) throw err;
-//   console.log('Secure server is listening on '+ httpsPort +'...');
-// });
-
-// var server = https.createServer(httpsOptions, app);
+//var server = https.createServer(httpsOptions, app);
 
 /**
  * Sockets.

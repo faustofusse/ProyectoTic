@@ -7,10 +7,6 @@ var expressValidator = require('express-validator');
 var flash = require('connect-flash');
 var session = require('express-session');
 
-var config = require('config');
-var xirsys = config.get('xirsys');
-var webrtc = require('./routes/webrtc.js');
-
 var databaseSetup = require('./config/database');
 
 var indexRouter = require('./routes/index');
@@ -70,7 +66,6 @@ app.use(function(req, res, next){
 app.use('/', indexRouter);
 app.use('/', usersRouter);
 app.use('/api', apiRouter);
-app.use("/webrtc", webrtc(xirsys));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
