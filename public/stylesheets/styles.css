@@ -659,7 +659,6 @@ div.addRobot div.mac, div.addRobot div.movimiento {
 }
 div.addRobot div > span {
 	width: 100%;
-	padding: .5em 0;
 	font-size: 1.3em;
 } 
 div.addRobot div.mac div.inputs {
@@ -684,15 +683,17 @@ div.addRobot div.mac button {
 	font-size: 1.3em;
 	padding: .3em;
 	width: 100%;
+	margin-top: .5em;
 	border: none;
 	color: #fff;
 	background-color: var(--blue);
 }
-div.addRobot div.movimiento {
+div.addRobot div.mac {
 	display: none;
 }
 div.addRobot div.movimiento > span {
 	width: 100%;
+	padding: .5em 0;
 	border-bottom: 1px solid var(--blue); 
 }
 div.flechas {

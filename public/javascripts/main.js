@@ -13,6 +13,8 @@ updateRequests();
 updateFriends();
 updateRobots();
 
+var circuito = false;
+var tiempoCircuitos = [16000, 9000, 16000];
 var movimiento = 'stop';
 var robot = '';
 var friends = [];
@@ -59,10 +61,9 @@ socket.on('robot-request', function(data) {
 
 socket.on('robot-connection', function (mac) {
 	var element = document.getElementById(mac);
-	// var element = $('main div.contenedor div.left div.inferior div.robots > div#' + mac);
-	element.find('div#estado').attr('class', 'conectado');
-	element.find('button#connect').css('display', 'flex');
-	element.css('order', '0');
+	$(element.querySelector('div#estado')).attr('class', 'conectado');
+	$(element.querySelector('button#connect')).css('display', 'flex');
+	$(element).css('order', '0');
 	for (var i = 0; i < robots.length; i++) {
 		if (robots[i] === mac)
 			showMessage('', mac + ' conectado.', 'green');
@@ -70,6 +71,10 @@ socket.on('robot-connection', function (mac) {
 });
 
 socket.on('robot-disconnect', function (mac) {
+	for (var i = 0; i < robots.length; i++) {
+		if (robots[i] === mac)
+			updateRobots();
+	}
 	if (robot === mac){
 		$('div.menu div.addRobot div.movimiento').slideUp();
 		$('div.menu div.addRobot div.mac').slideDown();
@@ -94,7 +99,7 @@ function teclasMovimiento(socket) {
 	        default: return; // exit this handler for other keys
 	    }
 	    e.preventDefault();
-	    if(temp !== movimiento){
+	    if(temp !== movimiento && !circuito){
 	    	console.log(movimiento);
 	    	socket.emit('movimiento', {id:userId, movimiento:movimiento});
 	    }
@@ -107,24 +112,39 @@ function teclasMovimiento(socket) {
 	        default: return; // exit this handler for other keys
 	    }
 	    e.preventDefault();
-	    console.log(movimiento);
-	    socket.emit('movimiento', {id:userId, movimiento:movimiento});
+	    if (!circuito){
+		    console.log(movimiento);
+		    socket.emit('movimiento', {id:userId, movimiento:movimiento});
+		}
 	});
 
 	$('div.flechas button').mousedown(function(event) {
 		var movimiento = $(this).attr('id');
-		socket.emit('movimiento', {id:userId, movimiento:movimiento});
-		console.log(movimiento);
+		if (!circuito){
+			socket.emit('movimiento', {id:userId, movimiento:movimiento});
+			console.log(movimiento);
+		}	
 	}).mouseup(function(event) {
 		var movimiento = "stop";
-		socket.emit('movimiento', {id:userId, movimiento:movimiento});
-		console.log(movimiento);		
+		if (!circuito) {
+			socket.emit('movimiento', {id:userId, movimiento:movimiento});
+			console.log(movimiento);
+		}			
 	});
 
 	$('div.circuitos button').click(function(event) {
-		var movimiento = 'circuito' + $(this).attr('id');
-		socket.emit('movimiento', {id:userId, movimiento:movimiento});
-		console.log(movimiento);
+		var id = $(this).attr('id')
+		var movimiento = 'circuito' + id;
+		var tiempo = tiempoCircuitos[id-1];
+		if (!circuito){
+			socket.emit('movimiento', {id:userId, movimiento:movimiento});
+			console.log('Circuito '+id+' comenzado.');
+			circuito = true;
+			setTimeout(function(){ 
+				circuito = false;	
+				console.log('Circuito '+id+' terminado.'); 
+			}, tiempo);
+		}
 	});
 }
 
@@ -226,13 +246,6 @@ $('button#connectRobot').click(function(event) {
 });
 $('button#logout').click(function(event) {
 	document.location.href = '/logout';
-});
-
-$('div.menuBottom button#amigos').click(function (e) {
-	
-});
-$('div.menuBottom button#robots').click(function (e) {
-	
 });
 
 // ------------------------------------------------- 
