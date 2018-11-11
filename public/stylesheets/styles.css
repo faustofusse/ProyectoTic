@@ -309,7 +309,6 @@ main div.contenedor div.left div.inferior div div div button i {
 }
 main div.contenedor div.left div.inferior div div div button i.fa-plug {
 	color: var(--videocall);
-	display: none;
 }
 main div.contenedor div.left div.inferior div div div button i.fa-video {
 	color: var(--videocall);

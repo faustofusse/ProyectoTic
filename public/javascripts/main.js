@@ -253,6 +253,7 @@ function updateRobots() {
 			var div = $('<div class="usuario"><span></span><div class="opciones"><button id="connect"><i class="fas fa-plug"></i></button><div id="estado" class="desconectado"></div></div></div>')
 			div.attr('id', mac);
 			div.find('span').html(mac);
+			div.find('button#connect').css('display', 'none');
 			$('div.contenedor div.left div.robots').append(div);
 		}
 		for (var i = 0; i < data.connected.length; i++) {
