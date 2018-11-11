@@ -134,13 +134,15 @@ function teclasMovimiento(socket) {
 // ------------------------------------------------- 
 // -------------------------------------------------
 
-$('button#conectar, div.robots button#connect').click(function(event) {
+$('button#conectar').click(function(event) {
 	var mac = '';
 	for (var i = 0; i < $('div.mac input').length; i++) {
 		mac += $('div.mac input')[i].value.toUpperCase();
 		if(i!==$('div.mac input').length-1) mac += ':';
 	}
-	connectRobot(mac);
+	if (!validateMacAddress(mac)) return alert('Ingrese una direccion valida.');
+	socket.emit('robot-request', {id:userId, mac:mac});
+	robot = mac;
 });
 
 $('div.videollamada div.llamando div.opciones button#atender').click(atender);
@@ -240,7 +242,7 @@ $('div.menuBottom button#robots').click(function (e) {
 // ------------------------------------------------- 
 
 function connectRobot(mac) {
-	if (!validateMacAddress(mac)) return alert('Ingrese una direccion valida.');
+	var mac = $(this).parent().parent().attr('id');
 	socket.emit('robot-request', {id:userId, mac:mac});
 	robot = mac;
 }
@@ -257,7 +259,7 @@ function updateRobots() {
 			var div = $('<div class="usuario"><span></span><div class="opciones"><button id="connect"><i class="fas fa-plug"></i></button><div id="estado" class="desconectado"></div></div></div>')
 			div.attr('id', mac);
 			div.find('span').html(mac);
-			div.find('button#connect').css('display', 'none');
+			div.find('button#connect').css('display', 'none').click(conectarRobot);;
 			$('div.contenedor div.left div.robots').append(div);
 		}
 		for (var i = 0; i < data.connected.length; i++) {
