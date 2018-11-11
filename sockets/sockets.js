@@ -95,13 +95,11 @@ module.exports = function(app, server){
         }
         for (var i = 0; i < app.locals.robots.length; i++) {
             if(app.locals.robots[i].mac === mac){
-                accepted = true;
                 User.addRobot(userId, mac, function(){
-                    return 'Conexion aceptada.';
                 });
+                return 'Conexion aceptada.';
             }
         }
-        if (!accepted)
-            return 'El robot no existe o no esta conectado.';
+        return 'El robot no existe o no esta conectado.';
     }
 }

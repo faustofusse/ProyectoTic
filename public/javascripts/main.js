@@ -36,6 +36,7 @@ socket.on('user-disconnect', function(data) {
 
 socket.on('robot-request', function(data) {
 	if (data === 'Conexion aceptada.'){
+		console.log('conexion aceptada');
 		$('div.menu div.addRobot div.mac').slideUp();
 		$('div.menu div.addRobot div.movimiento').slideDown();
 		showMessage('', 'Conexion Aceptada.', 'green');
@@ -44,6 +45,7 @@ socket.on('robot-request', function(data) {
 		$('button#robots').css('border-color', $('header h1').css('color'));
 		$('button#amigos').css('border-color', $(this).css('background-color'));
 	}else{
+		console.log('conexion rechazada.');
 		showMessage(data, '', 'red');
 	}
 });
