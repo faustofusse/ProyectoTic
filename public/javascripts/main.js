@@ -176,6 +176,8 @@ $('div.contenedor div.left div.superior button, div.menuBottom button#amigos, di
 	$('button#' + id2).css('border-color', $(this).css('background-color'));
 	if (id === 'amigos')
 		updateFriends();
+	else 
+		updateRobots();
 });
 
 $('html').keyup(function(event) {
