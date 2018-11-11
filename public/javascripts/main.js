@@ -258,8 +258,8 @@ function updateRobots() {
 		for (var i = 0; i < data.connected.length; i++) {
 			var element = document.getElementById(mac);
 			// var element = $('main div.contenedor div.left div.inferior div.robots > div#'+data.connected[i].mac);
-			element.find('div#estado').attr('class', 'conectado');
-			element.find('button#connect').css('display', 'flex');
+			element.querySelector('div#estado').attr('class', 'conectado');
+			element.querySelector('button#connect').css('display', 'flex');
 			element.css('order', '0');
 		}
 	});
