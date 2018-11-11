@@ -55,11 +55,10 @@ module.exports.addRobot = function(id, mac, callback){
                 user.robots.push(mac);
                 user.save(function(){
                     callback();
-                    return;
                 });
+            }else{
+                callback();
             }
-            callback();
-            return;
         }
     });
 }
