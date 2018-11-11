@@ -73,6 +73,23 @@
 				</div>
 			</div>
 			<button id="conectar">Conectar</button>
+			<div class="movimiento">
+				<span>Mover el robot:</span>
+				<div class="flechas">
+					<button id="left"><i class="fas fa-caret-left"></i></button>
+					<div>
+						<button id="forward"><i class="fas fa-caret-up"></i></button>
+						<button id="backward"><i class="fas fa-caret-down"></i></button>
+					</div>
+					<button id="right"><i class="fas fa-caret-right"></i></button>
+				</div>
+				<span>Circuitos:</span>
+				<div class="circuitos">
+					<button id="1">Circuito 1</button>
+					<button id="2">Circuito 2</button>
+					<button id="3">Circuito 3</button>
+				</div>
+			</div>
 		</div>
 	</div>
 
@@ -90,7 +107,7 @@
 			<div class="opciones">
 				<button id="friendRequests">Solicitudes<i class="fa fa-user-plus"></i></button>
 				<button id="addFriend">Agregar<i class="fa fa-search"></i></button>
-				<button id="connectRobot">Conectar Robot<i class="fa fa-link"></i></button>
+				<button id="connectRobot">Configurar Robot<i class="fa fa-link"></i></button>
 				<button id="logout">Salir<i class="fa fa-sign-out-alt"></i></button>
 			</div>
 			<button class="mobile" id="logout"><i class="fa fa-sign-out-alt"></i></button>
@@ -139,6 +156,7 @@
 			apellido = '{{user.apellido}}';
 	</script>
 	<script type="text/javascript" src="./javascripts/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
 	<script type="text/javascript" src="./socket.io/socket.io.js"></script>
 	<script type="text/javascript" src="./javascripts/peer.min.js"></script>
 	<script type="text/javascript" src="./javascripts/videocalls.js"></script>

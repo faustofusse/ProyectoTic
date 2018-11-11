@@ -5,9 +5,7 @@ var User = require('../models/user');
 var FriendRequest = require('../models/friendRequest');
 
 router.get('/friends', function(req,res,next){
-    var friends = [];
-    friends.push(req.user.friends);
-    res.send(req.user.friends);
+  res.send({friends:req.user.friends, connected:req.app.locals.users});
 });
 
 router.get('/friends/requests', function(req, res, next){

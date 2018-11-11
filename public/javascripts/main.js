@@ -1,12 +1,13 @@
 // ------------------------------------------------- CHECKEAR HTTPS
 
 if (location.protocol !== 'https:' && location.hostname !== 'localhost')
-	window.location.href = 'https://'+location.hostname;
+	//window.location.href = 'https://'+location.hostname;
 	
 // ------------------------------------------------- INICIALIZAR
 
-updateFriends();
 updateRequests();
+updateFriends();
+
 var movimiento = "stop";
 var friends = [];
 
@@ -23,11 +24,13 @@ socket.on('connect', function() {
 socket.on('user-connection', function(data) {
 	if (data.id !== userId && isMyFriend(data.id)){
 		showMessage(data.nombre + ' ' + data.apellido, ' se ha conectado.', 'green');
+		updateFriends();
 	}
 });
 
 socket.on('user-disconnect', function(data) {
 	// alert('User disconnected: '+data);
+	updateFriends();
 });
 
 socket.on('robot-request', function(data) {
@@ -64,8 +67,29 @@ function teclasMovimiento(socket) {
 	        default: return; // exit this handler for other keys
 	    }
 	    e.preventDefault();
+	    console.log(movimiento);
 	    socket.emit('movimiento', {id:userId, movimiento:movimiento});
 	});
+
+	$('div.flechas button').mousedown(function(event) {
+		var movimiento = $(this).attr('id');
+		socket.emit('movimiento', {id:userId, movimiento:movimiento});
+		console.log(movimiento);
+	}).mouseup(function(event) {
+		var movimiento = "stop";
+		socket.emit('movimiento', {id:userId, movimiento:movimiento});
+		console.log(movimiento);		
+	});
+
+	$('div.circuitos button').click(function(event) {
+		var movimiento = 'circuito' + $(this).attr('id');
+		socket.emit('movimiento', {id:userId, movimiento:movimiento});
+		console.log(movimiento);
+	});
+}
+
+function movimiento(direccion, socket) {
+	
 }
 
 // ------------------------------------------------- 
@@ -180,28 +204,36 @@ $('div.menuBottom button#robots').click(function (e) {
 
 function updateFriends(){
 	$.get('/api/friends', function(data){
-		friends = data;
+		friends = data.friends;
 		$('main div.contenedor div.left div.inferior div.amigos div.usuario').remove();
-		if (data.length)
+		if (data.friends.length)
 			$('main div.contenedor div.left div.inferior div.amigos h3').css('display', 'none');
 		else
 			$('main div.contenedor div.left div.inferior div.amigos h3').css('display', 'flex');
 		
-		for (var i = data.length - 1; i >= 0; i--) {
+		for (var i = data.friends.length - 1; i >= 0; i--) {
 			var div = $('<div class="usuario"><span></span></div>');
-			var opciones = $('<div><button id="videollamada"></button><button id="opciones"></button></div>')
+			var opciones = $('<div><button class="videollamada"></button><button id="opciones"></button><div id="estado" class="desconectado"></div></div>')
 			var list = $('<ul></ul>');
 			list.append('<li><button id="perfil">Perfil</button></li>')
 				.append('<li><button id="eliminar">Eliminar</button></li>');
 			list.find('button#perfil').click(botonPerfil);
 			list.find('button#eliminar').click(botonEliminar);
-			opciones.find('button#videollamada').append('<i class="fa fa-video"></i>').attr('id', data[i]._id).click(botonVideollamada);
-			//opciones.find('button#opciones').append('<i class="fa fa-ellipsis-v"></i>').click(botonOpciones);
-			div.attr('id', data[i]._id);
-			div.find('span').html(data[i].nombre + ' ' + data[i].apellido);
+			opciones.find('button.videollamada').append('<i class="fa fa-video"></i>').attr('id', data.friends[i]._id).click(botonVideollamada);
+			opciones.find('button#opciones').append('<i class="fa fa-ellipsis-v"></i>').click(botonOpciones);
+			/* ELIMINAR BOTON DE OPCIONES */ opciones.find('button#opciones').remove();
+			div.attr('id', data.friends[i]._id);
+			div.find('span').html(data.friends[i].nombre + ' ' + data.friends[i].apellido);
 			div.append(opciones);
 			div.find('button#opciones').append(list);
 			$('main div.contenedor div.left div.inferior div.amigos').append(div);
+		}
+		$('main div.contenedor div.left div.inferior div.amigos div button.videollamada').css('display', 'none');
+		for (var i = 0; i < data.connected.length; i++) {
+			var element = $('main div.contenedor div.left div.inferior div.amigos > div#'+data.connected[i].id);
+			element.find('div#estado').attr('class', 'conectado');
+			element.find('button.videollamada').css('display', 'flex');
+			element.css('order', '0');
 		}
 	});
 }
@@ -415,3 +447,38 @@ function isMyFriend(id) {
 			return true;
 	}
 }
+
+
+/*
+$('header').attr('id', 'redBox');
+var red = document.getElementById("redBox");
+console.log(red._gsTransform);
+// $('header').changeOrder(2);
+
+
+$.fn.changeOrder = function(order) {
+	var box = {
+		transform: this._gsTransform,
+	    x: this.offsetLeft,
+	    y: this.offsetTop,
+	    element: this
+	}
+	this.css('order', order);
+
+	var lastX = box.x;
+    var lastY = box.y;
+    
+    box.x = box.element.offsetLeft;
+    box.y = box.element.offsetTop;
+    
+    // Continue if box hasn't moved
+    // if (lastX === box.x && lastY === box.y) continue;
+    
+    // Reversed delta values taking into account current transforms
+    var x = box.transform.x + lastX - box.x;
+    var y = box.transform.y + lastY - box.y;  
+    var ease  = Power1.easeInOut;
+
+    // Tween to 0 to remove the transforms
+    TweenLite.fromTo(box.element, 0.5, { x, y }, { x: 0, y: 0, ease });
+}*/
