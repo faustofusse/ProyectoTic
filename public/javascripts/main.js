@@ -241,7 +241,7 @@ $('div.menuBottom button#robots').click(function (e) {
 // ------------------------------------------------- 
 // ------------------------------------------------- 
 
-function connectRobot(mac) {
+function conectarRobot(mac) {
 	var mac = $(this).parent().parent().attr('id');
 	socket.emit('robot-request', {id:userId, mac:mac});
 	robot = mac;
