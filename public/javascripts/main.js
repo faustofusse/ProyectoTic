@@ -58,7 +58,8 @@ socket.on('robot-request', function(data) {
 });
 
 socket.on('robot-connection', function (mac) {
-	var element = $('main div.contenedor div.left div.inferior div.robots > div#' + mac);
+	var element = document.getElementById(mac);
+	// var element = $('main div.contenedor div.left div.inferior div.robots > div#' + mac);
 	element.find('div#estado').attr('class', 'conectado');
 	element.find('button#connect').css('display', 'flex');
 	element.css('order', '0');
@@ -241,6 +242,7 @@ $('div.menuBottom button#robots').click(function (e) {
 // ------------------------------------------------- 
 
 function updateRobots() {
+	$('main div.contenedor div.left div.inferior div.robots > div').remove();
 	$.get('/api/robots', function(data) {
 		var myRobots = data.robots,
 			connected = data.connected;
@@ -254,7 +256,8 @@ function updateRobots() {
 			$('div.contenedor div.left div.robots').append(div);
 		}
 		for (var i = 0; i < data.connected.length; i++) {
-			var element = $('main div.contenedor div.left div.inferior div.robots > div#'+data.connected[i].mac);
+			var element = document.getElementById(mac);
+			// var element = $('main div.contenedor div.left div.inferior div.robots > div#'+data.connected[i].mac);
 			element.find('div#estado').attr('class', 'conectado');
 			element.find('button#connect').css('display', 'flex');
 			element.css('order', '0');
