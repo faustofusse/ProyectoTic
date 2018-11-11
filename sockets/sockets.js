@@ -80,6 +80,7 @@ module.exports = function(app, server){
     }
 
     function robotRequest(userId, mac) {
+        var accepted = false;
         for (var i = 0; i < app.locals.connections.length; i++) {
             if (app.locals.connections[i].id === userId){
                 return 'Ya estas conectado a un robot.';
@@ -94,11 +95,13 @@ module.exports = function(app, server){
         }
         for (var i = 0; i < app.locals.robots.length; i++) {
             if(app.locals.robots[i].mac === mac){
+                accepted = true;
                 User.addRobot(userId, mac, function(){
                     return 'Conexion aceptada.';
                 });
             }
         }
-        return 'El robot no existe o no esta conectado.';
+        if (!accepted)
+            return 'El robot no existe o no esta conectado.';
     }
 }
