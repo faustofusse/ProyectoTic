@@ -17,6 +17,7 @@ module.exports = function(app, server){
         socket.on('arduino-connection', function(data){
             console.log('Arduino connected. (MAC: '+data.mac+')');
             app.locals.robots.push({mac:data.mac, socket:socket.id});
+            io.emit('robot-connection', data.mac);
         });
 
         socket.on('robot-request', function(data){

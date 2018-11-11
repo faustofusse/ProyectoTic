@@ -16,6 +16,7 @@ updateRobots();
 var movimiento = 'stop';
 var robot = '';
 var friends = [];
+var robots = [];
 
 // ------------------------------------------------- SOCKETS
 
@@ -53,6 +54,17 @@ socket.on('robot-request', function(data) {
 	}else{
 		robot = '';
 		showMessage(data, '', 'red');
+	}
+});
+
+socket.on('robot-connection', function (mac) {
+	var element = $('main div.contenedor div.left div.inferior div.robots > div#' + mac);
+	element.find('div#estado').attr('class', 'conectado');
+	element.find('button#connect').css('display', 'flex');
+	element.css('order', '0');
+	for (var i = 0; i < robots.length; i++) {
+		if (robots[i] === mac)
+			showMessage('', mac + ' conectado.', 'green');
 	}
 });
 
@@ -228,17 +240,22 @@ $('div.menuBottom button#robots').click(function (e) {
 
 function updateRobots() {
 	$.get('/api/robots', function(data) {
-		var robots = data.robots,
+		var myRobots = data.robots,
 			connected = data.connected;
-		for (var i = 0; i < robots.length; i++) {
-			var mac = robots[i];
-			var div = $('<div class="usuario"><span></span><div class="opciones"><button id="connect"><i class="fas fa-plug"></i></button></div></div>')
+		robots = data.robots;
+		if (myRobots.length) $('div.contenedor div.left div.robots h3').css('display', 'none');
+		for (var i = 0; i < myRobots.length; i++) {
+			var mac = myRobots[i];
+			var div = $('<div class="usuario"><span></span><div class="opciones"><button id="connect"><i class="fas fa-plug"></i></button><div id="estado" class="desconectado"></div></div></div>')
 			div.attr('id', mac);
 			div.find('span').html(mac);
 			$('div.contenedor div.left div.robots').append(div);
 		}
-		if (robots.length) {
-			$('div.contenedor div.left div.robots h3').css('display', 'none');
+		for (var i = 0; i < data.connected.length; i++) {
+			var element = $('main div.contenedor div.left div.inferior div.robots > div#'+data.connected[i].mac);
+			element.find('div#estado').attr('class', 'conectado');
+			element.find('button#connect').css('display', 'flex');
+			element.css('order', '0');
 		}
 	});
 }

@@ -307,6 +307,10 @@ main div.contenedor div.left div.inferior div div div button ul li button:hover{
 main div.contenedor div.left div.inferior div div div button i {
 	font-size: 1.5em;
 }
+main div.contenedor div.left div.inferior div div div button i.fa-plug {
+	color: var(--videocall);
+	display: none;
+}
 main div.contenedor div.left div.inferior div div div button i.fa-video {
 	color: var(--videocall);
 }
