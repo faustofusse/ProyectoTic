@@ -112,6 +112,7 @@ main {
 main > nav {
 	background-color: var(--navbar);
 	width: 100%;
+	min-height: 4em;
 	display: flex;
 	justify-content: space-between;
 	align-items: stretch;
@@ -165,7 +166,7 @@ main > nav > div.opciones button i{
 
 main div.contenedor {
 	width: 100%;
-	height: 100%;
+	height: 35em;
 	display: flex;
 	justify-content: space-between;
 }
@@ -175,6 +176,7 @@ main div.contenedor div.left{
 	justify-content: flex-start;
 	flex-direction: column;
 	width: 35%;
+	margin-top: .2em;
 }
 
 main div.contenedor div.left div.superior {
@@ -189,6 +191,7 @@ main div.contenedor div.left div.inferior {
 	height: 100%;
 	display: flex;
 	justify-content: flex-start;
+	/*min-height: 30em;*/
 }
 
 main div.contenedor div.left div.superior button {
@@ -206,27 +209,16 @@ main div.contenedor div.left div.superior button {
 	transition:border .4s;
 }
 
-main div.contenedor div.left div.inferior div.amigos{
+main div.contenedor div.left div.inferior div.amigos, main div.contenedor div.left div.inferior div.robots{
 	overflow-y: auto;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
-	width: 100%;
-	min-height: 35em;
-	max-height: 38em;
 	padding: 0;
 	margin-top: .2em;
 }
-
-main div.contenedor div.left div.robots{
-	overflow: auto;
-	display: flex;
-	flex-direction: column;
-	width: 0;
-	padding: 0;
-	min-height: 30em;
-	max-height: 35em;
-}
+main div.contenedor div.left div.amigos{width: 100%;}
+main div.contenedor div.left div.robots{width: 0;}
 main div.contenedor div.superior button#robots{border-color: var(--dark-blue)}
 main div.contenedor div.left div.robots{width: 0;}
 
@@ -931,6 +923,7 @@ div.menuBottom button i{
 	/*----------MOBILE--------*/
 	html, body{
 		overflow:hidden;
+		height: 100%;
 	}
 	header {
 		width: 90%;
@@ -940,6 +933,7 @@ div.menuBottom button i{
 		box-shadow: none;
 		width: 100%;
 		margin: 0;
+		height: 100%;
 	}
 	main div.contenedor div.videollamada{
 		display: none;
@@ -951,6 +945,11 @@ div.menuBottom button i{
 	}
 	main div.contenedor div.left{
 		width: 100%;
+		/*height: 15em;*/
+		max-height: 100%;
+	}
+	main div.contenedor div.left div.inferior{
+		max-height: 100%;
 	}
 	main div.contenedor div.left div.superior{
 		display: none;
@@ -961,8 +960,9 @@ div.menuBottom button i{
 	main nav div.opciones{
 		display: none;
 	}
-	main div.contenedor div.left div {
-		min-height: 0;
+	main div.contenedor div.left div.amigos {
+		overflow-y: auto;
+		height: 100%;
 	}
 	div.menu div.buscar, div.menu div.solicitudes, div.menu div.addRobot{
 		width: 90%;

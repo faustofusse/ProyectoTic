@@ -3,6 +3,10 @@
 if (location.protocol !== 'https:' && location.hostname !== 'localhost' && location.hostname !== '192.168.0.47')
 	window.location.href = 'https://'+location.hostname;
 	
+var mobile = window.matchMedia("(max-width: 780px)").matches;
+var height = $('html').height() - ($('header').height() + $('nav').height() + $('div.menuBottom').height() + $('div.menuBottom').height()/2);
+if (mobile)
+	$('div.left div.amigos, div.left div.robots').height(height);
 // ------------------------------------------------- INICIALIZAR
 
 updateRequests();
@@ -228,7 +232,7 @@ function updateRobots() {
 			connected = data.connected;
 		for (var i = 0; i < robots.length; i++) {
 			var mac = robots[i];
-			var div = $('<div><span></span><div><button id="connect"></button></div></div>')
+			var div = $('<div class="usuario"><span></span><div class="opciones"><button id="connect"><i class="fas fa-plug"></i></button></div></div>')
 			div.attr('id', mac);
 			div.find('span').html(mac);
 			$('div.contenedor div.left div.robots').append(div);

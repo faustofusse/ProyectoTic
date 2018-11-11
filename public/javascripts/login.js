@@ -7,8 +7,6 @@ $('div.background').particleground({
     lineColor: '#1565c0',
 }).css('background-color', '#212121');;
 
-scrollTo($('header'), 0);
-
 if (login){
 	$('button#btnIniciar').css('background-color', '#1976d2');
 	$('button#btnRegistrarse').css('background-color', '#42a5f5');
@@ -26,6 +24,10 @@ if (login){
 
 $('button#scrollDown').click(function(event) {
 	scrollTo($('main'), 400);
+});
+
+$('button#scrollUp').click(function(event) {
+	scrollTo($('header'), 400);
 });
 
 $('button#btnRegistrarse').click(function () {

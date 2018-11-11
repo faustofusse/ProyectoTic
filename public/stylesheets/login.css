@@ -83,8 +83,7 @@ header h2 {
 	font-size: 1.5em;
 }
 
-header button#scrollDown {
-	visibility: hidden;
+header button#scrollDown, button#scrollUp {
 	position: absolute;
 	bottom: 2em;
 	margin: auto;
@@ -97,12 +96,17 @@ header button#scrollDown {
 	border-radius: 50%;
 }
 
-header button#scrollDown i {
+header button#scrollDown i, button#scrollUp i {
 	color: #fff;
 	font-size: 2em;
 }
 
+button#scrollUp{
+	left: 80%;
+}
+
 main{
+	position: relative;
 	width: 24em;
 	height: 100%;
 	display: flex;
@@ -229,6 +233,9 @@ a#googleButton span{
 	main div.ingresar {
 		display: none;
 	}
+	button#scrollUp, button#scrollDown {
+		visibility: hidden;
+	}
 }
 
 @media screen and (min-width: 780px) and (max-width: 1024px){
@@ -257,7 +264,7 @@ a#googleButton span{
 	header h2 {
 		font-size: 1.2em;
 	}
-	header button#scrollDown {
+	header button#scrollDown, button#scrollUp {
 		visibility: visible;
 	}
 }
@@ -265,6 +272,11 @@ a#googleButton span{
 @media screen and (max-width: 780px) and (orientation: landscape){
 	header button#scrollDown {
 		left: 80%;
+	}
+	main {
+		overflow-y: auto;
+		width: 50%;
+		max-height: 100%;
 	}
 }
 /*@media screen and (max-width: 480px){
