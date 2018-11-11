@@ -134,15 +134,13 @@ function teclasMovimiento(socket) {
 // ------------------------------------------------- 
 // -------------------------------------------------
 
-$('button#conectar').click(function(event) {
+$('button#conectar, div.robots button#connect').click(function(event) {
 	var mac = '';
 	for (var i = 0; i < $('div.mac input').length; i++) {
 		mac += $('div.mac input')[i].value.toUpperCase();
 		if(i!==$('div.mac input').length-1) mac += ':';
 	}
-	if (!validateMacAddress(mac)) return alert('Ingrese una direccion valida.');
-	socket.emit('robot-request', {id:userId, mac:mac});
-	robot = mac;
+	connectRobot(mac);
 });
 
 $('div.videollamada div.llamando div.opciones button#atender').click(atender);
@@ -240,6 +238,12 @@ $('div.menuBottom button#robots').click(function (e) {
 // ------------------------------------------------- FUNCTIONS
 // ------------------------------------------------- 
 // ------------------------------------------------- 
+
+function connectRobot(mac) {
+	if (!validateMacAddress(mac)) return alert('Ingrese una direccion valida.');
+	socket.emit('robot-request', {id:userId, mac:mac});
+	robot = mac;
+}
 
 function updateRobots() {
 	$('main div.contenedor div.left div.inferior div.robots > div').remove();
