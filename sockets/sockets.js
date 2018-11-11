@@ -80,7 +80,6 @@ module.exports = function(app, server){
     }
 
     function robotRequest(userId, mac) {
-        var accepted = false;
         for (var i = 0; i < app.locals.connections.length; i++) {
             if (app.locals.connections[i].id === userId){
                 return 'Ya estas conectado a un robot.';

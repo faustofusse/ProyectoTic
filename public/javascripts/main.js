@@ -9,7 +9,8 @@ updateRequests();
 updateFriends();
 updateRobots();
 
-var movimiento = "stop";
+var movimiento = 'stop';
+var robot = '';
 var friends = [];
 
 // ------------------------------------------------- SOCKETS
@@ -19,7 +20,9 @@ var socket = io({transports: ['polling', 'websockets']});  // con transports: po
 socket.on('connect', function() {
 	console.log('Socket connected.');
 	socket.emit('user-connection', {id:userId, nombre:nombre, apellido:apellido});
-	teclasMovimiento(socket);
+	if (robot !== '')
+		socket.emit('robot-request', {id:userId, mac:robot});
+	teclasMovimiento(socket); 
 });
 
 socket.on('user-connection', function(data) {
@@ -36,17 +39,24 @@ socket.on('user-disconnect', function(data) {
 
 socket.on('robot-request', function(data) {
 	if (data === 'Conexion aceptada.'){
-		console.log('conexion aceptada');
 		$('div.menu div.addRobot div.mac').slideUp();
 		$('div.menu div.addRobot div.movimiento').slideDown();
 		showMessage('', 'Conexion Aceptada.', 'green');
 		$('div.contenedor div.left div.amigos').animate({width: '0%'}, 300);
 		$('div.contenedor div.left div.robots').animate({width: '100%'}, 300);
 		$('button#robots').css('border-color', $('header h1').css('color'));
-		$('button#amigos').css('border-color', $(this).css('background-color'));
+		$('button#amigos').css('border-color', $('button#amigos').css('background-color'));
 	}else{
-		console.log('conexion rechazada.');
+		robot = '';
 		showMessage(data, '', 'red');
+	}
+});
+
+socket.on('robot-disconnect', function (mac) {
+	if (robot === mac){
+		$('div.menu div.addRobot div.movimiento').slideUp();
+		$('div.menu div.addRobot div.mac').slideDown();
+		showMessage('', 'Robot desconectado.', 'red');
 	}
 });
 
@@ -115,6 +125,7 @@ $('button#conectar').click(function(event) {
 	}
 	if (!validateMacAddress(mac)) return alert('Ingrese una direccion valida.');
 	socket.emit('robot-request', {id:userId, mac:mac});
+	robot = mac;
 });
 
 $('div.videollamada div.llamando div.opciones button#atender').click(atender);
