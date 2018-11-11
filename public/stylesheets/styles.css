@@ -240,6 +240,7 @@ main div.contenedor div.left div.inferior div div span{
 	margin: 1em;
 	white-space: nowrap;
 	box-sizing: border-box;
+	border: 1px solid rgba(0,0,0,0);
 }
 main div.contenedor div.left div.inferior > div > div > div{
 	/*----OPCIONES----*/
@@ -307,21 +308,27 @@ main div.contenedor div.left div.inferior div div div button ul li button:hover{
 main div.contenedor div.left div.inferior div div div button i {
 	font-size: 1.5em;
 }
-main div.contenedor div.left div.inferior div div div button i.fa-plug {
-	color: var(--videocall);
+main div.contenedor div.left div.inferior div div input {
+	display: none;
+	margin: 1em;
+	white-space: nowrap;
+	font-size: 1.2em;
+	color: #424242;
+	border: .5px solid var(--grey);
 }
-main div.contenedor div.left div.inferior div div div button i.fa-video {
-	color: var(--videocall);
+main div.contenedor div.left div.inferior div div div button#aceptar {
+	border-right: 1px solid var(--grey);
+	padding-right: 1em;
 }
-main div.contenedor div.left div.inferior div div div button i.fa-ellipsis-v{
-	color: var(--grey);
-}
-main div.contenedor div.left div.inferior div div div button i.fa-video:hover {
-	color: var(--videocall-hover);
-}
-main div.contenedor div.left div.inferior div div div button i.fa-ellipsis-v:hover {
-	color: var(--grey-hover);
-}
+main div.contenedor div.left div.inferior div div div button#aceptar, main div.contenedor div.left div.inferior div div div button#rechazar {display: none;}
+main div.contenedor div.left div.inferior div div div button i.fa-check {color: var(--videocall);}
+main div.contenedor div.left div.inferior div div div button i.fa-times {color: var(--red);}
+main div.contenedor div.left div.inferior div div div button i.fa-pencil-alt {color: var(--blue); font-size: 1.3em;}
+main div.contenedor div.left div.inferior div div div button i.fa-plug {color: var(--videocall);}
+main div.contenedor div.left div.inferior div div div button i.fa-video {color: var(--videocall);}
+main div.contenedor div.left div.inferior div div div button i.fa-ellipsis-v{color: var(--grey);}
+main div.contenedor div.left div.inferior div div div button i.fa-video:hover {color: var(--videocall-hover);}
+main div.contenedor div.left div.inferior div div div button i.fa-ellipsis-v:hover {color: var(--grey-hover);}
 
 main div.contenedor div.left div.inferior div h3{
 	/*----NO HAY AMIGOS/ROBOTS----*/
@@ -688,7 +695,7 @@ div.addRobot div.mac button {
 	color: #fff;
 	background-color: var(--blue);
 }
-div.addRobot div.mac {
+div.addRobot div.movimiento {
 	display: none;
 }
 div.addRobot div.movimiento > span {

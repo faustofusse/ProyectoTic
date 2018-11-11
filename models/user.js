@@ -13,7 +13,10 @@ var UserSchema = mongoose.Schema({
         nombre:{type:String},
         apellido:{type:String}
     }],
-    robots:[String],
+    robots:[{
+        mac:{type:String},
+        nombre:{type:String}
+    }],
     googleId:{type:String}
 });
 
@@ -52,7 +55,7 @@ module.exports.addRobot = function(id, mac, callback){
                     wasAdded = true;
             }
             if (!wasAdded){
-                user.robots.push(mac);
+                user.robots.push({mac:mac, nombre:mac});
                 user.save(function(){
                     callback();
                 });
@@ -60,6 +63,24 @@ module.exports.addRobot = function(id, mac, callback){
                 callback();
             }
         }
+    });
+}
+
+module.exports.changeRobotName = function(id, mac, nombre, callback){
+    User.findById(id, function(err, user){
+        if (err) throw err;
+        if (user) {
+            for (let i = 0; i < user.robots.length; i++) {
+                if (mac === user.robots[i].mac){
+                    user.robots[i].nombre = nombre;
+                    user.save(function(){
+                        callback('Se cambio el nombre.');
+                    });
+                    return;
+                }
+            }
+            callback('El robot no esta conectado a la cuenta.');
+        }else{callback('No existe el usuario.');}
     });
 }
 

@@ -248,16 +248,65 @@ $('button#logout').click(function(event) {
 	document.location.href = '/logout';
 });
 
+$('main div.left div.inferior div.robots div button#rechazar').click(function(event) {
+	/* Act on the event */
+});
+$('main div.left div.inferior div.robots div button#aceptar').click(function(event) {
+	/* Act on the event */
+});
+$('main div.left div.inferior div.robots div.opciones button#edit').click(function(event) {
+	
+
+});
+
 // ------------------------------------------------- 
 // ------------------------------------------------- 
 // ------------------------------------------------- FUNCTIONS
 // ------------------------------------------------- 
 // ------------------------------------------------- 
 
+function btnEditarNombre() {
+	var parent = $(this).parent().parent();
+	$(this).css('display', 'none');
+	parent.find('input').css('display', 'flex');
+	parent.find('> span').css('display', 'none');
+	parent.find('button#rechazar, button#aceptar').css('display', 'flex');
+}
+
+function findRobotByMac(mac) {
+	for (var i = 0; i < robots.length; i++) {
+		if (robots[i].mac === mac)
+			return robots[i];
+	}
+}
+
+function btnAceptarNombre() {
+	var parent = $(this).parent().parent();
+	var nombre = parent.find('input').val();
+	parent.find('> span').html(nombre);
+	parent.find('> span, button#edit').css('display', 'flex');
+	parent.find('button#rechazar, button#aceptar, input').css('display', 'none');
+	cambiarNombre(parent.attr('id'), nombre);
+}
+
+function btnRechazarNombre() {
+	var parent = $(this).parent().parent();
+	parent.find('input').val(findRobotByMac(parent.attr('id')).nombre);
+	parent.find('> span, button#edit').css('display', 'flex');
+	parent.find('button#rechazar, button#aceptar, input').css('display', 'none');
+}
+
 function conectarRobot(mac) {
 	var mac = $(this).parent().parent().attr('id');
 	socket.emit('robot-request', {id:userId, mac:mac});
 	robot = mac;
+}
+
+function cambiarNombre(mac, nombre) {
+	$.post('/api/robots/edit/name', {mac: mac, nombre:nombre}, function(data, textStatus, xhr) {
+		console.log(data);
+		updateRobots();
+	});
 }
 
 function updateRobots() {
@@ -268,10 +317,14 @@ function updateRobots() {
 		robots = data.robots;
 		if (myRobots.length) $('div.contenedor div.left div.robots h3').css('display', 'none');
 		for (var i = 0; i < myRobots.length; i++) {
-			var mac = myRobots[i];
-			var div = $('<div class="usuario"><span></span><div class="opciones"><button id="connect"><i class="fas fa-plug"></i></button><div id="estado" class="desconectado"></div></div></div>')
+			var mac = myRobots[i].mac;
+			var div = $('<div class="usuario"><span></span><input type="text"><div class="opciones"><button id="rechazar"><i class="fas fa-times"></i></button><button id="aceptar"><i class="fas fa-check"></i></button><button id="edit"><i class="fas fa-pencil-alt"></i></button><button id="connect"><i class="fas fa-plug"></i></button><div id="estado" class="desconectado"></div></div></div>')
 			div.attr('id', mac);
-			div.find('span').html(mac);
+			div.find('button#edit').click(btnEditarNombre);
+			div.find('button#aceptar').click(btnAceptarNombre);
+			div.find('button#rechazar').click(btnRechazarNombre);
+			div.find('span').html(myRobots[i].nombre);
+			div.find('input').val(myRobots[i].nombre);
 			div.find('button#connect').css('display', 'none').click(conectarRobot);;
 			$('div.contenedor div.left div.robots').append(div);
 		}

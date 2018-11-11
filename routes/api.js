@@ -12,6 +12,12 @@ router.get('/robots', function(req, res){
   res.send({robots:req.user.robots, connected:req.app.locals.robots});
 });
 
+router.post('/robots/edit/name', function(req, res){
+  User.changeRobotName(req.user._id, req.body.mac, req.body.nombre, function(status){
+    res.send(status);
+  });
+});
+
 router.get('/friends/requests', function(req, res, next){
     FriendRequest.find({to:req.user._id}, function(err, results){
         var requests = [];
