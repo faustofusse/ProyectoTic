@@ -1,12 +1,13 @@
 // ------------------------------------------------- CHECKEAR HTTPS
 
-if (location.protocol !== 'https:' && location.hostname !== 'localhost')
-	//window.location.href = 'https://'+location.hostname;
+if (location.protocol !== 'https:' && location.hostname !== 'localhost' && location.hostname !== '192.168.0.47')
+	window.location.href = 'https://'+location.hostname;
 	
 // ------------------------------------------------- INICIALIZAR
 
 updateRequests();
 updateFriends();
+updateRobots();
 
 var movimiento = "stop";
 var friends = [];
@@ -34,7 +35,17 @@ socket.on('user-disconnect', function(data) {
 });
 
 socket.on('robot-request', function(data) {
-	alert(data);
+	if (data === 'Conexion aceptada.'){
+		$('div.menu div.addRobot div.mac').slideUp();
+		$('div.menu div.addRobot div.movimiento').slideDown();
+		showMessage('', 'Conexion Aceptada.', 'green');
+		$('div.contenedor div.left div.amigos').animate({width: '0%'}, 300);
+		$('div.contenedor div.left div.robots').animate({width: '100%'}, 300);
+		$('button#robots').css('border-color', $('header h1').css('color'));
+		$('button#amigos').css('border-color', $(this).css('background-color'));
+	}else{
+		showMessage(data, '', 'red');
+	}
 });
 
 socket.on('reconnect_attempt', function() {
@@ -86,10 +97,6 @@ function teclasMovimiento(socket) {
 		socket.emit('movimiento', {id:userId, movimiento:movimiento});
 		console.log(movimiento);
 	});
-}
-
-function movimiento(direccion, socket) {
-	
 }
 
 // ------------------------------------------------- 
@@ -201,6 +208,23 @@ $('div.menuBottom button#robots').click(function (e) {
 // ------------------------------------------------- FUNCTIONS
 // ------------------------------------------------- 
 // ------------------------------------------------- 
+
+function updateRobots() {
+	$.get('/api/robots', function(data) {
+		var robots = data.robots,
+			connected = data.connected;
+		for (var i = 0; i < robots.length; i++) {
+			var mac = robots[i];
+			var div = $('<div><span></span><div><button id="connect"></button></div></div>')
+			div.attr('id', mac);
+			div.find('span').html(mac);
+			$('div.contenedor div.left div.robots').append(div);
+		}
+		if (robots.length) {
+			$('div.contenedor div.left div.robots h3').css('display', 'none');
+		}
+	});
+}
 
 function updateFriends(){
 	$.get('/api/friends', function(data){

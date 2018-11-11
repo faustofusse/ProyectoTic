@@ -654,72 +654,102 @@ div.buscar div.input input::-webkit-search-cancel-button {
 /*--------------------------------------------------------------------------------------------------*/
 
 div.addRobot div.mac, div.addRobot div.movimiento {
+	padding: 1em;
 	margin: .3em 0;
 	width: 100%;
 	background-color: #fff;
 	box-shadow: 0px 0px 13px -3px rgba(0,0,0,0.75);
+	display: flex;
+	flex-direction: column;
 }
 div.addRobot div > span {
 	width: 100%;
+	padding: .5em 0;
 	font-size: 1.3em;
 } 
 div.addRobot div.mac div.inputs {
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
+	align-items: baseline;
+	margin: 1em 0;
 }
 div.addRobot div.mac div.inputs input {
 	text-transform:uppercase;
 	text-align: center;
-	width: 3em;
+	width: 15%;
 	font-size: 1.3em;
+	margin: 0 auto;
 }
 div.addRobot div.mac div.inputs span {
-	
+	width: .6em;
 }
-div.addRobot > button {
+div.addRobot div.mac button {
 	cursor: pointer;
 	font-size: 1.3em;
 	padding: .3em;
 	width: 100%;
 	border: none;
-	box-shadow: 0px 0px 13px -3px rgba(0,0,0,0.75);
+	color: #fff;
+	background-color: var(--blue);
 }
-
-div.movimiento {
-	padding: 1em;
+div.addRobot div.movimiento {
+	display: none;
 }
-div.movimiento > span {
+div.addRobot div.movimiento > span {
 	width: 100%;
-	border-bottom: 1px solid #9e9e9e; 
+	border-bottom: 1px solid var(--blue); 
 }
-div.movimiento h4 {
-	font-size: 1.2em;
-}
-div.movimiento div.flechas {
+div.flechas {
 	margin: 1em 0;
 	width: 100%;
 	height: 5em;
 	display: flex;
 	align-items: stretch;
 }
-div.movimiento div.flechas button {
-	width: 25%;
+div.flechas button, div.movimiento div.circuitos button {
+	background-color: #fff;
+	cursor: pointer;
+	border: 3px solid var(--navbar);
+	border-color: var(--navbar) var(--navbar) var(--blue) var(--blue);
+	transition: all .3s;
 }
-div.movimiento div.flechas div {
+div.flechas button:active, div.movimiento div.circuitos button:active {
+	background-color: var(--navbar);
+	border-color: var(--navbar);
+	color: #fff;
+}
+div.flechas > button {
+	width: 30%;
+}
+div.flechas > button:nth-child(1) {border-radius: 25px 0 0 25px;}
+div.flechas > button:nth-child(3) {border-radius: 0 20px 20px 0;}
+div.flechas div {
 	display: flex;
 	justify-content: space-between;
 	flex-grow: 1;
 	flex-direction: column;
 	margin: 0 .5em;
 }
-div.movimiento div.flechas div button {
+div.flechas div button {
 	width: 100%;
 	height: 47%;
 }
+div.flechas button i{
+	font-size: 1.6em;
+}
 div.movimiento div.circuitos {
 	margin: 1em 0;
+	display: flex;
+	justify-content: space-between;
 }
+div.movimiento div.circuitos button {
+	width: 32%;
+	padding: .8em;
+	font-size: 1em;
+}
+div.movimiento div.circuitos button:nth-child(1) {border-radius: 20px 0 0 20px;}
+div.movimiento div.circuitos button:nth-child(3) {border-radius: 0 20px 20px 0;}
 
 /*--------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------*/
@@ -801,7 +831,7 @@ div.mensajes {
 	position: fixed;
 	right: 0;
 	bottom: 0;
-	z-index: 1;
+	z-index: 3;
 	padding: 1em;
 	display: flex;
 	flex-direction: column-reverse;
@@ -847,6 +877,7 @@ div.mensajes > div div.status {
 	display: inline-block;
 }
 div.mensajes > div div.status.green {background-color: var(--green)}
+div.mensajes > div div.status.red {background-color: var(--red)}
 
 /*--------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------*/
@@ -932,7 +963,6 @@ div.menuBottom button i{
 	}
 	main div.contenedor div.left div {
 		min-height: 0;
-		max-height: 100%;
 	}
 	div.menu div.buscar, div.menu div.solicitudes, div.menu div.addRobot{
 		width: 90%;
@@ -942,6 +972,9 @@ div.menuBottom button i{
 	}
 	div.mensajes{
 		display: none;
+	}
+	div.flechas {
+		height: 20em;
 	}
 	.mobile {
 		display: flex;

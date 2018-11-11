@@ -13,6 +13,7 @@ var UserSchema = mongoose.Schema({
         nombre:{type:String},
         apellido:{type:String}
     }],
+    robots:[String],
     googleId:{type:String}
 });
 
@@ -39,6 +40,26 @@ module.exports.addPassword = function(newUser, googleUser, callback){
         });
     });
 };
+
+module.exports.addRobot = function(id, mac, callback){
+    User.findById(id, function(err, user){
+        if (err) throw err;
+        if (user) {
+            var wasAdded = false;
+            for (let i = 0; i < user.robots.length; i++) {
+                const element = user.robots[i];
+                if (element === mac)
+                    wasAdded = true;
+            }
+            if (!wasAdded){
+                user.robots.push(mac);
+                user.save(function(){
+                    callback();
+                });
+            }
+        }
+    });
+}
 
 module.exports.createUserGoogle = function(newUser, callback){
     User.findOne({correo:newUser.correo}, function(err, user){

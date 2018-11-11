@@ -1,5 +1,6 @@
 module.exports = function(app, server){
     var io = require('socket.io')(server);
+    var User = require('../models/user');
 
     io.on('connection', function(socket){
 
@@ -93,7 +94,9 @@ module.exports = function(app, server){
         }
         for (var i = 0; i < app.locals.robots.length; i++) {
             if(app.locals.robots[i].mac === mac){
-                return 'Conexion aceptada.';
+                User.addRobot(userId, mac, function(){
+                    return 'Conexion aceptada.';
+                });
             }
         }
         return 'El robot no existe o no esta conectado.';

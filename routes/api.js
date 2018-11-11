@@ -8,6 +8,10 @@ router.get('/friends', function(req,res,next){
   res.send({friends:req.user.friends, connected:req.app.locals.users});
 });
 
+router.get('/robots', function(req, res){
+  res.send({robots:req.user.robots, connected:req.app.locals.robots});
+});
+
 router.get('/friends/requests', function(req, res, next){
     FriendRequest.find({to:req.user._id}, function(err, results){
         var requests = [];
