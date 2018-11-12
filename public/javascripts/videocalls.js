@@ -16,14 +16,17 @@ var peer = new Peer(userId, {
 	host: 'tars-videocalls.herokuapp.com', 
 	port: location.protocol === 'https:' ? 443 : 80, 
 	secure: (location.protocol === 'https:'),
-	config: {'iceServers': [
-		{ url: 'stun:stun.l.google.com:19302' },
-    	{
-		    url: 'turn:numb.viagenie.ca',
-		    credential: 'F@usto123',
-		    username: 'faustofusse@gmail.com'
-		},
-	]}
+	config: {
+		iceTransportPolicy: 'relay',
+		iceServers: [
+			{ url: 'stun:stun.l.google.com:19302' },
+	    	{
+			    url: 'turn:numb.viagenie.ca',
+			    credential: 'F@usto123',
+			    username: 'faustofusse@gmail.com'
+			},
+		]
+	}
 });
 
 var heartbeater = makePeerHeartbeater(peer); //to stop it: heartbeater.stop();
@@ -223,7 +226,7 @@ function expand() {
 
 
 var turn = {
-    url: 'turn:numb.viagenie.ca',
+    url: 'stun:numb.viagenie.ca',
     credential: 'F@usto123',
     username: 'faustofusse@gmail.com'
 };
