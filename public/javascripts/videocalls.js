@@ -19,7 +19,7 @@ var peer = new Peer(userId, {
 	config: {
 		// iceTransportPolicy: 'relay',
 		iceServers: [
-			{ url: 'stun.stunprotocol.org' },
+			{ url: 'stun:stun.stunprotocol.org' },
 	    	{
 			    url: 'turn:numb.viagenie.ca',
 			    credential: 'F@usto123',
