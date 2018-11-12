@@ -21,12 +21,12 @@ var peer = new Peer(userId, {
 		iceServers: [
 			{ url: 'stun.samsungsmartcam.com:3478' },
 			{ url: 'stun:stun.stunprotocol.org' },
-			{ url: 'stun:stun.l.google.com:19302' }
+			{ url: 'stun:stun.l.google.com:19302' },
 	    	{
 			    url: 'turn:numb.viagenie.ca',
 			    credential: 'F@usto123',
 			    username: 'faustofusse@gmail.com'
-			},
+			}
 		]
 	}
 });
