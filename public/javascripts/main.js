@@ -1,7 +1,7 @@
 // ------------------------------------------------- CHECKEAR HTTPS
 
 if (location.protocol !== 'https:' && location.hostname !== 'localhost' && location.hostname !== '192.168.0.47')
-	window.location.href = 'https://'+location.hostname;
+	//window.location.href = 'https://'+location.hostname;
 	
 var mobile = window.matchMedia("(max-width: 780px)").matches;
 var height = $('html').height() - ($('header').height() + $('nav').height() + $('div.menuBottom').height() + $('div.menuBottom').height()/2);
