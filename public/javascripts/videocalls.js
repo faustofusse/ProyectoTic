@@ -19,9 +19,9 @@ var peer = new Peer(userId, {
 	config: {
 		// iceTransportPolicy: 'relay',
 		iceServers: [
-			{ url: 'stun:stun.samsungsmartcam.com:3478' },
-			{ url: 'stun:stun.stunprotocol.org' },
-			{ url: 'stun:stun.l.google.com:19302' },
+			{ urls: 'stun:stun.samsungsmartcam.com:3478' },
+			{ urls: 'stun:stun.stunprotocol.org' },
+			// { urls: 'stun:stun.l.google.com:19302' },
 	    	{
 			    url: 'turn:numb.viagenie.ca',
 			    credential: 'F@usto123',
