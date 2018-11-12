@@ -18,9 +18,10 @@ var apiRouter = require('./routes/api');
 
 var app = express();
 //app.locals.movimiento = "stop";
-app.locals.robots = [];
+app.locals.robots = [/*{mac:'68:C6:3A:D7:76:BE', socket:'aslkdasklds'}*/];
 app.locals.users = [];
 app.locals.connections = [];
+app.locals.videocalls = [];
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

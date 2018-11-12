@@ -5,12 +5,8 @@ module.exports = function(app, server){
     io.on('connection', function(socket){
 
         socket.on('movimiento', function(data){
-            var socketRobot;
-            for (var i = 0; i < app.locals.connections.length; i++) {
-                if(app.locals.connections[i].socketUser === socket.id)
-                    socketRobot = app.locals.connections[i].socketRobot;
-            }
-            if (app.locals.robots[0] !== undefined)
+            var socketRobot = getRobotSocket(data.id);            
+            if (socketRobot !== undefined)
                 io.to(`${socketRobot}`).emit('movimiento', data.movimiento);
         });
 
@@ -34,6 +30,17 @@ module.exports = function(app, server){
             socket.emit('robot-request', request);
         });
 
+        socket.on('videocall', function(data){
+            app.locals.videocalls.push({users:[data.id1, data.id2]});
+        });
+
+        socket.on('videocall-close', function(data){
+            for (let i = 0; i < app.locals.videocalls.length; i++) {
+                if (app.locals.videocalls[i].id1 === data || app.locals.videocalls[i].id2 === data);
+                    app.locals.videocalls.splice(i, 1);                
+            }
+        });
+
         socket.on('user-connection', function(data){
             console.log('User connected. (ID: '+data.id+')');
             io.emit('user-connection', data);
@@ -52,6 +59,27 @@ module.exports = function(app, server){
             disconnectRobot(socket.id);
         });
     });
+
+    function isInVideocall(id){
+        for (let i = 0; i < app.locals.videocalls.length; i++) {
+            const element = app.locals.videocalls[i];
+            if (element.users[0] === id)
+                return element.users[1];
+            else if (element.users[1] === id)
+                return element.users[0];
+        }
+        return id;
+    }
+
+    function getRobotSocket(id){
+        var userId = isInVideocall(id);
+        console.log(userId);
+        for (var i = 0; i < app.locals.connections.length; i++) {
+            if (app.locals.connections[i] === userId)
+                return app.locals.connections[i].socketRobot;
+        }
+        return undefined;
+    }
 
     function disconnectRobot(id){
         for(var i = 0; i<app.locals.robots.length; i++){
@@ -82,15 +110,13 @@ module.exports = function(app, server){
 
     function robotRequest(userId, mac) {
         for (var i = 0; i < app.locals.connections.length; i++) {
-            if (app.locals.connections[i].id === userId){
+            if (app.locals.connections[i].id === userId)
                 return 'Ya estas conectado a un robot.';
-            }
             if (app.locals.connections[i].mac === mac){
-                if (app.locals.connections[i].id === userId){
+                if (app.locals.connections[i].id === userId)
                     return 'Ya estas conectado a ese robot.';
-                }else{
+                else
                     return 'El robot esta ocupado.';
-                }
             }
         }
         for (var i = 0; i < app.locals.robots.length; i++) {

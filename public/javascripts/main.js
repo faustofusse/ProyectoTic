@@ -19,6 +19,7 @@ var movimiento = 'stop';
 var robot = '';
 var friends = [];
 var robots = [];
+var videollamada = '';
 
 // ------------------------------------------------- SOCKETS
 
@@ -37,6 +38,15 @@ socket.on('user-connection', function(data) {
 		showMessage(data.nombre + ' ' + data.apellido, ' se ha conectado.', 'green');
 		updateFriends();
 	}
+});
+
+socket.on('videocall', function(data) {
+	
+});
+
+socket.on('videocall-close', function(data) {
+	videocall = '';
+	window.currentCall.close();
 });
 
 socket.on('user-disconnect', function(data) {
@@ -100,10 +110,13 @@ function teclasMovimiento(socket) {
 	    }
 	    e.preventDefault();
 	    if(temp !== movimiento && !circuito){
+	    	$('div.flechas button').css('background-color', 'var(--transparent)');
+	    	$('div.flechas button#'+movimiento).css('background-color', 'var(--navbar)');
 	    	console.log(movimiento);
 	    	socket.emit('movimiento', {id:userId, movimiento:movimiento});
 	    }
 	}).keyup(function(e) {
+		var movimientoAnterior = movimiento;
 	    switch(e.which) {
 	        case 37: movimiento = "stop"; break;
 	        case 38: movimiento = "stop"; break;
@@ -113,6 +126,7 @@ function teclasMovimiento(socket) {
 	    }
 	    e.preventDefault();
 	    if (!circuito){
+	    	$('div.flechas button#'+movimientoAnterior).css('background-color', 'var(--transparent)');
 		    console.log(movimiento);
 		    socket.emit('movimiento', {id:userId, movimiento:movimiento});
 		}
@@ -248,70 +262,16 @@ $('button#logout').click(function(event) {
 	document.location.href = '/logout';
 });
 
-$('main div.left div.inferior div.robots div button#rechazar').click(function(event) {
-	/* Act on the event */
-});
-$('main div.left div.inferior div.robots div button#aceptar').click(function(event) {
-	/* Act on the event */
-});
-$('main div.left div.inferior div.robots div.opciones button#edit').click(function(event) {
-	
-
-});
-
 // ------------------------------------------------- 
 // ------------------------------------------------- 
 // ------------------------------------------------- FUNCTIONS
 // ------------------------------------------------- 
 // ------------------------------------------------- 
 
-function btnEditarNombre() {
-	var parent = $(this).parent().parent();
-	$(this).css('display', 'none');
-	parent.find('input').css('display', 'flex');
-	parent.find('> span').css('display', 'none');
-	parent.find('button#rechazar, button#aceptar').css('display', 'flex');
-}
-
-function findRobotByMac(mac) {
-	for (var i = 0; i < robots.length; i++) {
-		if (robots[i].mac === mac)
-			return robots[i];
-	}
-}
-
-function btnAceptarNombre() {
-	var parent = $(this).parent().parent();
-	var nombre = parent.find('input').val();
-	parent.find('> span').html(nombre);
-	parent.find('> span, button#edit').css('display', 'flex');
-	parent.find('button#rechazar, button#aceptar, input').css('display', 'none');
-	cambiarNombre(parent.attr('id'), nombre);
-}
-
-function btnRechazarNombre() {
-	var parent = $(this).parent().parent();
-	parent.find('input').val(findRobotByMac(parent.attr('id')).nombre);
-	parent.find('> span, button#edit').css('display', 'flex');
-	parent.find('button#rechazar, button#aceptar, input').css('display', 'none');
-}
-
-function conectarRobot(mac) {
-	var mac = $(this).parent().parent().attr('id');
-	socket.emit('robot-request', {id:userId, mac:mac});
-	robot = mac;
-}
-
-function cambiarNombre(mac, nombre) {
-	$.post('/api/robots/edit/name', {mac: mac, nombre:nombre}, function(data, textStatus, xhr) {
-		console.log(data);
-		updateRobots();
-	});
-}
 
 function updateRobots() {
-	$('main div.contenedor div.left div.inferior div.robots > div').remove();
 	$.get('/api/robots', function(data) {
+		$('main div.contenedor div.left div.inferior div.robots > div').remove();
 		var myRobots = data.robots,
 			connected = data.connected;
 		robots = data.robots;
@@ -448,6 +408,50 @@ function animateButtons(margin, speed){
 				});
 			});
 		});
+	});
+}
+
+function btnEditarNombre() {
+	var parent = $(this).parent().parent();
+	$(this).css('display', 'none');
+	parent.find('input').css('display', 'flex');
+	parent.find('> span').css('display', 'none');
+	parent.find('button#rechazar, button#aceptar').css('display', 'flex');
+}
+
+function findRobotByMac(mac) {
+	for (var i = 0; i < robots.length; i++) {
+		if (robots[i].mac === mac)
+			return robots[i];
+	}
+}
+
+function btnAceptarNombre() {
+	var parent = $(this).parent().parent();
+	var nombre = parent.find('input').val();
+	parent.find('> span').html(nombre);
+	parent.find('> span, button#edit').css('display', 'flex');
+	parent.find('button#rechazar, button#aceptar, input').css('display', 'none');
+	cambiarNombre(parent.attr('id'), nombre);
+}
+
+function btnRechazarNombre() {
+	var parent = $(this).parent().parent();
+	parent.find('input').val(findRobotByMac(parent.attr('id')).nombre);
+	parent.find('> span, button#edit').css('display', 'flex');
+	parent.find('button#rechazar, button#aceptar, input').css('display', 'none');
+}
+
+function conectarRobot(mac) {
+	var mac = $(this).parent().parent().attr('id');
+	socket.emit('robot-request', {id:userId, mac:mac});
+	robot = mac;
+}
+
+function cambiarNombre(mac, nombre) {
+	$.post('/api/robots/edit/name', {mac: mac, nombre:nombre}, function(data, textStatus, xhr) {
+		console.log(data);
+		updateRobots();
 	});
 }
 

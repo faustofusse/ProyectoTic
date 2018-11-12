@@ -16,6 +16,7 @@
 	--yellow-hover:#fdd83596;
 	--grey: #bdbdbd;
 	--grey-hover: #bdbdbd96;
+	--transparent: rgba(0,0,0,0);
 }
 
 *{
@@ -711,7 +712,7 @@ div.flechas {
 	align-items: stretch;
 }
 div.flechas button, div.movimiento div.circuitos button {
-	background-color: #fff;
+	background-color: rgba(0,0,0,0);
 	cursor: pointer;
 	border: 3px solid var(--navbar);
 	border-color: var(--navbar) var(--navbar) var(--blue) var(--blue);
@@ -741,6 +742,17 @@ div.flechas div button {
 div.flechas button i{
 	font-size: 1.6em;
 }
+div.conferencia div.flechas {
+	width: 10em;
+	position: absolute;
+	right: 4%;
+	top: 1%;
+	z-index: 5;
+	height: 18%;
+	width: 28%;
+}
+div.conferencia div.flechas button i{color: #fff;}
+
 div.movimiento div.circuitos {
 	margin: 1em 0;
 	display: flex;
@@ -935,6 +947,9 @@ div.menuBottom button i{
 	html, body{
 		overflow:hidden;
 		height: 100%;
+	}
+	body > div.background {
+		height: 50%;
 	}
 	header {
 		width: 90%;

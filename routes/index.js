@@ -8,11 +8,12 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
 router.get('/robots', function(req, res, next){
   res.send(req.app.locals.robots);
 });
-
+router.get('/videocalls', function(req, res, next){
+  res.send(req.app.locals.videocalls);
+});
 router.get('/users', function(req, res, next){
   res.send(req.app.locals.users);
 });
-
 router.get('/connections', function(req, res, next){
   res.send(req.app.locals.connections);
 });

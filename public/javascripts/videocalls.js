@@ -3,6 +3,7 @@ var videoUser = document.querySelector('#videoUser');
 videoUser.volume = 0.0;
 
 var mobile = window.matchMedia("(max-width: 780px)").matches;
+var otherId = '';
 
 /*getUserVideo(function(stream){
 	videoUser.srcObject = stream;
@@ -18,9 +19,9 @@ var peer = new Peer(userId, {
 	config: {'iceServers': [
 		{ url: 'stun:stun.l.google.com:19302' },
     	{
-			url: 'turn:192.158.29.39:3478?transport=udp',
-			credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
-			username: '28224511:1379330808'
+		    url: 'turn:numb.viagenie.ca',
+		    credential: 'F@usto123',
+		    username: 'faustofusse@gmail.com'
 		},
 	]}
 });
@@ -45,7 +46,7 @@ peer.on('call', function(call) {
 		$('div.videollamada').animate({width:'100%'}, 200);*/
 	}
 
-	var otherId = call.peer;
+	otherId = call.peer;
 	console.log('Call from ' + otherId);
 	$('div.videollamada div.llamando h3').html('LLamada de ' + findFriendById(otherId) + '....');
 	window.currentCall = call;
@@ -88,6 +89,7 @@ function atender() {
 		call.on('stream', onStream);
 		call.on('error', onError);
 		call.on('close', onClose);
+		socket.emit('videocall', {id1:userId, id2:otherId});
 	});	
 	$('div.videollamada div.llamando').css('display', 'none');
 }
@@ -99,6 +101,7 @@ function declinar() {
 	$('div.videollamada div.llamando').css('display', 'none');
 	$('div.videollamada h2').css('display', 'flex');
 	scrollTo($('header'), 200);
+	socket.emit('videocall-close', userId);
 }
 
 function onStream(stream){
@@ -120,6 +123,7 @@ function onError(err) {
 	}
 	scrollTo($('header'), 200);
 	window.currentCall.close();
+	socket.emit('videocall-close', userId);
 }
 
 function onClose() {
@@ -131,6 +135,7 @@ function onClose() {
 		$('div.videollamada h2').css('display', 'flex');
 	}
 	scrollTo($('header'), 200);
+	socket.emit('videocall-close', userId);
 }
 
 function getUserVideo(callback) {
@@ -214,6 +219,48 @@ function expand() {
 		i.attr('class', 'fa fa-expand');
 		div.css('position', 'relative');
 	}
+}
+
+
+var turn = {
+    url: 'turn:numb.viagenie.ca',
+    credential: 'F@usto123',
+    username: 'faustofusse@gmail.com'
+};
+
+checkTURNServer(turn).then(function(bool){
+    console.log('is TURN server active? ', bool? 'yes':'no');
+}).catch(console.error.bind(console));
+
+
+function checkTURNServer(turnConfig, timeout){ 
+
+  return new Promise(function(resolve, reject){
+
+    setTimeout(function(){
+        if(promiseResolved) return;
+        resolve(false);
+        promiseResolved = true;
+    }, timeout || 5000);
+
+    var promiseResolved = false
+      , myPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection   //compatibility for firefox and chrome
+      , pc = new myPeerConnection({iceServers:[turnConfig]})
+      , noop = function(){};
+    pc.createDataChannel("");    //create a bogus data channel
+    pc.createOffer(function(sdp){
+      if(sdp.sdp.indexOf('typ relay') > -1){ // sometimes sdp contains the ice candidates...
+        promiseResolved = true;
+        resolve(true);
+      }
+      pc.setLocalDescription(sdp, noop, noop);
+    }, noop);    // create offer and set local description
+    pc.onicecandidate = function(ice){  //listen for candidate events
+      if(promiseResolved || !ice || !ice.candidate || !ice.candidate.candidate || !(ice.candidate.candidate.indexOf('typ relay')>-1))  return;
+      promiseResolved = true;
+      resolve(true);
+    };
+  });   
 }
 
 

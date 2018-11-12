@@ -50,7 +50,7 @@ module.exports.addRobot = function(id, mac, callback){
         if (user) {
             var wasAdded = false;
             for (let i = 0; i < user.robots.length; i++) {
-                const element = user.robots[i];
+                const element = user.robots[i].mac;
                 if (element === mac)
                     wasAdded = true;
             }
