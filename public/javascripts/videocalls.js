@@ -17,9 +17,9 @@ var peer = new Peer(userId, {
 	port: location.protocol === 'https:' ? 443 : 80, 
 	secure: (location.protocol === 'https:'),
 	config: {
-		iceTransportPolicy: 'relay',
+		// iceTransportPolicy: 'relay',
 		iceServers: [
-			{ url: 'stun:stun.l.google.com:19302' },
+			{ url: 'stun.stunprotocol.org' },
 	    	{
 			    url: 'turn:numb.viagenie.ca',
 			    credential: 'F@usto123',
@@ -226,7 +226,7 @@ function expand() {
 
 
 var turn = {
-    url: 'stun:numb.viagenie.ca',
+    url: 'turn:numb.viagenie.ca',
     credential: 'F@usto123',
     username: 'faustofusse@gmail.com'
 };
