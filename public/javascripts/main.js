@@ -110,8 +110,8 @@ function teclasMovimiento(socket) {
 	    }
 	    e.preventDefault();
 	    if(temp !== movimiento && !circuito){
-	    	$('div.flechas button').css('background-color', 'var(--transparent)');
-	    	$('div.flechas button#'+movimiento).css('background-color', 'var(--navbar)');
+	    	//$('div.flechas button').css('background-color', 'var(--transparent)');
+	    	//$('div.flechas button#'+movimiento).css('background-color', 'var(--navbar)');
 	    	console.log(movimiento);
 	    	socket.emit('movimiento', {id:userId, movimiento:movimiento});
 	    }
@@ -126,7 +126,7 @@ function teclasMovimiento(socket) {
 	    }
 	    e.preventDefault();
 	    if (!circuito){
-	    	$('div.flechas button#'+movimientoAnterior).css('background-color', 'var(--transparent)');
+	    	//$('div.flechas button#'+movimientoAnterior).css('background-color', 'var(--transparent)');
 		    console.log(movimiento);
 		    socket.emit('movimiento', {id:userId, movimiento:movimiento});
 		}

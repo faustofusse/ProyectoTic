@@ -5,7 +5,13 @@ module.exports = function(app, server){
     io.on('connection', function(socket){
 
         socket.on('movimiento', function(data){
-            var socketRobot = getRobotSocket(data.id);            
+            var socketRobot;
+            ///var socketRobot = getRobotSocket(data.id);   
+            for (let i = 0; i < app.locals.connections.length; i++) {
+                const element = app.locals.connections[i];
+                if (element.socketUser === socket.id)
+                    socketRobot = app.locals.connections[i].socketRobot;
+            }         
             if (socketRobot !== undefined)
                 io.to(`${socketRobot}`).emit('movimiento', data.movimiento);
         });
