@@ -7,18 +7,27 @@
 var app = require('../app');
 var debug = require('debug')('proyecto:server');
 var http = require('http');
+var https = require('https');
+var fs = require('fs');
 
 /**
  * Get port from environment and store in Express.
  */
 
 var port = normalizePort(process.env.PORT || '80');
-app.set('port', port);
+var securePort = normalizePort(process.env.SECURE_PORT || '443');
+// app.set('port', port);
 
 /**
  * Create HTTP server.
  */
 
+var httpsOptions = {
+  key: fs.readFileSync('./config/cert/server.key')
+  , cert: fs.readFileSync('./config/cert/server.crt')
+};
+
+var secureServer = https.createServer(httpsOptions, app);
 var server = http.createServer(app);
 
 /**
@@ -30,6 +39,11 @@ var sockets = require('../sockets/sockets')(app, server);
 /**
  * Listen on provided port, on all network interfaces.
  */
+
+secureServer.listen(securePort, function(err){
+  if (err) throw err;
+  console.log('Secure server is listening on '+securePort+'...');
+});
 
 server.listen(port);
 server.on('error', onError);
