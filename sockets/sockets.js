@@ -16,6 +16,18 @@ module.exports = function(app, server){
                 io.to(`${socketRobot}`).emit('movimiento', data.movimiento);
         });
 
+        socket.on('sensores', function(data){
+            for (var i = 0; i<app.locals.users; i++){
+                io.to(`${app.locals.users[i].socket}`).emit('sensores', data);
+            }
+        });
+
+        socket.on('request-sensores', function(data){
+            for (var i = 0; i<app.locals.robots; i++){
+                io.to(`${app.locals.robots[i].socket}`).emit('sensores', data);
+            }
+        });
+
         socket.on('arduino-connection', function(data){
             console.log('Arduino connected. (MAC: '+data.mac+')');
             app.locals.robots.push({mac:data.mac, socket:socket.id});

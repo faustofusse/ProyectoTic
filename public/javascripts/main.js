@@ -98,6 +98,10 @@ socket.on('reconnect_attempt', function() {
     // socket.io.ospts.transports = ['polling', 'websocket'];
 });
 
+socket.on('sensores', function(data) {
+	alert(data);
+});
+
 function teclasMovimiento(socket) {
 	$(document).keydown(function(e) {
 		var temp = movimiento;
@@ -167,6 +171,11 @@ function teclasMovimiento(socket) {
 // ------------------------------------------------- EVENTS
 // ------------------------------------------------- 
 // -------------------------------------------------
+
+$('h1').click(function(event) {
+	console.log('Sensores');
+	socket.emit('sensores-request', 'Hola');
+});
 
 $('button#conectar').click(function(event) {
 	var mac = '';
