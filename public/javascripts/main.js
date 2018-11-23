@@ -7,6 +7,7 @@ var mobile = window.matchMedia("(max-width: 780px)").matches;
 var height = $('html').height() - ($('header').height() + $('nav').height() + $('div.menuBottom').height() + $('div.menuBottom').height()/2);
 if (mobile)
 	$('div.left div.amigos, div.left div.robots').height(height);
+
 // ------------------------------------------------- INICIALIZAR
 
 updateRequests();
@@ -81,10 +82,7 @@ socket.on('robot-connection', function (mac) {
 });
 
 socket.on('robot-disconnect', function (mac) {
-	for (var i = 0; i < robots.length; i++) {
-		if (robots[i] === mac)
-			updateRobots();
-	}
+	updateRobots();
 	if (robot === mac){
 		$('div.menu div.addRobot div.movimiento').slideUp();
 		$('div.menu div.addRobot div.mac').slideDown();
