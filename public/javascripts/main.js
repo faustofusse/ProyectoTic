@@ -134,13 +134,13 @@ function teclasMovimiento(socket) {
 		}
 	});
 
-	$('div.flechas button').mousedown(function(event) {
+	$('div.flechas button').bind('mousedown touchstart',function(event) {
 		var movimiento = $(this).attr('id');
 		if (!circuito){
 			socket.emit('movimiento', {id:userId, movimiento:movimiento});
 			console.log(movimiento);
 		}	
-	}).mouseup(function(event) {
+	}).bind('mouseup touchend',function(event) {
 		var movimiento = "stop";
 		if (!circuito) {
 			socket.emit('movimiento', {id:userId, movimiento:movimiento});
